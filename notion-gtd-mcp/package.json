@@ -1,0 +1,36 @@
+{
+  "name": "notion-gtd-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for GTD executive assistant with Notion, Outlook, and Slack integration",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "mcp",
+    "notion",
+    "gtd",
+    "productivity"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@notionhq/client": "^2.2.14",
+    "cheerio": "^1.0.0-rc.12",
+    "node-fetch": "^3.3.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
