@@ -1,0 +1,35 @@
+{
+  "name": "notion-executive-assistant",
+  "version": "1.0.0",
+  "description": "Executive assistant powered by Clawdbot with Notion, Email, and Calendar integration",
+  "type": "module",
+  "scripts": {
+    "onboard": "clawdbot onboard",
+    "start": "clawdbot gateway --verbose",
+    "start:daemon": "clawdbot gateway --daemon",
+    "status": "clawdbot status",
+    "test:notion": "node scripts/test-notion.js",
+    "test:email": "node scripts/test-email.js",
+    "test:calendar": "node scripts/test-calendar.js"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "clawdbot": "^2026.1.24",
+    "googleapis": "^140.0.1",
+    "nodemailer": "^6.9.14"
+  },
+  "devDependencies": {
+    "dotenv": "^16.6.1"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "keywords": [
+    "clawdbot",
+    "notion",
+    "executive-assistant",
+    "telegram",
+    "automation"
+  ],
+  "license": "MIT"
+}

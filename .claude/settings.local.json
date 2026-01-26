@@ -11,7 +11,14 @@
       "Bash(git branch:*)",
       "Bash(git push:*)",
       "Bash(npm install)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(cd:*)",
+      "WebFetch(domain:docs.clawd.bot)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(node --version:*)",
+      "Bash(node scripts/test-connections.js:*)",
+      "Bash(npm install:*)"
     ]
   }
 }

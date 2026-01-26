@@ -1,327 +1,218 @@
-Perfect — Notion fits *cleanly* into this architecture, and adding it now (at the spec level) is exactly the right move.
-Below is the **same final markdown spec**, with **Notion added explicitly as a first-class tool** and scoped correctly so it doesn’t become a mess later.
+# System Specification — Clawdbot-Based Notion Executive Assistant
 
-You can paste this directly over the previous spec in your repo.
+## 1. Vision
 
----
+Leverage **Clawdbot** as the core agent platform to build a reliable automation assistant that:
 
-````markdown
-# Autonomous Claude Operator — System Specification
+- Receives commands via **Telegram**
+- Executes actions through configurable **skills**
+- Updates and manages **Notion tasks**
+- Sends emails and calendar updates
+- Coordinates multi-step workflows
+- Runs continuously and autonomously
 
-## 1. System Goal
-
-Build a cloud-hosted autonomous agent system where:
-- A single conversational Claude instance acts as the **manager**
-- GPT-5.2 Instant acts as a **meta-reasoner and prompt writer**
-- Specialized Claude subagents handle domain-specific planning
-- All real-world side effects are executed by deterministic code
-- The user interacts exclusively via a two-way Telegram chat
-- The agent executes actions immediately and reports all side effects
-- **Notion is the system of record for tasks and planning**
-
-No permission prompts. Full audit transparency.
+Clawdbot *is the agent runtime*. Your custom logic lives in *skills* installed into Clawdbot.
 
 ---
 
-## 2. Core Design Principles
+## 2. System Overview
 
-1. **LLMs do not execute**
-2. **All side effects flow through code**
-3. **All actions are logged**
-4. **Telegram is an interface, not a state store**
-5. **Idempotency and auditability are mandatory**
-6. **One conversational agent, many specialists**
-7. **Notion is authoritative for task state**
+The system consists of:
 
----
+Telegram (user)
+→ Clawdbot Gateway
+→ Messaging surface
+→ Session and memory layer
+→ Skill registry
+→ NotionSkill
+→ EmailSkill
+→ CalendarSkill
+→ External APIs / Services (Notion, Email, Calendar)
 
-## 3. High-Level Architecture
+yaml
+Copy code
 
-Telegram  
-→ FastAPI Webhook  
-→ GPT-5.2 Instant (Instruction Normalization)  
-→ Claude Manager Agent  
-→ Claude Subagents  
-→ Tool Executor Layer  
-→ External Services (Email, Calendar, Notion)  
-→ Audit Log  
-→ Telegram Notifications  
+Key notes:
 
----
-
-## 4. LLM Roles
-
-### GPT-5.2 Instant — Meta-Reasoner
-Responsibilities:
-- Rewrite user input into unambiguous task specifications
-- Clarify assumptions
-- Normalize intent and scope
-- Generate structured plans for Claude
-
-Restrictions:
-- No tool access
-- No execution authority
-- No API credentials
-- No direct interaction with Telegram
+- Clawdbot handles messaging, sessions, persistence, and orchestration of skills.:contentReference[oaicite:1]{index=1}  
+- Your repository defines the **skills** required for your business logic.
+- Notion remains the authoritative task list and must be implemented as a Clawdbot skill.
 
 ---
 
-### Claude — Manager Agent
-Responsibilities:
-- Interpret structured task specs
-- Decide which subagents to invoke
-- Maintain global task coherence
-- Resolve conflicts between subagents
-- Decide when a task is complete
+## 3. Clawdbot Role
 
-Restrictions:
-- No direct API calls
-- No credential access
-- No raw code execution
+Clawdbot (Node.js platform, MIT-licensed) provides:
 
----
+**Core capabilities**
+- Multi-channel messaging (Telegram, WhatsApp, Discord, etc.):contentReference[oaicite:2]{index=2}
+- Session state and persistent memory
+- Skill execution infrastructure
+- Local execution sandbox
 
-### Claude Subagents — Specialists
+**AI model support**
+- Plug in models like Claude, OpenAI GPT, or local models such as via Ollama.:contentReference[oaicite:3]{index=3}
 
-#### EmailAgent
-- Drafts and proposes email actions
-
-#### CalendarAgent
-- Proposes calendar modifications
-
-#### NotionAgent
-- Manages task creation, updates, and organization in Notion
-
-Responsibilities:
-- Propose tool actions
-- Operate within narrow domain scope
-- Return structured, machine-verifiable outputs
-
-Restrictions:
-- Limited tool visibility
-- No cross-domain authority
-- No execution capability
+Clawdbot **does not** automatically perform your application logic — it provides the framework for *skills* to do that.
 
 ---
 
-## 5. Tool Execution Model
+## 4. Skill Architecture (Your Logic)
 
-All tools are:
-- Hard-coded
-- Whitelisted
-- Schema-validated
-- Audited
-- Idempotent
+Clawdbot skills are the units that implement your business automation. Each skill is:
 
-Claude and subagents output **structured JSON only**.  
-Invalid or non-conforming output is rejected.
+- A directory in the workspace
+- Contains definitions and code
+- Includes a `SKILL.md` that describes behavior and prompts:contentReference[oaicite:4]{index=4}
 
----
+### Mandatory Skills
 
-## 6. Supported Tools (Initial Set)
+1. **NotionSkill**
+   - Query, create, update tasks in your Notion workspace
+   - Translate between Clawdbot session and Notion schema  
+   - Handle task properties, status, due dates, assignments, etc.
 
-### Email Tool
-```json
-{
-  "name": "send_email",
-  "side_effect": true,
-  "reversible": false
-}
-````
+2. **EmailSkill**
+   - Interface with your SMTP/http email provider (e.g., Gmail API)
+   - Send templated emails based on Clawdbot suggestions
 
-### Calendar Tool
+3. **CalendarSkill**
+   - Manage calendar events (Google Calendar or similar)
+   - Create, update, reschedule events
 
-```json
-{
-  "name": "update_calendar_event",
-  "side_effect": true,
-  "reversible": true
-}
-```
+Each skill must:
 
-### Notion Tools
-
-```json
-{
-  "name": "create_notion_task",
-  "side_effect": true,
-  "reversible": true
-}
-```
-
-```json
-{
-  "name": "update_notion_task",
-  "side_effect": true,
-  "reversible": true
-}
-```
-
-```json
-{
-  "name": "query_notion_tasks",
-  "side_effect": false,
-  "reversible": true
-}
-```
-
-Notion is treated as:
-
-* **The authoritative task list**
-* A structured external memory
-* A system requiring diff-aware updates (no blind overwrites)
+- Receive structured input from Clawdbot
+- Validate inputs before execution
+- Return structured, audited results back to Clawdbot
+- Avoid side effects without confirmation rules
 
 ---
 
-## 7. Core Infrastructure Stack
+## 5. Execution Model
 
-### Language
+Clawdbot drives execution through skills:
 
-* Python 3.12
+1. User issues a command via Telegram.
+2. Clawdbot’s session parses and contextualizes the message.
+3. The appropriate skill(s) handle actions:
+   - Query Notion
+   - Create/modify tasks
+   - Schedule calendar events
+   - Send emails
+4. Skills must send structured outcomes back for audit and reporting.
 
-### Web Framework
-
-* FastAPI
-
-### Background Jobs
-
-* Redis (queues, locks, deduplication)
-* Worker processes
-
-### Storage
-
-* PostgreSQL
-
-  * Tasks
-  * Execution state
-  * Audit logs
-  * Idempotency keys
-  * External object references (Notion IDs, Calendar IDs)
-
-### Containerization
-
-* Docker
-
-### Cloud Runtime
-
-* Fly.io (primary)
-* AWS acceptable alternative
-
-### Interface
-
-* Telegram Bot (webhook mode)
-
-### Version Control
-
-* Git (local)
-* GitHub (remote)
+Skills should minimize *internal side effects* and focus on intentional, auditable operations.
 
 ---
 
-## 8. Data Stores (Separated by Function)
+## 6. Notion Task Model
 
-### Operational State
+Your Notion database must include properties for:
 
-* Active tasks
-* Pending tool actions
-* Execution status
+- **Task title**
+- **Status**
+- **Due date**
+- **Related calendar event**
+- **Linked email threads**
+- **Assignee**
 
-### Long-Term Memory (Summarized)
+Skills must:
 
-* User preferences
-* Stable assumptions
-* Task patterns
+- Map internal commands to Notion API operations
+- Use Notion API patterns, not free-form LLM writes
+- Validate against expected schema
 
-### Audit Log (Immutable)
-
-* Every tool execution
-* Tool parameters
-* External IDs (Notion task IDs, email IDs)
-* Timestamps
-* Success or failure state
+Clawdbot will *invoke* the skill; your code ensures consistency.
 
 ---
 
-## 9. Execution Guarantees
+## 7. Messaging Handling
 
-* Immediate execution on user command
-* Deterministic tool behavior
-* Idempotent retries
-* Explicit failure propagation
-* Telegram notification on **every** side effect
-* Notion updates always reflected back to the user
+Clawdbot’s gateway accepts Telegram and other channels:
 
----
+- Pair channels securely (whitelist allowed senders).:contentReference[oaicite:5]{index=5}
+- Commands are streamed to the agent
+- Responses and notifications are sent back to users
 
-## 10. Security Constraints
-
-* No raw shell execution
-* No raw SQL from LLMs
-* Scoped API credentials per tool
-* Secrets managed via environment variables
-* All tool calls logged and auditable
-* Notion access restricted to approved databases only
+Security defaults require explicit pairing for private DMs; ensure secure configuration in your settings.:contentReference[oaicite:6]{index=6}
 
 ---
 
-## 11. Deployment Philosophy
+## 8. Persistent Memory
 
-* Local development via Docker
-* Cloud deployment via container
-* Source of truth is the GitHub repository
-* No manual changes in production
-* Rollbacks via git + redeploy
+Clawdbot persists state and context across sessions:
 
----
+- Conversations and memory stored as markdown
+- Skills may use that memory when appropriate
+- Any Notion or task context should be referenced consistently
 
-## 12. Initial Build Scope
-
-### Phase 1 — Spine
-
-* Telegram → GPT-5.2 → Claude
-* JSON-only responses
-* No tools
-
-### Phase 2 — Notion First
-
-* NotionAgent
-* Create / update / query tasks
-* Full audit logging
-* Telegram notifications
-
-### Phase 3 — Email Integration
-
-* EmailAgent
-* Send-only
-* Task-linked emails
-
-### Phase 4 — Calendar Integration
-
-* CalendarAgent
-* Parallel execution with Notion + Email
+Your skills should use session memory to store minimal context; Notion remains authoritative for tasks.
 
 ---
 
-## 13. Non-Goals (Explicitly Out of Scope)
+## 9. Model Configuration
 
-* Browser automation
-* Free-form shell access
-* Unbounded autonomy
-* Self-modifying code
-* Direct LLM writes to Notion
+Clawdbot supports multiple model backends:
+
+- You may configure it to use **Claude** as the primary reasoning model.
+- You may also use **GPT-5.2 Instant** as a supplementary model (e.g., prompt writing) if desired, configured through skills or custom hooks.
+
+Clawdbot allows model switching in config.
 
 ---
 
-## 14. Success Criteria
+## 10. Security and Safety
 
-The system is successful when:
+Clawdbot runs with powerful local execution capabilities (shell, browser automation, etc.):contentReference[oaicite:7]{index=7}
 
-* A single Telegram message can create or update multiple Notion tasks
-* Notion reflects the authoritative task state at all times
-* Emails and calendar events are linked to Notion tasks
-* Every side effect is logged and reported
-* The agent can operate continuously without supervision
+For safety:
 
+- Restrict skill permissions
+- Use sandboxing or Docker isolation where needed
+- Define whitelists for commands and message sources
 
+Deploy with configuration that limits unintended side effects.
 
+---
 
+## 11. Deployment
+
+For stable uptime:
+
+- Deploy Clawdbot on a VPS or dedicated server (Ubuntu, Docker container)
+- Ensure it runs continuously and restarts on failure
+- Store workspace as version-controlled git repo
+
+Skills live in `<workspace>/skills` with higher precedence than bundled defaults.:contentReference[oaicite:8]{index=8}
+
+---
+
+## 12. Development Workflow
+
+1. Set up Clawdbot locally (Node ≥22).:contentReference[oaicite:9]{index=9}
+2. Create skill directories under `skills/`
+3. Define your `SKILL.md` and code
+4. Connect Telegram channel
+5. Test skill behavior with commands
+6. Deploy to production server
+
+---
+
+## 13. Success Criteria
+
+System is successful when:
+
+- Telegram commands modify Notion tasks via NotionSkill
+- Skills send emails and calendar updates
+- Clawdbot provides clear success/failure feedback
+- Task state remains consistent and auditable
+
+---
+
+## Notes
+
+- Clawdbot provides the *agent and execution platform*; your repository delivers *business logic via skills*.
+- Do **not** rebuild Clawdbot’s gateway or session infrastructure yourself — use it as the foundation.
+
+---

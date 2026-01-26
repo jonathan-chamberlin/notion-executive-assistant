@@ -1,0 +1,57 @@
+# Notion Executive Assistant - Docker Compose
+#
+# Usage:
+#   docker-compose up -d        # Start in background
+#   docker-compose logs -f      # View logs
+#   docker-compose down         # Stop
+#   docker-compose restart      # Restart
+
+version: '3.8'
+
+services:
+  assistant:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: notion-assistant
+    restart: unless-stopped
+
+    # Load environment from .env file
+    env_file:
+      - .env
+
+    # Mount credential files (read-only for security)
+    volumes:
+      # Google OAuth credentials (required for Calendar)
+      - ./credentials.json:/app/credentials.json:ro
+      # Google OAuth token (needs write access for token refresh)
+      - ./token.json:/app/token.json
+      # Persist logs
+      - ./logs:/app/logs
+      # Clawdbot workspace (for memory/session persistence)
+      - clawdbot-data:/home/clawdbot/clawd
+
+    # Optional: expose port for local debugging
+    # ports:
+    #   - "18789:18789"
+
+    # Resource limits (adjust based on your VPS)
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Named volume for persistent Clawdbot data
+volumes:
+  clawdbot-data:
