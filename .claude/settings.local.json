@@ -18,7 +18,15 @@
       "WebFetch(domain:github.com)",
       "Bash(node --version:*)",
       "Bash(node scripts/test-connections.js:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(node scripts/test-calendar-direct.js:*)",
+      "Bash(node --env-file=.env:*)",
+      "Bash(pnpm --version:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(git stash pop:*)",
+      "Bash(git diff-tree:*)",
+      "Bash(git reset:*)"
     ]
   }
 }

@@ -13,10 +13,13 @@
     "test:calendar": "node scripts/test-calendar.js"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.15",
-    "clawdbot": "^2026.1.24",
+    "@notionhq/client": "^5.8.0",
+    "google-auth-library": "^9.0.0",
     "googleapis": "^140.0.1",
     "nodemailer": "^6.9.14"
+  },
+  "optionalDependencies": {
+    "clawdbot": "^2026.1.24"
   },
   "devDependencies": {
     "dotenv": "^16.6.1"

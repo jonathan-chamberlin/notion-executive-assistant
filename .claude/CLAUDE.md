@@ -13,6 +13,8 @@ C:\Repositories for Git\notion-executive-assistant-folder\system_specifications.
 
 Claude must follow that specification as the source of truth.
 
+use pnpm install instead of npm install
+
 ---
 
 ## Core Development Philosophy

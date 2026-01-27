@@ -249,58 +249,69 @@ async function testEmail() {
 }
 
 // ============================================================
-// 4. GOOGLE CALENDAR TEST
+// 4. GOOGLE CALENDAR TEST (Service Account)
 // ============================================================
 async function testCalendar() {
-  header('4. GOOGLE CALENDAR CONNECTION');
+  header('4. GOOGLE CALENDAR CONNECTION (Service Account)');
 
-  const credentialsPath = process.env.GOOGLE_CREDENTIALS_PATH || './credentials.json';
-  const tokenPath = process.env.GOOGLE_TOKEN_PATH || './token.json';
+  const serviceAccountPath = process.env.GOOGLE_SERVICE_ACCOUNT_PATH || './service-account.json';
+  const calendarId = process.env.GOOGLE_CALENDAR_ID || 'primary';
 
-  // Check credentials file
-  info(`Checking credentials file: ${credentialsPath}`);
+  // Check service account file
+  info(`Checking service account file: ${serviceAccountPath}`);
 
   try {
-    await fs.access(credentialsPath);
-    success('Credentials file found');
+    await fs.access(serviceAccountPath);
+    success('Service account file found');
   } catch {
-    fail(`Credentials file not found: ${credentialsPath}`);
+    fail(`Service account file not found: ${serviceAccountPath}`);
     log('');
-    info('To set up Google Calendar:');
+    info('To set up Google Calendar with Service Account:');
     log('  1. Go to https://console.cloud.google.com/');
     log('  2. Create a new project (or select existing)');
     log('  3. Enable the Google Calendar API');
-    log('  4. Create OAuth 2.0 credentials (Desktop app)');
-    log('  5. Download and save as credentials.json in project root');
-    results.calendar.error = 'Missing credentials.json';
+    log('  4. Go to IAM & Admin > Service Accounts');
+    log('  5. Create a service account');
+    log('  6. Create a key (JSON) and download it');
+    log('  7. Save as service-account.json in project root');
+    log('');
+    info('Then share your calendar with the service account email');
+    results.calendar.error = 'Missing service-account.json';
     return;
   }
 
   results.calendar.tested = true;
 
-  // Check token file (indicates prior authorization)
-  info(`Checking token file: ${tokenPath}`);
+  // Read service account to get email
+  let serviceAccountEmail = '';
+  try {
+    const saData = JSON.parse(await fs.readFile(serviceAccountPath, 'utf8'));
+    serviceAccountEmail = saData.client_email;
+    success(`Service account email: ${serviceAccountEmail}`);
+  } catch (err) {
+    fail(`Failed to read service account file: ${err.message}`);
+    results.calendar.error = err.message;
+    return;
+  }
+
+  // Try to use the calendar
+  info('Testing Calendar API...');
 
   try {
-    await fs.access(tokenPath);
-    success('Token file found - already authorized');
+    const { google } = await import('googleapis');
+    const serviceAccount = JSON.parse(await fs.readFile(serviceAccountPath, 'utf8'));
 
-    // Try to use the calendar
-    info('Testing Calendar API...');
+    const auth = new google.auth.GoogleAuth({
+      credentials: serviceAccount,
+      scopes: ['https://www.googleapis.com/auth/calendar'],
+    });
 
+    const authClient = await auth.getClient();
+    const calendar = google.calendar({ version: 'v3', auth: authClient });
+
+    // Try to access the calendar
     try {
-      const { google } = await import('googleapis');
-      const tokenData = JSON.parse(await fs.readFile(tokenPath, 'utf8'));
-      const credData = JSON.parse(await fs.readFile(credentialsPath, 'utf8'));
-
-      const { client_id, client_secret } = credData.installed || credData.web;
-      const oauth2Client = new google.auth.OAuth2(client_id, client_secret);
-      oauth2Client.setCredentials(tokenData);
-
-      const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-
-      // Get primary calendar info
-      const calendarInfo = await calendar.calendars.get({ calendarId: 'primary' });
+      const calendarInfo = await calendar.calendars.get({ calendarId });
       success(`Calendar connected: ${calendarInfo.data.summary}`);
 
       // List upcoming events
@@ -309,7 +320,7 @@ async function testCalendar() {
       endOfDay.setHours(23, 59, 59, 999);
 
       const events = await calendar.events.list({
-        calendarId: 'primary',
+        calendarId,
         timeMin: now.toISOString(),
         timeMax: endOfDay.toISOString(),
         singleEvents: true,
@@ -319,27 +330,27 @@ async function testCalendar() {
       success(`Found ${events.data.items?.length || 0} events remaining today`);
       results.calendar.success = true;
 
-    } catch (apiError) {
-      if (apiError.message?.includes('invalid_grant') || apiError.message?.includes('Token has been expired')) {
-        fail('Token expired - need to re-authorize');
-        warn('Delete token.json and run: npm run test:calendar');
-        results.calendar.error = 'Token expired';
+    } catch (calError) {
+      if (calError.code === 404 || calError.message?.includes('Not Found')) {
+        fail('Calendar not found or not shared with service account');
+        log('');
+        warn('You must share your calendar with the service account:');
+        log(`  1. Open Google Calendar`);
+        log(`  2. Click gear icon > Settings`);
+        log(`  3. Select your calendar on the left`);
+        log(`  4. Scroll to "Share with specific people"`);
+        log(`  5. Add: ${serviceAccountEmail}`);
+        log(`  6. Set permission to "Make changes to events"`);
+        results.calendar.error = 'Calendar not shared with service account';
       } else {
-        fail(`Calendar API error: ${apiError.message}`);
-        results.calendar.error = apiError.message;
+        fail(`Calendar API error: ${calError.message}`);
+        results.calendar.error = calError.message;
       }
     }
 
-  } catch {
-    warn('Token file not found - authorization required');
-    log('');
-    info('To authorize Google Calendar:');
-    log('  1. Run: npm run test:calendar');
-    log('  2. Visit the URL shown');
-    log('  3. Sign in and grant access');
-    log('  4. Copy the authorization code');
-    log('  5. Complete the authorization flow');
-    results.calendar.error = 'Not yet authorized';
+  } catch (apiError) {
+    fail(`Calendar API error: ${apiError.message}`);
+    results.calendar.error = apiError.message;
   }
 }
 

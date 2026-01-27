@@ -2,14 +2,14 @@
  * CalendarSkill - Google Calendar management for Clawdbot
  *
  * This skill provides calendar operations via Google Calendar API.
+ * Uses Service Account authentication (no OAuth consent flow needed).
  * Events can be linked to Notion tasks for unified management.
  */
 
 import { google } from 'googleapis';
 import fs from 'fs/promises';
-import path from 'path';
 
-// OAuth2 scopes needed
+// Calendar API scopes
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
 
 // Pending action storage (for confirmations)
@@ -20,11 +20,8 @@ let pendingAction = null;
  */
 function validateEnv() {
   const errors = [];
-  if (!process.env.GOOGLE_CREDENTIALS_PATH) {
-    errors.push('GOOGLE_CREDENTIALS_PATH is not set');
-  }
-  if (!process.env.GOOGLE_TOKEN_PATH) {
-    errors.push('GOOGLE_TOKEN_PATH is not set');
+  if (!process.env.GOOGLE_SERVICE_ACCOUNT_PATH) {
+    errors.push('GOOGLE_SERVICE_ACCOUNT_PATH is not set');
   }
   return errors;
 }
@@ -43,28 +40,26 @@ function logAction(action, details) {
 }
 
 /**
- * Load OAuth2 credentials and create client
+ * Get authenticated Google Calendar client using Service Account
  */
-async function getAuthClient() {
-  const credentialsPath = process.env.GOOGLE_CREDENTIALS_PATH;
-  const tokenPath = process.env.GOOGLE_TOKEN_PATH;
+async function getCalendarClient() {
+  const serviceAccountPath = process.env.GOOGLE_SERVICE_ACCOUNT_PATH;
 
   try {
-    const credentials = JSON.parse(await fs.readFile(credentialsPath, 'utf8'));
-    const { client_secret, client_id, redirect_uris } = credentials.installed || credentials.web;
+    const serviceAccount = JSON.parse(await fs.readFile(serviceAccountPath, 'utf8'));
 
-    const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+    const auth = new google.auth.GoogleAuth({
+      credentials: serviceAccount,
+      scopes: SCOPES,
+    });
 
-    // Try to load existing token
-    try {
-      const token = JSON.parse(await fs.readFile(tokenPath, 'utf8'));
-      oAuth2Client.setCredentials(token);
-      return oAuth2Client;
-    } catch {
-      return { needsAuth: true, client: oAuth2Client };
-    }
+    const authClient = await auth.getClient();
+    return google.calendar({ version: 'v3', auth: authClient });
   } catch (error) {
-    throw new Error(`Failed to load credentials: ${error.message}`);
+    if (error.code === 'ENOENT') {
+      throw new Error(`Service account file not found: ${serviceAccountPath}`);
+    }
+    throw new Error(`Failed to authenticate: ${error.message}`);
   }
 }
 
@@ -153,16 +148,7 @@ export async function listEvents({ date, range = 'day' }) {
   }
 
   try {
-    const authResult = await getAuthClient();
-    if (authResult.needsAuth) {
-      return {
-        success: false,
-        error: 'Google Calendar not authorized. Run /calendar setup first.',
-        needsAuth: true,
-      };
-    }
-
-    const calendar = google.calendar({ version: 'v3', auth: authResult });
+    const calendar = await getCalendarClient();
     const calendarId = getCalendarId();
 
     // Determine date range
@@ -238,16 +224,7 @@ export async function createEvent({ title, date, time, duration = 60, attendees,
   }
 
   try {
-    const authResult = await getAuthClient();
-    if (authResult.needsAuth) {
-      return {
-        success: false,
-        error: 'Google Calendar not authorized. Run /calendar setup first.',
-        needsAuth: true,
-      };
-    }
-
-    const calendar = google.calendar({ version: 'v3', auth: authResult });
+    const calendar = await getCalendarClient();
     const calendarId = getCalendarId();
 
     // Build start and end times
@@ -319,16 +296,7 @@ export async function updateEvent(eventId, updates) {
   }
 
   try {
-    const authResult = await getAuthClient();
-    if (authResult.needsAuth) {
-      return {
-        success: false,
-        error: 'Google Calendar not authorized. Run /calendar setup first.',
-        needsAuth: true,
-      };
-    }
-
-    const calendar = google.calendar({ version: 'v3', auth: authResult });
+    const calendar = await getCalendarClient();
     const calendarId = getCalendarId();
 
     // Get existing event
@@ -430,16 +398,7 @@ export async function cancelEvent(eventId, { notify = true, confirmed = false } 
   }
 
   try {
-    const authResult = await getAuthClient();
-    if (authResult.needsAuth) {
-      return {
-        success: false,
-        error: 'Google Calendar not authorized. Run /calendar setup first.',
-        needsAuth: true,
-      };
-    }
-
-    const calendar = google.calendar({ version: 'v3', auth: authResult });
+    const calendar = await getCalendarClient();
     const calendarId = getCalendarId();
 
     await calendar.events.delete({
@@ -490,16 +449,7 @@ export async function findFreeTime({ date, duration = 60 }) {
   }
 
   try {
-    const authResult = await getAuthClient();
-    if (authResult.needsAuth) {
-      return {
-        success: false,
-        error: 'Google Calendar not authorized. Run /calendar setup first.',
-        needsAuth: true,
-      };
-    }
-
-    const calendar = google.calendar({ version: 'v3', auth: authResult });
+    const calendar = await getCalendarClient();
     const calendarId = getCalendarId();
 
     // Get events for the day
@@ -558,72 +508,53 @@ export async function findFreeTime({ date, duration = 60 }) {
 }
 
 /**
- * Generate OAuth authorization URL (for initial setup)
+ * Check if service account is properly configured
  */
-export async function getAuthUrl() {
+export async function checkSetup() {
   const envErrors = validateEnv();
   if (envErrors.length > 0) {
-    return { success: false, error: envErrors.join(', ') };
+    return {
+      success: false,
+      error: envErrors.join(', '),
+      setup: {
+        serviceAccountPath: process.env.GOOGLE_SERVICE_ACCOUNT_PATH || 'NOT SET',
+        calendarId: getCalendarId(),
+      }
+    };
   }
 
   try {
-    const authResult = await getAuthClient();
-    if (!authResult.needsAuth) {
-      return { success: true, message: 'Already authorized.' };
-    }
+    const calendar = await getCalendarClient();
+    const calendarId = getCalendarId();
 
-    const authUrl = authResult.client.generateAuthUrl({
-      access_type: 'offline',
-      scope: SCOPES,
-    });
+    // Try to access the calendar
+    const calInfo = await calendar.calendars.get({ calendarId });
 
     return {
       success: true,
-      authUrl,
-      message: 'Visit this URL to authorize, then use /calendar auth <code> with the code.',
+      message: 'Service account configured correctly.',
+      calendar: {
+        id: calInfo.data.id,
+        summary: calInfo.data.summary,
+        timeZone: calInfo.data.timeZone,
+      }
     };
   } catch (error) {
-    return { success: false, error: `Failed to generate auth URL: ${error.message}` };
-  }
-}
-
-/**
- * Complete OAuth flow with authorization code
- */
-export async function authorize(code) {
-  const envErrors = validateEnv();
-  if (envErrors.length > 0) {
-    return { success: false, error: envErrors.join(', ') };
-  }
-
-  if (!code) {
-    return { success: false, error: 'Authorization code is required' };
-  }
-
-  try {
-    const authResult = await getAuthClient();
-    const client = authResult.needsAuth ? authResult.client : authResult;
-
-    const { tokens } = await client.getToken(code);
-    client.setCredentials(tokens);
-
-    // Save token
-    const tokenPath = process.env.GOOGLE_TOKEN_PATH;
-    await fs.writeFile(tokenPath, JSON.stringify(tokens));
-
-    logAction('authorize', { success: true });
-
-    return { success: true, message: 'Google Calendar authorized successfully!' };
-  } catch (error) {
-    logAction('authorize_error', { error: error.message });
-    return { success: false, error: `Authorization failed: ${error.message}` };
+    if (error.message.includes('Not Found') || error.code === 404) {
+      return {
+        success: false,
+        error: 'Calendar not found or not shared with service account.',
+        hint: `Share your calendar with: ${process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || 'your-service-account@project.iam.gserviceaccount.com'}`,
+      };
+    }
+    return { success: false, error: `Setup check failed: ${error.message}` };
   }
 }
 
 // Default export for Clawdbot skill registration
 export default {
   name: 'CalendarSkill',
-  description: 'Manage Google Calendar events',
+  description: 'Manage Google Calendar events using Service Account',
   functions: {
     listEvents,
     createEvent,
@@ -631,7 +562,6 @@ export default {
     cancelEvent,
     confirmAction,
     findFreeTime,
-    getAuthUrl,
-    authorize,
+    checkSetup,
   },
 };
