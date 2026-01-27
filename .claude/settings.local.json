@@ -26,7 +26,8 @@
       "Bash(git stash:*)",
       "Bash(git stash pop:*)",
       "Bash(git diff-tree:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(git rm:*)"
     ]
   }
 }
