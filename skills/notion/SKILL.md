@@ -22,41 +22,51 @@ Manage tasks in Notion. Notion is the single source of truth for all tasks, proj
 
 ## Commands
 
-### List Tasks
-```
-/tasks [filter]
-```
+### Quick Date Queries (most common)
+
+- **"tasks today"** → calls `tasksToday()` — returns tasks where Date = today, Archived = false
+- **"tasks yesterday"** → calls `tasksYesterday()` — returns tasks where Date = yesterday, Archived = false
+- **"tasks tomorrow"** → calls `tasksTomorrow()` — returns tasks where Date = tomorrow, Archived = false
+
+These are the primary way the user checks tasks. Always use these when the user asks about today's/yesterday's/tomorrow's tasks.
+
+### List Tasks with Filters
+
+`queryTasks(filter)` accepts:
+- `date` — any date string: `'today'`, `'yesterday'`, `'tomorrow'`, `'monday'`, `'2026-01-28'`
+- `due` — `'today'` or `'overdue'` (filters on `Due Date (assignments only)`)
+- `priority` — `'high'`, `'medium'`, `'low'`
+- `tag` — filter by tag name
+- `includeArchived` — set `true` to include archived tasks (default: excludes archived)
+
 Examples:
-- `/tasks` - Show all active tasks
-- `/tasks due:today` - Tasks due today
-- `/tasks status:in-progress` - Tasks currently in progress
-- `/tasks overdue` - All overdue tasks
+- "Show my tasks" → `queryTasks({})` (all non-archived tasks)
+- "High priority tasks" → `queryTasks({ priority: 'high' })`
+- "Tasks tagged homework" → `queryTasks({ tag: 'homework' })`
+- "Overdue assignments" → `queryTasks({ due: 'overdue' })`
+
+### Search Tasks
+
+`searchTasks(query)` — search tasks by name. Returns matching non-archived tasks.
 
 ### Create Task
-```
-/task add <title> [options]
-```
-Options:
-- `due:<date>` - Set due date (today, tomorrow, 2024-01-15)
-- `status:<status>` - Set initial status
-- `priority:<high|medium|low>` - Set priority
 
-Examples:
-- `/task add Review quarterly report due:friday priority:high`
-- `/task add Call dentist due:tomorrow`
+`createTask({ name, date, dueDate, priority, tags, content })`
+
+- `name` (required) — task title
+- `date` — general date (today, tomorrow, friday, 2026-01-28)
+- `dueDate` — assignment deadline
+- `priority` — high, medium, low
+- `tags` — array of tag names
+- `content` — body text
 
 ### Update Task
-```
-/task update <task-id-or-title> <changes>
-```
-Examples:
-- `/task update "Review report" status:done`
-- `/task update abc123 due:next-monday`
 
-### Complete Task
-```
-/task done <task-id-or-title>
-```
+`updateTask(taskId, updates)` — update any field: `name`, `date`, `dueDate`, `priority`, `tags`, `content`, `archived`
+
+### Complete/Archive Task
+
+`completeTask(taskId)` — sets Archived = true
 
 ## Environment Variables
 

@@ -21,7 +21,10 @@
       "Bash(node -e \"require\\(''dotenv''\\).config\\(\\); console.log\\(process.env.ANTHROPIC_API_KEY ? ''KEY_SET'' : ''KEY_MISSING''\\)\")",
       "Bash(clawd*)",
       "Bash(cd*)",
-      "Read(clawdbot*)"
+      "Read(  clawdbot*)",
+      "Bash(taskkill*)",
+      "Bash(.clawed)",
+      "Bash(config \")"
     ]
   }
 }
