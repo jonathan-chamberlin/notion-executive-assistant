@@ -1,6 +1,15 @@
+---
+name: calendar-skill
+description: Manage Google Calendar events via Service Account with Notion task linking
+user-invocable: true
+requires:
+  env:
+    - GOOGLE_SERVICE_ACCOUNT_PATH
+---
+
 # CalendarSkill
 
-Manage calendar events via Google Calendar API. Links events to Notion tasks for unified task management.
+Manage calendar events via Google Calendar API (Service Account). Links events to Notion tasks for unified task management.
 
 ## Capabilities
 
@@ -73,15 +82,14 @@ Associates a calendar event with a Notion task (updates both).
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `GOOGLE_CREDENTIALS_PATH` | Yes | Path to OAuth credentials JSON |
-| `GOOGLE_TOKEN_PATH` | Yes | Path to store OAuth tokens |
+| `GOOGLE_SERVICE_ACCOUNT_PATH` | Yes | Path to service account JSON key file |
 | `GOOGLE_CALENDAR_ID` | No | Calendar ID (default: 'primary') |
 
 ## Setup Requirements
 
 1. **Google Cloud Project** with Calendar API enabled
-2. **OAuth 2.0 credentials** (Desktop application type)
-3. **First-run authorization** via browser
+2. **Service Account** with a JSON key file downloaded
+3. **Calendar shared** with the service account email address (with "Make changes to events" permission)
 
 ## Safety Rules
 

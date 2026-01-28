@@ -1,3 +1,13 @@
+---
+name: notion-skill
+description: Manage tasks in Notion — the single source of truth for all tasks, projects, and workflows
+user-invocable: true
+requires:
+  env:
+    - NOTION_API_KEY
+    - NOTION_TASKS_DATABASE_ID
+---
+
 # NotionSkill
 
 Manage tasks in Notion. Notion is the single source of truth for all tasks, projects, and workflows.
@@ -57,18 +67,35 @@ Examples:
 
 ## Notion Database Schema
 
-The tasks database must have these properties:
+The tasks database has these properties. **Do not infer or guess property names — use these exactly.**
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `Title` | title | Task name |
-| `Status` | select | Task status (To Do, In Progress, Done, Blocked) |
-| `Due Date` | date | When the task is due |
+### Primary Fields (check these first)
+
+| Property | Type | Notes |
+|----------|------|-------|
+| `Name` | title | Task name. Always required. |
 | `Priority` | select | High, Medium, Low |
-| `Calendar Event` | url | Link to associated calendar event |
-| `Email Thread` | url | Link to related email |
-| `Notes` | rich_text | Additional context |
-| `Created` | created_time | Auto-populated |
+| `Date` | date | Includes time. General-purpose date. |
+| `Due Date (assignments only)` | date | Includes time. For assignment deadlines specifically. |
+| `Tags` | multi_select | Categorization tags |
+
+### Secondary Fields
+
+| Property | Type | Notes |
+|----------|------|-------|
+| `Areas` | relation (two-way) | Links to Areas database |
+| `Sub-Task` | relation (two-way) | Links to parent/child tasks |
+| `Archived` | checkbox | Use instead of deleting |
+| `Created Time` | created_time | Auto-populated |
+| `Last edited time` | last_edited_time | Auto-populated |
+
+### Page Content
+
+| Property | Type | Notes |
+|----------|------|-------|
+| `content_rich_text` | rich_text | Summary or body text within the page. Use this for reading/writing page content without needing to access block children. For full page body access, use the Notion blocks API (`blocks.children.list` / `blocks.children.append`). |
+
+**Important:** The `Content` property is for lightweight text. For structured page content (headings, lists, embeds), use the blocks API to read and modify the page body directly.
 
 ## Safety Rules
 

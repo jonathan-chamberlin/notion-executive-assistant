@@ -1,3 +1,14 @@
+---
+name: email-skill
+description: Send and manage emails through SMTP with draft/confirm workflow and rate limiting
+user-invocable: true
+requires:
+  env:
+    - SMTP_HOST
+    - SMTP_USER
+    - SMTP_PASS
+---
+
 # EmailSkill
 
 Send and manage emails through SMTP. Integrates with Notion tasks for email-task linking.

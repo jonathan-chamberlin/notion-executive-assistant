@@ -4,12 +4,7 @@
       "Bash(dir:*)",
       "Skill(mcp-builder)",
       "WebFetch(domain:developers.notion.com)",
-      "Bash(git init:*)",
-      "Bash(git remote add:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git branch:*)",
-      "Bash(git push:*)",
+      "Bash(git*)",
       "Bash(npm install)",
       "Bash(npm run build:*)",
       "Bash(cd:*)",
@@ -21,13 +16,12 @@
       "Bash(npm install:*)",
       "Bash(node scripts/test-calendar-direct.js:*)",
       "Bash(node --env-file=.env:*)",
-      "Bash(pnpm --version:*)",
-      "Bash(git pull:*)",
-      "Bash(git stash:*)",
-      "Bash(git stash pop:*)",
-      "Bash(git diff-tree:*)",
-      "Bash(git reset:*)",
-      "Bash(git rm:*)"
+      "WebSearch",
+      "WebFetch(domain:docs.molt.bot)",
+      "Bash(node -e \"require\\(''dotenv''\\).config\\(\\); console.log\\(process.env.ANTHROPIC_API_KEY ? ''KEY_SET'' : ''KEY_MISSING''\\)\")",
+      "Bash(clawd*)",
+      "Bash(cd*)",
+      "Read(clawdbot*)"
     ]
   }
 }
