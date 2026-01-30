@@ -24,7 +24,8 @@
       "Read(  clawdbot*)",
       "Bash(taskkill*)",
       "Bash(.clawed)",
-      "Bash(config \")"
+      "Bash(config \")",
+      "WebFetch(domain:docs.openclaw.ai)"
     ]
   }
 }
