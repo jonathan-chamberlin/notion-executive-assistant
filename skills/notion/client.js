@@ -34,14 +34,28 @@ export function logAction(action, details) {
   }));
 }
 
+// Get current date in Eastern Time as YYYY-MM-DD
+export function getTodayET() {
+  return new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+}
+
+// Get a Date object adjusted to Eastern Time
+function getETDate() {
+  const now = new Date();
+  // Get the date string in ET, then parse it back
+  const etDateStr = now.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+  const [year, month, day] = etDateStr.split('-').map(Number);
+  return new Date(year, month - 1, day);
+}
+
 export function parseDate(dateStr) {
   if (!dateStr) return null;
 
-  const today = new Date();
+  const today = getETDate();
   const lower = dateStr.toLowerCase().trim();
 
   if (lower === 'today') {
-    return today.toISOString().split('T')[0];
+    return getTodayET();
   }
   if (lower === 'yesterday') {
     today.setDate(today.getDate() - 1);

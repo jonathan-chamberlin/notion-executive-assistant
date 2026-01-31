@@ -57,8 +57,66 @@ Examples:
 - `date` — general date (today, tomorrow, friday, 2026-01-28)
 - `dueDate` — assignment deadline
 - `priority` — high, medium, low
-- `tags` — array of tag names
+- `tags` — array of tag names (note: "Task" tag is auto-added)
 - `content` — body text
+
+## Natural Language Task Creation
+
+When the user wants to create a task, parse their message and call `createTask()`. The "Task" tag is automatically added.
+
+### Trigger Phrases
+
+Recognize these patterns as task creation requests:
+- "Remind me to..."
+- "Add task..."
+- "Create task..."
+- "I need to..."
+- "Don't forget to..."
+- "Remember to..."
+- "Todo:..."
+- "Add to my list:..."
+- "Schedule..."
+- "Put on my calendar..." (if no specific time, create task; if specific time, consider calendar)
+
+### Parsing Rules
+
+1. **Extract the task name** — the core action the user wants to do
+2. **Extract date** — look for time references (all dates use Eastern Time):
+   - "tomorrow" → `date: 'tomorrow'`
+   - "on Friday" → `date: 'friday'`
+   - "next week" → `date: 'next week'`
+   - "today" → `date: 'today'`
+   - **No date mentioned → defaults to today (Eastern Time)**. You don't need to pass a date; the system auto-sets it.
+3. **Extract priority** — look for urgency words:
+   - "urgent", "ASAP", "important", "critical" → `priority: 'high'`
+   - "whenever", "low priority", "eventually" → `priority: 'low'`
+   - No priority mentioned → defaults to Low
+4. **Extract tags** — look for category hints:
+   - "work", "job", "office" → add tag "Work"
+   - "personal", "home" → add tag "Personal"
+   - "school", "class", "homework", "assignment" → add tag "School"
+
+### Examples
+
+| User says | Parsed as |
+|-----------|-----------|
+| "Remind me to call the dentist tomorrow" | `createTask({ name: "Call the dentist", date: "tomorrow" })` |
+| "Add task: buy groceries" | `createTask({ name: "Buy groceries" })` — no date specified |
+| "I need to finish the report by Friday, it's urgent" | `createTask({ name: "Finish the report", date: "friday", priority: "high" })` |
+| "Don't forget to email John about the project" | `createTask({ name: "Email John about the project" })` — no date specified |
+| "Remind me to submit homework on Monday" | `createTask({ name: "Submit homework", date: "monday", tags: ["School"] })` |
+| "Todo: review PR" | `createTask({ name: "Review PR" })` — no date specified |
+| "Schedule a call with Sarah next week" | `createTask({ name: "Call with Sarah", date: "next week" })` |
+| "Make urgent task called test" | `createTask({ name: "test", priority: "high" })` — no date specified |
+
+### Confirmation
+
+After creating a task, confirm with the user:
+```
+✅ Created: "Call the dentist"
+   Date: Tomorrow (Jan 31)
+   Tags: Task
+```
 
 ### Update Task
 

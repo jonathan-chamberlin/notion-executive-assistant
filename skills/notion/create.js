@@ -1,4 +1,4 @@
-import { notion, DATABASE_ID, PRIORITY_MAP, validateEnv, logAction, parseDate } from './client.js';
+import { notion, DATABASE_ID, PRIORITY_MAP, validateEnv, logAction, parseDate, getTodayET } from './client.js';
 
 export async function createTask({ name, date, dueDate, priority, tags, content }) {
   const envErrors = validateEnv();
@@ -17,14 +17,12 @@ export async function createTask({ name, date, dueDate, priority, tags, content 
       },
     };
 
-    if (date) {
-      const parsedDate = parseDate(date);
-      if (parsedDate) {
-        properties.Date = { date: { start: parsedDate } };
-      } else {
-        return { success: false, error: `Invalid date format: ${date}` };
-      }
+    // Default to today (Eastern Time) if no date specified
+    const taskDate = date ? parseDate(date) : getTodayET();
+    if (date && !taskDate) {
+      return { success: false, error: `Invalid date format: ${date}` };
     }
+    properties.Date = { date: { start: taskDate } };
 
     if (dueDate) {
       const parsedDate = parseDate(dueDate);
@@ -35,20 +33,18 @@ export async function createTask({ name, date, dueDate, priority, tags, content 
       }
     }
 
-    if (priority) {
-      const mappedPriority = PRIORITY_MAP[priority.toLowerCase()];
-      if (mappedPriority) {
-        properties.Priority = { select: { name: mappedPriority } };
-      } else {
-        return { success: false, error: `Invalid priority: ${priority}. Use high, medium, or low.` };
-      }
+    // Default to Low priority if not specified
+    const priorityValue = priority ? PRIORITY_MAP[priority.toLowerCase()] : 'Low';
+    if (priority && !PRIORITY_MAP[priority.toLowerCase()]) {
+      return { success: false, error: `Invalid priority: ${priority}. Use high, medium, or low.` };
     }
+    properties.Priority = { select: { name: priorityValue } };
 
-    if (tags && tags.length > 0) {
-      properties.Tags = {
-        multi_select: tags.map(t => ({ name: t })),
-      };
-    }
+    // Always include "Task" tag, plus any additional tags
+    const allTags = ['Task', ...(tags || [])];
+    properties.Tags = {
+      multi_select: [...new Set(allTags)].map(t => ({ name: t })),
+    };
 
     if (content) {
       properties.content_rich_text = {
@@ -64,9 +60,9 @@ export async function createTask({ name, date, dueDate, priority, tags, content 
     const task = {
       id: response.id,
       name: name.trim(),
-      date: properties.Date?.date?.start || null,
+      date: taskDate,
       dueDate: properties['Due Date (assignments only)']?.date?.start || null,
-      priority: properties.Priority?.select?.name || null,
+      priority: priorityValue,
       tags: tags || [],
       url: response.url,
     };

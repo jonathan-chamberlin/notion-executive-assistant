@@ -1,4 +1,4 @@
-import { notion, DATABASE_ID, PRIORITY_MAP, validateEnv, logAction, parseDate, mapPageToTask } from './client.js';
+import { notion, DATABASE_ID, PRIORITY_MAP, validateEnv, logAction, parseDate, getTodayET, mapPageToTask } from './client.js';
 
 export async function queryTasks(filter = {}) {
   const envErrors = validateEnv();
@@ -25,16 +25,14 @@ export async function queryTasks(filter = {}) {
     }
 
     if (filter.due === 'today') {
-      const today = new Date().toISOString().split('T')[0];
       notionFilter.and.push({
         property: 'Due Date (assignments only)',
-        date: { equals: today },
+        date: { equals: getTodayET() },
       });
     } else if (filter.due === 'overdue') {
-      const today = new Date().toISOString().split('T')[0];
       notionFilter.and.push({
         property: 'Due Date (assignments only)',
-        date: { before: today },
+        date: { before: getTodayET() },
       });
     }
 
