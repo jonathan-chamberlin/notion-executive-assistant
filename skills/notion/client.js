@@ -34,50 +34,56 @@ export function logAction(action, details) {
   }));
 }
 
-// Get current date in Eastern Time as YYYY-MM-DD
-export function getTodayET() {
-  return new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+// Get a date in Eastern Time with optional day offset, returns YYYY-MM-DD
+export function getDateET(offsetDays = 0) {
+  const now = new Date();
+  // Add offset in milliseconds
+  const target = new Date(now.getTime() + offsetDays * 24 * 60 * 60 * 1000);
+  // Format in Eastern Time
+  return target.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
 }
 
-// Get a Date object adjusted to Eastern Time
-function getETDate() {
+// Alias for backwards compatibility
+export function getTodayET() {
+  return getDateET(0);
+}
+
+// Get current day of week in ET (0 = Sunday, 6 = Saturday)
+function getDayOfWeekET() {
   const now = new Date();
-  // Get the date string in ET, then parse it back
-  const etDateStr = now.toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
-  const [year, month, day] = etDateStr.split('-').map(Number);
-  return new Date(year, month - 1, day);
+  const etDate = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    weekday: 'short'
+  }).format(now);
+  const dayMap = { 'Sun': 0, 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6 };
+  return dayMap[etDate];
 }
 
 export function parseDate(dateStr) {
   if (!dateStr) return null;
 
-  const today = getETDate();
   const lower = dateStr.toLowerCase().trim();
 
   if (lower === 'today') {
-    return getTodayET();
+    return getDateET(0);
   }
   if (lower === 'yesterday') {
-    today.setDate(today.getDate() - 1);
-    return today.toISOString().split('T')[0];
+    return getDateET(-1);
   }
   if (lower === 'tomorrow') {
-    today.setDate(today.getDate() + 1);
-    return today.toISOString().split('T')[0];
+    return getDateET(1);
   }
   if (lower === 'next-week' || lower === 'next week') {
-    today.setDate(today.getDate() + 7);
-    return today.toISOString().split('T')[0];
+    return getDateET(7);
   }
 
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const dayIndex = days.indexOf(lower);
   if (dayIndex !== -1) {
-    const currentDay = today.getDay();
+    const currentDay = getDayOfWeekET();
     let daysUntil = dayIndex - currentDay;
     if (daysUntil <= 0) daysUntil += 7;
-    today.setDate(today.getDate() + daysUntil);
-    return today.toISOString().split('T')[0];
+    return getDateET(daysUntil);
   }
 
   if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
