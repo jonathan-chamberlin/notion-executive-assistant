@@ -2,8 +2,11 @@ import { getForecast, getAllForecasts } from './forecast.js';
 import { scanWeatherMarkets, getCityWeatherEvent } from './markets.js';
 import { findOpportunities } from './analyze.js';
 import { executeTrade, getPositions, getBalance, getPerformance } from './trade.js';
+import { checkSettlements, getTradeLog } from './settlement.js';
+import { runScan, setMode, getStatus, getUsageAlert, getDailySummary } from './scanner.js';
+import { getUsageStats } from './usage.js';
 
-export { getForecast, getAllForecasts, scanWeatherMarkets, getCityWeatherEvent, findOpportunities, executeTrade, getPositions, getBalance, getPerformance };
+export { getForecast, getAllForecasts, scanWeatherMarkets, getCityWeatherEvent, findOpportunities, executeTrade, getPositions, getBalance, getPerformance, checkSettlements, getTradeLog, runScan, setMode, getStatus, getUsageAlert, getDailySummary, getUsageStats };
 
 export default {
   name: 'WeatherTradingSkill',
@@ -18,5 +21,13 @@ export default {
     getPositions,
     getBalance,
     getPerformance,
+    checkSettlements,
+    getTradeLog,
+    runScan,
+    setMode,
+    getStatus,
+    getUsageAlert,
+    getDailySummary,
+    getUsageStats,
   },
 };

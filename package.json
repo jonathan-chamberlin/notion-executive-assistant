@@ -20,7 +20,7 @@
     "nodemailer": "^6.9.14"
   },
   "optionalDependencies": {
-    "clawdbot": "^2026.1.24"
+    "clawdbot": "2026.1.24-3"
   },
   "devDependencies": {
     "dotenv": "^16.6.1"
@@ -35,5 +35,8 @@
     "telegram",
     "automation"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "pnpm": {
+    "onlyBuiltDependencies": ["clawdbot", "sharp", "protobufjs", "@whiskeysockets/baileys"]
+  }
 }

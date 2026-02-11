@@ -1,0 +1,10 @@
+{
+  "mode": "alert-only",
+  "maxDailySpend": 1000,
+  "minEdge": 20,
+  "maxTradeSize": 500,
+  "scanIntervalMinutes": 30,
+  "usageAlertIntervalMinutes": 10,
+  "topOpportunitiesToShow": 5,
+  "autoTradeMaxPerScan": 2
+}

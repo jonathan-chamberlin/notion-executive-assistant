@@ -18,6 +18,9 @@ Everything else requires explicit user permission.
 **Search:** Allowed freely.
 **Fetch URLs:** Allowed freely.
 
+**Domain whitelist** (fetch without asking):
+- `northeastern.instructure.com` — Canvas LMS API
+
 ## Skills
 
 ### Notion
@@ -34,3 +37,8 @@ Everything else requires explicit user permission.
 - Location: `skills/calendar/`
 - Use for: checking schedule, creating events (with user confirmation)
 - Reference: `skills/calendar/SKILL.md`
+
+### Canvas
+- Location: `skills/canvas/`
+- Use for: reading Canvas LMS course content — assignments, pages, discussions, upcoming due dates
+- Reference: `skills/canvas/SKILL.md`

@@ -163,4 +163,70 @@ Claude Code is doing its job well if:
 
 ---
 
+## Kalshi Weather Trading — What Works
+
+The `skills/kalshi/` skill is **live and trading real money**. The Kalshi account is funded, credentials are configured, and the first trade has been placed.
+
+### Verified Working (82 unit tests + 7-phase integration test)
+
+**Config & data consistency** (`config.js`, `config.test.js` — 20 tests)
+- 9 US cities with matching CITY_SERIES tickers and NOAA gridpoints
+- All limits validated (maxTradeSize=500¢, maxDailySpend=5000¢, minEdge=20pp)
+
+**API clients** (`client.js`, `client.test.js` — 15 tests)
+- Kalshi public API: fetches events by ticker, returns structured data
+- Kalshi authenticated API: RSA-PSS signing with API key + private PEM
+- NOAA API: fetches forecast gridpoint data for all 9 cities
+- Event ticker builder: `KXHIGHNY-26FEB12` format for any city/date
+
+**Forecasting** (`forecast.js`, `forecast.test.js` — 10 tests)
+- `getForecast(city)` — single city NOAA forecast (today + tomorrow high temps in °F)
+- `getAllForecasts()` — all 9 cities in parallel
+- `temperatureBucketConfidence()` — normal distribution model (configurable sigma) for bucket probability
+
+**Market scanning** (`markets.js`, `markets.test.js` — 8 tests)
+- `getCityWeatherEvent(city, date)` — fetches a single event with all markets, parses buckets (≤X, X-Y, ≥X), validates bid/ask ordering
+- `scanWeatherMarkets()` — scans all 9 cities × today/tomorrow, returns deduplicated events with normalized prices in cents
+
+**Opportunity detection** (`analyze.js`, `analyze.test.js` — 7 tests)
+- `findOpportunities({ minEdge })` — full pipeline: forecasts → markets → compare → sorted by edge descending
+- Each opportunity includes: ticker, city, bucket, forecastTemp, forecastConfidence, marketPrice, edge, suggestedAmount, suggestedYesPrice
+
+**Budget enforcement** (`budget.js`, `budget.test.js` — 10 tests)
+- Daily spend tracking persisted to `~/.kalshi-spend.json`, auto-resets each day
+- `canAffordTrade(amount)` checks both per-trade and daily limits
+- Accumulation across multiple trades works correctly
+
+**Trade execution** (`trade.js`, `integration.test.js` — 19 tests)
+- Input validation: rejects missing ticker, invalid side, zero amount, out-of-range price, over-budget
+- `executeTrade()` — places limit orders on Kalshi via authenticated API, tracks spend
+- `getBalance()` — fetches account balance in cents
+- `getPositions()` — lists open positions with ticker, count, P&L
+- `getPerformance()` — budget + balance summary
+- Integration test places real trades (1 contract at cheapest price), verifies position appears, reconciles balance within ±5¢
+
+### Test Commands
+
+```bash
+# Unit tests (no credentials needed, hits live NOAA + Kalshi public APIs)
+node --test skills/kalshi/tests/config.test.js skills/kalshi/tests/budget.test.js skills/kalshi/tests/forecast.test.js skills/kalshi/tests/client.test.js skills/kalshi/tests/analyze.test.js skills/kalshi/tests/markets.test.js
+
+# Integration tests (needs .env with KALSHI_API_KEY_ID + private key, spends real money ≤$1)
+node --test skills/kalshi/tests/integration.test.js
+
+# Manual end-to-end pipeline (no trades, just scan + detect)
+node scripts/test-kalshi.js
+```
+
+### Trading Agents (`.claude/agents/`)
+
+Five specialized agents for different trading strategies:
+- `kalshi-researcher` — weather model monitoring, forecast accuracy tracking
+- `kalshi-experimenter` — controlled parameter optimization (sigma, edge, Kelly fraction)
+- `kalshi-market-maker` — Avellaneda-Stoikov two-sided quoting
+- `kalshi-arbitrage` — bucket overround, cross-city correlation, today/tomorrow spread scanning
+- `kalshi-risk-manager` — fractional Kelly sizing, circuit breakers, daily P&L reporting
+
+---
+
 End of instructions.

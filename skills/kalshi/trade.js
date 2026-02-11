@@ -1,6 +1,7 @@
 import { CONFIG } from './config.js';
 import { kalshiAuthFetch, logAction, formatApiError } from './client.js';
 import { canAffordTrade, trackSpend, getRemainingDailyBudget } from './budget.js';
+import { logTrade } from './settlement.js';
 
 /**
  * Validate trade inputs. Returns an error string if invalid, or null if valid.
@@ -34,8 +35,9 @@ function calculateContractCount(amount, yesPrice) {
  * @param {string} params.side - "yes" or "no"
  * @param {number} params.amount - Amount to spend in cents
  * @param {number} [params.yesPrice] - Limit price in cents (1-99). If buying YES, this is your max price.
+ * @param {Object} [params.opportunity] - Optional opportunity context from findOpportunities() for trade logging.
  */
-export async function executeTrade({ ticker, side, amount, yesPrice }) {
+export async function executeTrade({ ticker, side, amount, yesPrice, opportunity }) {
   const inputError = validateTradeInputs({ ticker, side, amount, yesPrice });
   if (inputError) return { success: false, error: inputError };
 
@@ -64,6 +66,9 @@ export async function executeTrade({ ticker, side, amount, yesPrice }) {
       cost: actualCost, status: result.order?.status || 'submitted', timestamp: new Date().toISOString(),
     };
     logAction('trade_executed', trade);
+
+    try { logTrade(opportunity || null, { trade }); } catch { /* non-fatal */ }
+
     return { success: true, trade };
   } catch (error) {
     logAction('trade_error', { ticker, side, amount, error: error.message });

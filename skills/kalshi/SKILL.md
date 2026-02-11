@@ -1,6 +1,11 @@
 ---
 name: kalshi
 description: Automated weather prediction market trading on Kalshi using NOAA forecast data
+user-invocable: true
+requires:
+  env:
+    - KALSHI_API_KEY_ID
+    - KALSHI_PRIVATE_KEY_PATH
 ---
 
 # WeatherTradingSkill (Kalshi)
@@ -13,6 +18,8 @@ Trade weather prediction markets on Kalshi by comparing NOAA forecast data again
 - **Market scanning**: Working (Kalshi public events API, event ticker lookup)
 - **Opportunity detection**: Working (normal distribution model, σ=3°F)
 - **Trade execution**: Ready (Kalshi REST API with RSA-PSS authentication)
+- **Automated scanning**: Working (cron-driven, 30-min interval, Telegram alerts)
+- **Mode control**: Working (paused / alert-only / alert-then-trade / autonomous)
 
 ## How Kalshi Weather Markets Work
 
@@ -62,15 +69,56 @@ Markets settle based on official weather station data.
 - `getBalance()` — get account balance
 - `getPerformance()` — daily budget + balance summary
 
-## Configuration
+### Scanner (Cron Entry Points)
+
+- `runScan()` — main 30-min cron: reads mode → finds opportunities → formats alert → optionally auto-trades
+- `setMode(mode)` — change trading mode (paused / alert-only / alert-then-trade / autonomous)
+- `getStatus()` — current mode, budget remaining, trade count, Kalshi balance
+- `getUsageAlert()` — OpenClaw LLM usage report (suppressed if no new activity)
+- `getDailySummary()` — end-of-day: trades, settlements, balance, usage stats
+- `getUsageStats()` — raw usage stats: today's cost, tokens in/out, invocation count
+
+## Trading Modes
+
+| Mode | Scans? | Alerts? | Trades? |
+|------|--------|---------|---------|
+| `paused` | No | No | No |
+| `alert-only` | Yes | Yes | No |
+| `alert-then-trade` | Yes | Yes | On confirmation |
+| `autonomous` | Yes | Yes | Auto (up to N per scan) |
+
+## Runtime Configuration
+
+Editable at `skills/kalshi/trading-config.json`:
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `mode` | alert-only | Trading mode (see above) |
+| `maxDailySpend` | 1000¢ ($10) | Daily budget in cents |
+| `minEdge` | 20pp | Minimum edge to trigger alert/trade |
+| `maxTradeSize` | 500¢ ($5) | Max per-trade amount in cents |
+| `scanIntervalMinutes` | 30 | Cron scan interval |
+| `usageAlertIntervalMinutes` | 10 | Usage report interval |
+| `topOpportunitiesToShow` | 5 | Top N opportunities in alerts |
+| `autoTradeMaxPerScan` | 2 | Max auto-trades per scan (autonomous mode) |
+
+## Cron Jobs
+
+| Job | Interval | Function | Telegram |
+|-----|----------|----------|----------|
+| Weather scan | 30 min | `runScan()` | Always |
+| Usage alert | 10 min | `getUsageAlert()` | Only if new activity |
+| Daily summary | 9 PM ET | `getDailySummary()` | Always |
+
+## Static Configuration (config.js defaults)
 
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `cities` | NYC, Chicago, Miami, Austin, LA, Philadelphia, DC, Denver, SF | Cities to monitor |
-| `scanInterval` | 10 min | How often to check for opportunities |
-| `maxTradeSize` | $5 | Maximum per-trade amount |
-| `maxDailySpend` | $50 | Maximum daily trading volume |
-| `minEdge` | 0.20 | Minimum forecast-vs-market edge to trigger trade |
+| `scanIntervalMinutes` | 10 | Base scan interval (overridden by trading-config.json) |
+| `maxTradeSize` | 500¢ | Max per-trade (overridden by trading-config.json) |
+| `maxDailySpend` | 5000¢ | Max daily volume (overridden by trading-config.json) |
+| `minEdge` | 20pp | Min edge (overridden by trading-config.json) |
 
 ## Environment Variables
 

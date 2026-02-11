@@ -29,8 +29,8 @@ importers:
         version: 16.6.1
     optionalDependencies:
       clawdbot:
-        specifier: ^2026.1.24
-        version: 2026.1.24(@types/express@5.0.6)(devtools-protocol@0.0.1574117)
+        specifier: 2026.1.24-3
+        version: 2026.1.24-3(@types/express@5.0.6)(devtools-protocol@0.0.1574117)
 
 packages:
 
@@ -1429,8 +1429,8 @@ packages:
     resolution: {integrity: sha512-Wdy2Igu8OcBpI2pZePZ5oWjPC38tmDVx5WKUXKwlLYkA0ozo85sLsLvkBbBn/sZaSCMFOGZJ14fvW9t5/d7kdA==}
     engines: {node: '>=8'}
 
-  clawdbot@2026.1.24:
-    resolution: {integrity: sha512-foszbNXzk743kQBx2Nfc2KNlStZyBAVAYLQJ+KaONh009r8oB1a74kQ8wTnKX+SDNaQ9MvaE9tOisVUi+H3F+Q==}
+  clawdbot@2026.1.24-3:
+    resolution: {integrity: sha512-zt9BzhWXduq8ZZR4rfzQDurQWAgmijTTyPZCQGrn5ew6wCEwhxxEr2/NHG7IlCwcfRsKymsY4se9KMhoNz0JtQ==}
     engines: {node: '>=22.12.0'}
     hasBin: true
 
@@ -1782,11 +1782,13 @@ packages:
 
   glob@10.5.0:
     resolution: {integrity: sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@11.1.0:
     resolution: {integrity: sha512-vuNwKSaKiqm7g0THUBu2x7ckSs3XJLXE+2ssL7/MfTGPLLcrJQ/4Uq1CjPTtO5cCIiRxqvN6Twy1qOwhL0Xjcw==}
     engines: {node: 20 || >=22}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   google-auth-library@10.5.0:
@@ -2672,7 +2674,7 @@ packages:
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
-    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   tar@7.5.4:
     resolution: {integrity: sha512-AN04xbWGrSTDmVwlI4/GTlIIwMFk/XEv7uL8aa57zuvRy6s4hdBed+lVq2fAZ89XDa7Us3ANXcE3Tvqvja1kTA==}
@@ -4906,7 +4908,7 @@ snapshots:
   ci-info@4.3.1:
     optional: true
 
-  clawdbot@2026.1.24(@types/express@5.0.6)(devtools-protocol@0.0.1574117):
+  clawdbot@2026.1.24-3(@types/express@5.0.6)(devtools-protocol@0.0.1574117):
     dependencies:
       '@agentclientprotocol/sdk': 0.13.1(zod@4.3.6)
       '@aws-sdk/client-bedrock': 3.975.0

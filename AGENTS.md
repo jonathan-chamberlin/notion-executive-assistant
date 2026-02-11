@@ -58,6 +58,13 @@ If a task requires shell writes, inform the user and request they do it manually
 - You must **never delete** databases, pages, or records.
 - **Archiving** requires explicit user confirmation before proceeding.
 
+### Canvas LMS — Read-Only
+
+- You may **read** courses, assignments, pages, discussions, and modules.
+- You may **sync** upcoming assignments to Notion (creating tasks).
+- You must **never submit** assignments, post to discussions, or modify any Canvas data.
+- Canvas is read-only. All submissions happen manually by the user.
+
 ### Email & Calendar — Confirm Before Acting
 
 - Always confirm with the user before:
