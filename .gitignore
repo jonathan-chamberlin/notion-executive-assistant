@@ -48,6 +48,7 @@ temp/
 *.pem
 *.key
 credentials.json
+client_secret*.json
 token.json
 service-account.json
 google-service-account.json

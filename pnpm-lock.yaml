@@ -11,6 +11,9 @@ importers:
       '@notionhq/client':
         specifier: ^5.8.0
         version: 5.8.0
+      '@octokit/rest':
+        specifier: ^22.0.1
+        version: 22.0.1
       google-auth-library:
         specifier: ^9.0.0
         version: 9.15.1
@@ -814,6 +817,12 @@ packages:
     peerDependencies:
       '@octokit/core': '>=6'
 
+  '@octokit/plugin-request-log@6.0.0':
+    resolution: {integrity: sha512-UkOzeEN3W91/eBq9sPZNQ7sUBvYCqYbrrD8gTbBuGtHEuycE4/awMXcYvx6sVYo7LypPhmQwwpUe4Yyu4QZN5Q==}
+    engines: {node: '>= 20'}
+    peerDependencies:
+      '@octokit/core': '>=6'
+
   '@octokit/plugin-rest-endpoint-methods@17.0.0':
     resolution: {integrity: sha512-B5yCyIlOJFPqUUeiD0cnBJwWJO8lkJs5d8+ze9QDP6SvfiXSz1BF+91+0MeI1d2yxgOhU/O+CvtiZ9jSkHhFAw==}
     engines: {node: '>= 20'}
@@ -838,6 +847,10 @@ packages:
 
   '@octokit/request@10.0.7':
     resolution: {integrity: sha512-v93h0i1yu4idj8qFPZwjehoJx4j3Ntn+JhXsdJrG9pYaX6j/XRz2RmasMUHtNgQD39nrv/VwTWSqK0RNXR8upA==}
+    engines: {node: '>= 20'}
+
+  '@octokit/rest@22.0.1':
+    resolution: {integrity: sha512-Jzbhzl3CEexhnivb1iQ0KJ7s5vvjMWcmRtq5aUsKmKDrRW6z3r84ngmiFKFvpZjpiU/9/S6ITPFRpn5s/3uQJw==}
     engines: {node: '>= 20'}
 
   '@octokit/types@16.0.0':
@@ -3950,8 +3963,7 @@ snapshots:
       universal-user-agent: 7.0.3
     optional: true
 
-  '@octokit/auth-token@6.0.0':
-    optional: true
+  '@octokit/auth-token@6.0.0': {}
 
   '@octokit/auth-unauthenticated@7.0.3':
     dependencies:
@@ -3968,20 +3980,17 @@ snapshots:
       '@octokit/types': 16.0.0
       before-after-hook: 4.0.0
       universal-user-agent: 7.0.3
-    optional: true
 
   '@octokit/endpoint@11.0.2':
     dependencies:
       '@octokit/types': 16.0.0
       universal-user-agent: 7.0.3
-    optional: true
 
   '@octokit/graphql@9.0.3':
     dependencies:
       '@octokit/request': 10.0.7
       '@octokit/types': 16.0.0
       universal-user-agent: 7.0.3
-    optional: true
 
   '@octokit/oauth-app@8.0.3':
     dependencies:
@@ -4006,8 +4015,7 @@ snapshots:
       '@octokit/types': 16.0.0
     optional: true
 
-  '@octokit/openapi-types@27.0.0':
-    optional: true
+  '@octokit/openapi-types@27.0.0': {}
 
   '@octokit/openapi-webhooks-types@12.1.0':
     optional: true
@@ -4021,13 +4029,15 @@ snapshots:
     dependencies:
       '@octokit/core': 7.0.6
       '@octokit/types': 16.0.0
-    optional: true
+
+  '@octokit/plugin-request-log@6.0.0(@octokit/core@7.0.6)':
+    dependencies:
+      '@octokit/core': 7.0.6
 
   '@octokit/plugin-rest-endpoint-methods@17.0.0(@octokit/core@7.0.6)':
     dependencies:
       '@octokit/core': 7.0.6
       '@octokit/types': 16.0.0
-    optional: true
 
   '@octokit/plugin-retry@8.0.3(@octokit/core@7.0.6)':
     dependencies:
@@ -4047,7 +4057,6 @@ snapshots:
   '@octokit/request-error@7.1.0':
     dependencies:
       '@octokit/types': 16.0.0
-    optional: true
 
   '@octokit/request@10.0.7':
     dependencies:
@@ -4056,12 +4065,17 @@ snapshots:
       '@octokit/types': 16.0.0
       fast-content-type-parse: 3.0.0
       universal-user-agent: 7.0.3
-    optional: true
+
+  '@octokit/rest@22.0.1':
+    dependencies:
+      '@octokit/core': 7.0.6
+      '@octokit/plugin-paginate-rest': 14.0.0(@octokit/core@7.0.6)
+      '@octokit/plugin-request-log': 6.0.0(@octokit/core@7.0.6)
+      '@octokit/plugin-rest-endpoint-methods': 17.0.0(@octokit/core@7.0.6)
 
   '@octokit/types@16.0.0':
     dependencies:
       '@octokit/openapi-types': 27.0.0
-    optional: true
 
   '@octokit/webhooks-methods@6.0.0':
     optional: true
@@ -4794,8 +4808,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  before-after-hook@4.0.0:
-    optional: true
+  before-after-hook@4.0.0: {}
 
   bignumber.js@9.3.1: {}
 
@@ -5255,8 +5268,7 @@ snapshots:
 
   extend@3.0.2: {}
 
-  fast-content-type-parse@3.0.0:
-    optional: true
+  fast-content-type-parse@3.0.0: {}
 
   fast-deep-equal@3.1.3:
     optional: true
@@ -6721,8 +6733,7 @@ snapshots:
   universal-github-app-jwt@2.2.2:
     optional: true
 
-  universal-user-agent@7.0.3:
-    optional: true
+  universal-user-agent@7.0.3: {}
 
   universalify@2.0.1:
     optional: true
