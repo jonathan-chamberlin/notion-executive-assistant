@@ -1,8 +1,8 @@
-# System Specification — Clawdbot-Based Notion Executive Assistant
+# System Specification — OpenClaw-Based Notion Executive Assistant
 
 ## 1. Vision
 
-Leverage **Clawdbot** as the core agent platform to build a reliable automation assistant that:
+Leverage **OpenClaw** as the core agent platform to build a reliable automation assistant that:
 
 - Receives commands via **Telegram**
 - Executes actions through configurable **skills**
@@ -11,7 +11,7 @@ Leverage **Clawdbot** as the core agent platform to build a reliable automation 
 - Coordinates multi-step workflows
 - Runs continuously and autonomously
 
-Clawdbot *is the agent runtime*. Your custom logic lives in *skills* installed into Clawdbot.
+OpenClaw *is the agent runtime*. Your custom logic lives in *skills* installed into OpenClaw.
 
 ---
 
@@ -20,7 +20,7 @@ Clawdbot *is the agent runtime*. Your custom logic lives in *skills* installed i
 The system consists of:
 
 Telegram (user)
-→ Clawdbot Gateway
+→ OpenClaw Gateway
 → Messaging surface
 → Session and memory layer
 → Skill registry
@@ -34,15 +34,15 @@ Copy code
 
 Key notes:
 
-- Clawdbot handles messaging, sessions, persistence, and orchestration of skills.:contentReference[oaicite:1]{index=1}  
+- OpenClaw handles messaging, sessions, persistence, and orchestration of skills.:contentReference[oaicite:1]{index=1}  
 - Your repository defines the **skills** required for your business logic.
-- Notion remains the authoritative task list and must be implemented as a Clawdbot skill.
+- Notion remains the authoritative task list and must be implemented as a OpenClaw skill.
 
 ---
 
-## 3. Clawdbot Role
+## 3. OpenClaw Role
 
-Clawdbot (Node.js platform, MIT-licensed) provides:
+OpenClaw (Node.js platform, MIT-licensed) provides:
 
 **Core capabilities**
 - Multi-channel messaging (Telegram, WhatsApp, Discord, etc.):contentReference[oaicite:2]{index=2}
@@ -53,13 +53,13 @@ Clawdbot (Node.js platform, MIT-licensed) provides:
 **AI model support**
 - Plug in models like Claude, OpenAI GPT, or local models such as via Ollama.:contentReference[oaicite:3]{index=3}
 
-Clawdbot **does not** automatically perform your application logic — it provides the framework for *skills* to do that.
+OpenClaw **does not** automatically perform your application logic — it provides the framework for *skills* to do that.
 
 ---
 
 ## 4. Skill Architecture (Your Logic)
 
-Clawdbot skills are the units that implement your business automation. Each skill is:
+OpenClaw skills are the units that implement your business automation. Each skill is:
 
 - A directory in the workspace
 - Contains definitions and code
@@ -69,12 +69,12 @@ Clawdbot skills are the units that implement your business automation. Each skil
 
 1. **NotionSkill**
    - Query, create, update tasks in your Notion workspace
-   - Translate between Clawdbot session and Notion schema  
+   - Translate between OpenClaw session and Notion schema  
    - Handle task properties, status, due dates, assignments, etc.
 
 2. **EmailSkill**
    - Interface with your SMTP/http email provider (e.g., Gmail API)
-   - Send templated emails based on Clawdbot suggestions
+   - Send templated emails based on OpenClaw suggestions
 
 3. **CalendarSkill**
    - Manage calendar events (Google Calendar or similar)
@@ -82,19 +82,19 @@ Clawdbot skills are the units that implement your business automation. Each skil
 
 Each skill must:
 
-- Receive structured input from Clawdbot
+- Receive structured input from OpenClaw
 - Validate inputs before execution
-- Return structured, audited results back to Clawdbot
+- Return structured, audited results back to OpenClaw
 - Avoid side effects without confirmation rules
 
 ---
 
 ## 5. Execution Model
 
-Clawdbot drives execution through skills:
+OpenClaw drives execution through skills:
 
 1. User issues a command via Telegram.
-2. Clawdbot’s session parses and contextualizes the message.
+2. OpenClaw’s session parses and contextualizes the message.
 3. The appropriate skill(s) handle actions:
    - Query Notion
    - Create/modify tasks
@@ -123,13 +123,13 @@ Skills must:
 - Use Notion API patterns, not free-form LLM writes
 - Validate against expected schema
 
-Clawdbot will *invoke* the skill; your code ensures consistency.
+OpenClaw will *invoke* the skill; your code ensures consistency.
 
 ---
 
 ## 7. Messaging Handling
 
-Clawdbot’s gateway accepts Telegram and other channels:
+OpenClaw’s gateway accepts Telegram and other channels:
 
 - Pair channels securely (whitelist allowed senders).:contentReference[oaicite:5]{index=5}
 - Commands are streamed to the agent
@@ -141,7 +141,7 @@ Security defaults require explicit pairing for private DMs; ensure secure config
 
 ## 8. Persistent Memory
 
-Clawdbot persists state and context across sessions:
+OpenClaw persists state and context across sessions:
 
 - Conversations and memory stored as markdown
 - Skills may use that memory when appropriate
@@ -153,18 +153,18 @@ Your skills should use session memory to store minimal context; Notion remains a
 
 ## 9. Model Configuration
 
-Clawdbot supports multiple model backends:
+OpenClaw supports multiple model backends:
 
 - You may configure it to use **Claude** as the primary reasoning model.
 - You may also use **GPT-5.2 Instant** as a supplementary model (e.g., prompt writing) if desired, configured through skills or custom hooks.
 
-Clawdbot allows model switching in config.
+OpenClaw allows model switching in config.
 
 ---
 
 ## 10. Security and Safety
 
-Clawdbot runs with powerful local execution capabilities (shell, browser automation, etc.):contentReference[oaicite:7]{index=7}
+OpenClaw runs with powerful local execution capabilities (shell, browser automation, etc.):contentReference[oaicite:7]{index=7}
 
 For safety:
 
@@ -180,7 +180,7 @@ Deploy with configuration that limits unintended side effects.
 
 For stable uptime:
 
-- Deploy Clawdbot on a VPS or dedicated server (Ubuntu, Docker container)
+- Deploy OpenClaw on a VPS or dedicated server (Ubuntu, Docker container)
 - Ensure it runs continuously and restarts on failure
 - Store workspace as version-controlled git repo
 
@@ -190,7 +190,7 @@ Skills live in `<workspace>/skills` with higher precedence than bundled defaults
 
 ## 12. Development Workflow
 
-1. Set up Clawdbot locally (Node ≥22).:contentReference[oaicite:9]{index=9}
+1. Set up OpenClaw locally (Node ≥22).:contentReference[oaicite:9]{index=9}
 2. Create skill directories under `skills/`
 3. Define your `SKILL.md` and code
 4. Connect Telegram channel
@@ -205,14 +205,14 @@ System is successful when:
 
 - Telegram commands modify Notion tasks via NotionSkill
 - Skills send emails and calendar updates
-- Clawdbot provides clear success/failure feedback
+- OpenClaw provides clear success/failure feedback
 - Task state remains consistent and auditable
 
 ---
 
 ## Notes
 
-- Clawdbot provides the *agent and execution platform*; your repository delivers *business logic via skills*.
-- Do **not** rebuild Clawdbot’s gateway or session infrastructure yourself — use it as the foundation.
+- OpenClaw provides the *agent and execution platform*; your repository delivers *business logic via skills*.
+- Do **not** rebuild OpenClaw’s gateway or session infrastructure yourself — use it as the foundation.
 
 ---

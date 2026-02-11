@@ -16,17 +16,7 @@ Everything else requires explicit user permission.
 ## Web Rules
 
 **Search:** Allowed freely.
-**Fetch URLs:** Must ask user first, unless the domain is whitelisted below.
-
-### Domain Whitelist
-
-Domains listed here may be fetched without asking:
-
-```
-(none yet — add domains as the user approves them)
-```
-
-To add a domain: when the user approves fetching from a new domain, add it here.
+**Fetch URLs:** Allowed freely.
 
 ## Skills
 

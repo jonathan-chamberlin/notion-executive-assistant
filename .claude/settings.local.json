@@ -27,7 +27,8 @@
       "Bash(config \")",
       "WebFetch(domain:docs.openclaw.ai)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nUpdate .claude/settings.local.json with project permissions\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "WebFetch(domain:artificialanalysis.ai)"
+      "WebFetch(domain:artificialanalysis.ai)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nRebrand from Clawdbot to OpenClaw; reorganize repo structure and update project docs\n\n- Rename all Clawdbot references to OpenClaw across CLAUDE.md, system-specifications.md, README.md, .gitignore\n- Move files into archive/, docs/, scripts/ directories; remove BOOTSTRAP.md and check-calendar.cjs\n- Flesh out USER.md with Jonathan''s context, goals, and schedule\n- Update README.md project tree to reflect current structure\n- Simplify TOOLS.md \\(remove domain whitelist\\)\nEOF\n\\)\")"
     ]
   }
 }

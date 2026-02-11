@@ -1,15 +1,15 @@
-# Claude Code Instructions — Clawdbot-Based Executive Assistant
+# Claude Code Instructions — OpenClaw Executive Assistant
 
 ## Purpose of This File
 
 This file defines **how Claude Code should behave while building the system**, not how the executive assistant behaves at runtime.
 
 Claude Code must treat this repository as:
-- A **Clawdbot workspace**
+- A **OpenClaw workspace**
 - Focused on **skills development**, configuration, and integration
 - Governed by the system design defined in:
 
-C:\Repositories for Git\notion-executive-assistant-folder\system_specifications.md
+docs/system-specifications.md
 
 Claude must follow that specification as the source of truth.
 
@@ -19,7 +19,7 @@ use pnpm install instead of npm install
 
 ## Core Development Philosophy
 
-- **Clawdbot is the agent runtime**
+- **OpenClaw is the agent runtime**
 - **Skills are the only place where custom logic lives**
 - Do **not** re-implement messaging, orchestration, or session handling
 - Prefer **explicit, deterministic code** over clever abstractions
@@ -37,18 +37,18 @@ Claude Code should optimize for:
 
 Claude Code may:
 
-- Create and modify **Clawdbot skills**
+- Create and modify **OpenClaw skills**
 - Write `SKILL.md` files for each skill
 - Implement API integrations (Notion, email, calendar)
 - Add validation, schemas, and structured outputs
 - Improve error handling and logging
 - Refactor for clarity and safety
-- Adjust configuration files required by Clawdbot
+- Adjust configuration files required by OpenClaw
 
 Claude Code must assume:
-- Clawdbot handles sessions, memory, and messaging
+- OpenClaw handles sessions, memory, and messaging
 - Telegram is already connected at the platform level
-- LLM configuration is handled via Clawdbot settings
+- LLM configuration is handled via OpenClaw settings
 
 ---
 
@@ -59,7 +59,7 @@ Claude Code must NOT:
 - Rebuild an agent framework
 - Create a custom task router or planner
 - Implement its own memory system
-- Bypass Clawdbot’s skill execution model
+- Bypass OpenClaw’s skill execution model
 - Embed large prompt logic directly into application code
 - Hardcode secrets, tokens, or credentials
 
@@ -128,7 +128,7 @@ Prefer correctness over brevity.
 Before making changes, Claude Code should:
 
 1. Identify which part of the system specification applies
-2. Confirm the change does not violate Clawdbot’s architecture
+2. Confirm the change does not violate OpenClaw’s architecture
 3. Make the smallest change that solves the problem
 4. Avoid speculative or premature features
 
@@ -145,9 +145,9 @@ Claude Code may assume:
 - The repository is version-controlled via Git
 - Deployment happens outside this repo
 - Secrets are injected via environment variables
-- The developer understands Clawdbot basics
+- The developer understands OpenClaw basics
 
-Claude Code should **not** explain Clawdbot concepts unless directly relevant to a code decision.
+Claude Code should **not** explain OpenClaw concepts unless directly relevant to a code decision.
 
 ---
 

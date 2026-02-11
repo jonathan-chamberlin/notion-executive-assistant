@@ -1,11 +1,11 @@
 # Notion Executive Assistant
 
-A personal executive assistant powered by [Clawdbot](https://github.com/clawdbot/clawdbot) with Notion, Email, and Google Calendar integration.
+A personal executive assistant powered by [OpenClaw](https://github.com/openclaw/openclaw) with Notion, Email, and Google Calendar integration.
 
 ## Architecture
 
 ```
-Telegram → Clawdbot Gateway → Skills → External APIs
+Telegram → OpenClaw Gateway → Skills → External APIs
               │                  │
               ├─ Sessions        ├─ NotionSkill  → Notion API
               ├─ Memory          ├─ EmailSkill   → SMTP
@@ -39,14 +39,14 @@ cp .env.example .env
 
 Edit `.env` with your credentials (see [Configuration](#configuration) below).
 
-### 3. Run Clawdbot Onboarding
+### 3. Run OpenClaw Onboarding
 
 ```powershell
 npm run onboard
 ```
 
 This wizard will:
-- Set up the Clawdbot workspace at `~/clawd`
+- Set up the OpenClaw workspace at `~/.openclaw`
 - Configure your Telegram bot connection
 - Register the skills in `./skills/`
 - Set up Claude as the AI model
@@ -209,20 +209,44 @@ notion-executive-assistant/
 ├── .claude/
 │   ├── CLAUDE.md              # Development instructions
 │   └── settings.local.json    # Claude Code permissions
+├── archive/
+│   ├── plan.md                # Original project plan
+│   └── README.md              # Original README
+├── docs/
+│   └── system-specifications.md  # System design spec
+├── memory/
+│   └── heartbeat-state.json   # Heartbeat tracking
+├── scripts/
+│   ├── check-calendar.js      # Calendar check utility
+│   ├── test-calendar.js       # Calendar test script
+│   ├── test-calendar-direct.js
+│   ├── test-connections.js    # Connection test script
+│   ├── test-email.js          # Email test script
+│   └── test-notion.js         # Notion test script
 ├── skills/
 │   ├── notion/
 │   │   ├── SKILL.md           # Skill definition
-│   │   └── index.js           # Implementation
+│   │   ├── index.js           # Entry point
+│   │   ├── client.js          # Notion API client
+│   │   ├── query.js           # Query operations
+│   │   ├── create.js          # Create operations
+│   │   ├── update.js          # Update operations
+│   │   └── search.js          # Search operations
 │   ├── email/
 │   │   ├── SKILL.md
 │   │   └── index.js
 │   └── calendar/
 │       ├── SKILL.md
 │       └── index.js
-├── scripts/
-│   ├── test-notion.js         # Notion test script
-│   ├── test-email.js          # Email test script
-│   └── test-calendar.js       # Calendar test script
+│
+│── AGENTS.md                  # Operating rules & permissions
+│── BOOT.md                    # Startup checklist
+│── HEARTBEAT.md               # Periodic check config
+│── IDENTITY.md                # Bot identity
+│── SOUL.md                    # Bot personality
+│── TOOLS.md                   # Tool rules & domain whitelist
+│── USER.md                    # User context
+│
 ├── .env.example               # Environment template
 ├── .gitignore                 # Git ignore rules
 ├── package.json               # Dependencies

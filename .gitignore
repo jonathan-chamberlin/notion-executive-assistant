@@ -6,7 +6,8 @@ node_modules/
 .env.local
 .env.*.local
 
-# Clawdbot local config (may contain tokens)
+# OpenClaw local config (may contain tokens)
+.openclaw/
 .clawdbot/
 clawd/
 
