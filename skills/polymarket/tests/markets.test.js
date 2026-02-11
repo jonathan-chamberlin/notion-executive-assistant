@@ -16,8 +16,8 @@ function assertMarketShape(market, label) {
   assert.strictEqual(typeof market.question, 'string', `${label}: question should be a string`);
 
   assert.strictEqual(typeof market.yesPrice, 'number', `${label}: yesPrice should be a number`);
-  assert.ok(market.yesPrice >= 0 && market.yesPrice <= 1,
-    `${label}: yesPrice must be between 0 and 1, got ${market.yesPrice}`);
+  assert.ok(market.yesPrice >= 0 && market.yesPrice <= 100,
+    `${label}: yesPrice must be between 0 and 100 (cents), got ${market.yesPrice}`);
 
   // bucket is object or null
   if (market.bucket !== null) {
@@ -98,7 +98,7 @@ describe('getCityWeatherEvent', () => {
 
   // ── 4. Market price sanity ──────────────────────────────────────────────
 
-  it('all market prices are valid decimal probabilities', { timeout: 30000 }, async () => {
+  it('all market prices are valid cent values (0-99)', { timeout: 30000 }, async () => {
     const result = await getCityWeatherEvent('NYC', 'today');
 
     if (!result.success || !result.event?.markets?.length) {
@@ -107,8 +107,8 @@ describe('getCityWeatherEvent', () => {
     }
 
     for (const market of result.event.markets) {
-      assert.ok(market.yesPrice >= 0 && market.yesPrice <= 1,
-        `yesPrice must be between 0 and 1, got ${market.yesPrice} for ${market.ticker}`);
+      assert.ok(market.yesPrice >= 0 && market.yesPrice <= 100,
+        `yesPrice must be between 0 and 100 (cents), got ${market.yesPrice} for ${market.ticker}`);
 
       // yesBid <= yesAsk when both are non-zero
       if (market.yesBid > 0 && market.yesAsk > 0) {

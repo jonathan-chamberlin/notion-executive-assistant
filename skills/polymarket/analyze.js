@@ -16,8 +16,9 @@ function scoreMarket(market, forecastTemp, event, edge) {
     market.bucket.high
   );
 
-  const yesEdge = confidence - market.yesPrice;
-  if (yesEdge < edge) return null;
+  const confidencePct = Math.round(confidence * 100); // 0-1 → 0-100
+  const yesEdge = confidencePct - market.yesPrice; // both in same scale (cents = percentage points)
+  if (yesEdge < edge) return null; // edge is 20 (percentage points)
 
   return {
     eventTitle: event.title,
@@ -26,12 +27,12 @@ function scoreMarket(market, forecastTemp, event, edge) {
     city: event.city,
     bucket: market.bucket,
     forecastTemp,
-    forecastConfidence: Math.round(confidence * 100),
-    marketPrice: Math.round(market.yesPrice * 100),
-    edge: Math.round(yesEdge * 100),
+    forecastConfidence: confidencePct,
+    marketPrice: market.yesPrice, // already cents
+    edge: yesEdge,
     side: 'yes',
-    suggestedAmount: Math.min(CONFIG.maxTradeSize, 5.00),
-    suggestedYesPrice: Math.round(market.yesPrice * 100) + 1,
+    suggestedAmount: CONFIG.maxTradeSize, // already cents (500)
+    suggestedYesPrice: market.yesPrice + 1, // already cents, add 1 cent
   };
 }
 

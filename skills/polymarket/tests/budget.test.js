@@ -56,7 +56,7 @@ function resetSpendFile() {
 describe('getRemainingDailyBudget', () => {
   before(() => resetSpendFile());
 
-  it('returns maxDailySpend (50) when no spend has occurred today', () => {
+  it('returns maxDailySpend (5000¢) when no spend has occurred today', () => {
     const remaining = getRemainingDailyBudget();
     assert.equal(remaining, CONFIG.maxDailySpend);
   });
@@ -65,11 +65,11 @@ describe('getRemainingDailyBudget', () => {
 describe('trackSpend + getRemainingDailyBudget', () => {
   before(() => resetSpendFile());
 
-  it('after tracking $5, remaining drops by $5', () => {
+  it('after tracking 500¢, remaining drops by 500¢', () => {
     const before = getRemainingDailyBudget();
-    trackSpend(5);
+    trackSpend(500);
     const afterSpend = getRemainingDailyBudget();
-    assert.equal(afterSpend, before - 5);
+    assert.equal(afterSpend, before - 500);
   });
 });
 
@@ -77,7 +77,7 @@ describe('canAffordTrade', () => {
   before(() => resetSpendFile());
 
   it('returns true for an amount within both maxTradeSize and remaining budget', () => {
-    assert.equal(canAffordTrade(3), true);
+    assert.equal(canAffordTrade(300), true);
   });
 
   it('returns false for an amount exceeding maxTradeSize', () => {
@@ -87,9 +87,9 @@ describe('canAffordTrade', () => {
   it('returns false for an amount exceeding remaining budget', () => {
     // Spend almost the entire budget so the remaining is very small.
     resetSpendFile();
-    trackSpend(CONFIG.maxDailySpend - 1);
-    // Now remaining is $1, requesting $3 should exceed it.
-    assert.equal(canAffordTrade(3), false);
+    trackSpend(CONFIG.maxDailySpend - 100);
+    // Now remaining is 100¢, requesting 300¢ should exceed it.
+    assert.equal(canAffordTrade(300), false);
   });
 });
 
@@ -97,13 +97,13 @@ describe('Persistence', () => {
   before(() => resetSpendFile());
 
   it('after trackSpend the spend file contains { dailySpend, date } with today\'s date', () => {
-    trackSpend(7);
+    trackSpend(700);
     const raw = fs.readFileSync(SPEND_FILE, 'utf-8');
     const data = JSON.parse(raw);
     const today = new Date().toISOString().split('T')[0];
 
     assert.equal(typeof data.dailySpend, 'number');
-    assert.equal(data.dailySpend, 7);
+    assert.equal(data.dailySpend, 700);
     assert.equal(data.date, today);
   });
 });
@@ -111,25 +111,25 @@ describe('Persistence', () => {
 describe('Multiple spends accumulate', () => {
   before(() => resetSpendFile());
 
-  it('tracking $2 then $3 reduces remaining by $5 total', () => {
+  it('tracking 200¢ then 300¢ reduces remaining by 500¢ total', () => {
     const startRemaining = getRemainingDailyBudget();
-    trackSpend(2);
-    trackSpend(3);
+    trackSpend(200);
+    trackSpend(300);
     const endRemaining = getRemainingDailyBudget();
-    assert.equal(endRemaining, startRemaining - 5);
+    assert.equal(endRemaining, startRemaining - 500);
   });
 });
 
 describe('canAffordTrade edge cases', () => {
   before(() => resetSpendFile());
 
-  it('amount exactly equal to maxTradeSize (5) returns true when budget allows', () => {
+  it('amount exactly equal to maxTradeSize (500¢) returns true when budget allows', () => {
     assert.equal(canAffordTrade(CONFIG.maxTradeSize), true);
   });
 
   it('amount of 0 returns true (canAffordTrade does not reject zero)', () => {
     // canAffordTrade only checks amount > maxTradeSize and amount > remaining.
-    // 0 > 5 is false, and 0 > remaining is false, so it returns true.
+    // 0 > 500 is false, and 0 > remaining is false, so it returns true.
     assert.equal(canAffordTrade(0), true);
   });
 

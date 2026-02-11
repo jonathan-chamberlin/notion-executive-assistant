@@ -76,9 +76,9 @@ describe('CONFIG limits', () => {
     );
   });
 
-  it('minEdge is between 0 and 1 (exclusive)', () => {
+  it('minEdge is between 0 and 100 (exclusive)', () => {
     assert.ok(CONFIG.minEdge > 0, `minEdge must be > 0, got ${CONFIG.minEdge}`);
-    assert.ok(CONFIG.minEdge < 1, `minEdge must be < 1, got ${CONFIG.minEdge}`);
+    assert.ok(CONFIG.minEdge < 100, `minEdge must be < 100, got ${CONFIG.minEdge}`);
   });
 });
 

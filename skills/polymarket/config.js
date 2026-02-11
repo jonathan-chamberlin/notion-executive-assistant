@@ -4,9 +4,9 @@ export const CONFIG = {
   // Kalshi weather market cities (all US, all use NOAA)
   cities: ['NYC', 'Chicago', 'Miami', 'Austin', 'LA', 'Philadelphia', 'DC', 'Denver', 'SF'],
   scanIntervalMinutes: 10,
-  maxTradeSize: 5.00,    // $ per trade
-  maxDailySpend: 50.00,  // $ per day
-  minEdge: 0.20,         // forecast confidence must exceed market price by this much
+  maxTradeSize: 500,     // cents per trade
+  maxDailySpend: 5000,   // cents per day
+  minEdge: 20,           // percentage points (forecast confidence must exceed market price by this much)
 };
 
 // Kalshi series tickers for weather markets

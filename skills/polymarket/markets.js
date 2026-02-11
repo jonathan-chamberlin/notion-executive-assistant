@@ -17,15 +17,16 @@ function resolveDate(date) {
 
 /**
  * Map a raw Kalshi market object to a normalized shape.
+ * All prices are in cents (1-99) to match Kalshi API units.
  */
 function mapMarket(m) {
   return {
     ticker: m.ticker,
     question: m.title || m.subtitle,
-    yesPrice: (m.yes_bid != null ? (m.yes_bid + (m.yes_ask || m.yes_bid)) / 2 : m.last_price || 0) / 100,
-    yesBid: (m.yes_bid || 0) / 100,
-    yesAsk: (m.yes_ask || 0) / 100,
-    lastPrice: (m.last_price || 0) / 100,
+    yesPrice: m.yes_bid != null ? Math.round((m.yes_bid + (m.yes_ask || m.yes_bid)) / 2) : m.last_price || 0,
+    yesBid: m.yes_bid || 0,
+    yesAsk: m.yes_ask || 0,
+    lastPrice: m.last_price || 0,
     volume: m.volume || 0,
     openInterest: m.open_interest || 0,
     bucket: parseBucket(m),

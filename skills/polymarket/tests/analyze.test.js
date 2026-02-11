@@ -86,14 +86,14 @@ describe('findOpportunities — sorted by edge descending', () => {
 
 // ── 4. Edge threshold ────────────────────────────────────────────────────────
 
-describe('findOpportunities — edge threshold (default minEdge = 0.20)', () => {
+describe('findOpportunities — edge threshold (default minEdge = 20)', () => {
   it('all opportunities have edge >= 20', async () => {
     const { opportunities } = await findOpportunities();
 
     for (const opp of opportunities) {
       assert.ok(
         opp.edge >= 20,
-        `opportunity edge should be >= 20 (default minEdge 0.20 => 20%), got ${opp.edge} for "${opp.market}"`,
+        `opportunity edge should be >= 20 (default minEdge 20 pp), got ${opp.edge} for "${opp.market}"`,
       );
     }
   }, { timeout: TIMEOUT });
@@ -102,21 +102,21 @@ describe('findOpportunities — edge threshold (default minEdge = 0.20)', () => 
 // ── 5. Custom minEdge ────────────────────────────────────────────────────────
 
 describe('findOpportunities — custom minEdge', () => {
-  it('minEdge: 0.50 returns fewer or equal opportunities, all with edge >= 50', async () => {
+  it('minEdge: 50 returns fewer or equal opportunities, all with edge >= 50', async () => {
     const [defaultResult, strictResult] = await Promise.all([
       findOpportunities(),
-      findOpportunities({ minEdge: 0.50 }),
+      findOpportunities({ minEdge: 50 }),
     ]);
 
     assert.ok(
       strictResult.opportunities.length <= defaultResult.opportunities.length,
-      `minEdge 0.50 should return <= opportunities than default (got ${strictResult.opportunities.length} vs ${defaultResult.opportunities.length})`,
+      `minEdge 50 should return <= opportunities than default (got ${strictResult.opportunities.length} vs ${defaultResult.opportunities.length})`,
     );
 
     for (const opp of strictResult.opportunities) {
       assert.ok(
         opp.edge >= 50,
-        `with minEdge 0.50, edge should be >= 50, got ${opp.edge} for "${opp.market}"`,
+        `with minEdge 50, edge should be >= 50, got ${opp.edge} for "${opp.market}"`,
       );
     }
   }, { timeout: TIMEOUT });
@@ -125,16 +125,16 @@ describe('findOpportunities — custom minEdge', () => {
 // ── 6. Very high minEdge ─────────────────────────────────────────────────────
 
 describe('findOpportunities — very high minEdge', () => {
-  it('minEdge: 0.99 should likely return 0 opportunities', async () => {
-    const result = await findOpportunities({ minEdge: 0.99 });
+  it('minEdge: 99 should likely return 0 opportunities', async () => {
+    const result = await findOpportunities({ minEdge: 99 });
 
     assert.strictEqual(result.success, true, 'result.success should be true');
     assert.ok(Array.isArray(result.opportunities), 'opportunities should be an array');
-    // A 99% edge is nearly impossible, so we expect 0 — but don't hard-fail
+    // A 99 pp edge is nearly impossible, so we expect 0 — but don't hard-fail
     // if some truly extreme mispricing exists.
     assert.ok(
       result.opportunities.length <= 1,
-      `minEdge 0.99 should return 0 (or at most 1 extreme outlier) opportunities, got ${result.opportunities.length}`,
+      `minEdge 99 should return 0 (or at most 1 extreme outlier) opportunities, got ${result.opportunities.length}`,
     );
   }, { timeout: TIMEOUT });
 });

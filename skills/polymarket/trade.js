@@ -14,13 +14,13 @@ function validateTradeInputs({ ticker, side, amount, yesPrice }) {
 }
 
 /**
- * Calculate contract count from dollar amount and price.
+ * Calculate contract count from cent amount and price.
  * Returns { count } or { error }.
  */
 function calculateContractCount(amount, yesPrice) {
-  const count = Math.floor((amount * 100) / yesPrice);
+  const count = Math.floor(amount / yesPrice);
   if (count < 1) {
-    return { error: `Amount $${amount} too small for price ${yesPrice}¢ (need at least $${(yesPrice / 100).toFixed(2)})` };
+    return { error: `Amount ${amount}¢ too small for price ${yesPrice}¢ (need at least ${yesPrice}¢)` };
   }
   return { count };
 }
@@ -32,7 +32,7 @@ function calculateContractCount(amount, yesPrice) {
  * @param {Object} params
  * @param {string} params.ticker - Market ticker (e.g., "KXHIGHNY-26FEB12-B36.5")
  * @param {string} params.side - "yes" or "no"
- * @param {number} params.amount - Dollar amount to spend
+ * @param {number} params.amount - Amount to spend in cents
  * @param {number} [params.yesPrice] - Limit price in cents (1-99). If buying YES, this is your max price.
  */
 export async function executeTrade({ ticker, side, amount, yesPrice }) {
@@ -40,11 +40,11 @@ export async function executeTrade({ ticker, side, amount, yesPrice }) {
   if (inputError) return { success: false, error: inputError };
 
   if (amount > CONFIG.maxTradeSize) {
-    return { success: false, error: `Trade amount $${amount} exceeds max trade size $${CONFIG.maxTradeSize}` };
+    return { success: false, error: `Trade amount ${amount}¢ exceeds max trade size ${CONFIG.maxTradeSize}¢` };
   }
   if (!canAffordTrade(amount)) {
     const remaining = getRemainingDailyBudget();
-    return { success: false, error: `Daily budget exceeded. Remaining: $${remaining.toFixed(2)}` };
+    return { success: false, error: `Daily budget exceeded. Remaining: ${remaining}¢` };
   }
 
   const { count, error: countError } = calculateContractCount(amount, yesPrice);
@@ -56,7 +56,7 @@ export async function executeTrade({ ticker, side, amount, yesPrice }) {
 
     const result = await kalshiAuthFetch('POST', '/portfolio/orders', order);
 
-    const actualCost = (result.order?.yes_price || yesPrice) * count / 100;
+    const actualCost = (result.order?.yes_price || yesPrice) * count;
     trackSpend(actualCost);
 
     const trade = {
@@ -107,8 +107,8 @@ export async function getBalance() {
     return {
       success: true,
       balance: {
-        available: (data.balance || 0) / 100,        // cents to dollars
-        payout: (data.payout || 0) / 100,
+        available: data.balance || 0,   // cents
+        payout: data.payout || 0,       // cents
       },
     };
 
@@ -127,7 +127,7 @@ export async function getPerformance() {
   return {
     success: true,
     performance: {
-      dailyBudgetRemaining: getRemainingDailyBudget().toFixed(2),
+      dailyBudgetRemaining: getRemainingDailyBudget(),
       maxTradeSize: CONFIG.maxTradeSize,
       maxDailySpend: CONFIG.maxDailySpend,
       kalshiBalance: balanceResult?.success ? balanceResult.balance : 'Unable to fetch (check credentials)',

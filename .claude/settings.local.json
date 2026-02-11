@@ -37,7 +37,8 @@
       "Bash(find:*)",
       "mcp__ide__getDiagnostics",
       "Bash(node --test:*)",
-      "Bash(node --check:*)"
+      "Bash(node --check:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
