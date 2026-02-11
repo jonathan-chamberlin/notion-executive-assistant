@@ -30,7 +30,14 @@
       "WebFetch(domain:artificialanalysis.ai)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nRebrand from Clawdbot to OpenClaw; reorganize repo structure and update project docs\n\n- Rename all Clawdbot references to OpenClaw across CLAUDE.md, system-specifications.md, README.md, .gitignore\n- Move files into archive/, docs/, scripts/ directories; remove BOOTSTRAP.md and check-calendar.cjs\n- Flesh out USER.md with Jonathan''s context, goals, and schedule\n- Update README.md project tree to reflect current structure\n- Simplify TOOLS.md \\(remove domain whitelist\\)\nEOF\n\\)\")",
       "Bash(code:*)",
-      "Bash(pnpm add:*)"
+      "Bash(pnpm add:*)",
+      "Bash(node scripts/test-polymarket.js:*)",
+      "Bash(del \"c:\\\\Repositories for Git\\\\kalshi_event.json\")",
+      "Bash(node scripts/test-kalshi.js:*)",
+      "Bash(find:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(node --test:*)",
+      "Bash(node --check:*)"
     ]
   }
 }

@@ -145,6 +145,7 @@ Claude Code may assume:
 - The repository is version-controlled via Git
 - Deployment happens outside this repo
 - Secrets are injected via environment variables
+- Kalshi API credentials are in `.env` (gitignored) and `kalshi-private-key.pem` (gitignored) at the repo root. Scripts load them via `import 'dotenv/config'`.
 - The developer understands OpenClaw basics
 
 Claude Code should **not** explain OpenClaw concepts unless directly relevant to a code decision.
