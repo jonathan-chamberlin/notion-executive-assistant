@@ -1,6 +1,6 @@
-# Polymarket Trading Bot: Research & Implementation Guide
+# Kalshi Trading Bot: Research & Implementation Guide
 
-> **Goal:** OpenClaw making money on Polymarket by 2/15/2026
+> **Goal:** OpenClaw making money on Kalshi by 2/15/2026
 > **Primary Strategy:** Weather Bot via Simmer SDK + OpenClaw
 > **Repo:** Same repo as executive assistant (split later when working)
 
@@ -361,7 +361,7 @@ openclaw onboard
 - [x] Research Polymarket weather markets (live, 7 cities, slug-based API)
 - [x] Research Kalshi as US-legal alternative
 - [x] Research Simmer SDK (alpha/invite-only)
-- [x] Build `skills/polymarket/` skill — full analysis pipeline
+- [x] Build `skills/kalshi/` skill — full analysis pipeline
 - [x] Verify NOAA + Open-Meteo forecasts for all 7 cities
 - [x] Verify Polymarket Gamma API returns live weather markets with prices
 - [x] End-to-end test: forecasts → market scan → opportunity detection → 8 edges found
@@ -525,7 +525,7 @@ Source: [Simmer SDK GitHub](https://github.com/SpartanLabsXyz/simmer-sdk), [Simm
 
 ## 10. Current Build Status & What's Left
 
-### What's Built (at `skills/polymarket/`)
+### What's Built (at `skills/kalshi/`)
 
 The weather trading skill is built and the full analysis pipeline works end-to-end:
 
@@ -534,7 +534,7 @@ The weather trading skill is built and the full analysis pipeline works end-to-e
 - **`markets.js`** — Scans Polymarket weather markets via Gamma API using slug-based lookups. Parses °F ranges, °C single-degree buckets, negative temps. Normalizes prices (raw YES prices sum >100% across buckets).
 - **`analyze.js`** — Compares forecast confidence vs normalized market prices. Uses normal distribution (σ=3°F) to calculate bucket probabilities. Returns sorted opportunities with edge calculations.
 - **`trade.js`** — **STUB** — has the API structure but needs real CLOB authentication (EIP-712 signing).
-- **`scripts/test-polymarket.js`** — End-to-end test script that runs the full pipeline.
+- **`scripts/test-kalshi.js`** — End-to-end test script that runs the full pipeline.
 
 **Tested and verified (Feb 11, 2026):**
 - All 7 cities' forecasts fetch successfully

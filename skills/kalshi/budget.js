@@ -4,7 +4,7 @@ import { CONFIG } from './config.js';
 
 // --- Daily Spend Persistence ---
 
-const SPEND_FILE = path.join(process.env.HOME || process.env.USERPROFILE || '.', '.polymarket-spend.json');
+const SPEND_FILE = path.join(process.env.HOME || process.env.USERPROFILE || '.', '.kalshi-spend.json');
 
 function loadSpend() {
   const today = new Date().toISOString().split('T')[0];

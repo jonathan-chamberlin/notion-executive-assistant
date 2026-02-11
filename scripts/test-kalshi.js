@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { getAllForecasts, temperatureBucketConfidence } from '../skills/polymarket/forecast.js';
-import { scanWeatherMarkets, getCityWeatherEvent } from '../skills/polymarket/markets.js';
+import { getAllForecasts, temperatureBucketConfidence } from '../skills/kalshi/forecast.js';
+import { scanWeatherMarkets, getCityWeatherEvent } from '../skills/kalshi/markets.js';
 
 function bucketStr(bucket) {
   if (!bucket) return '???';

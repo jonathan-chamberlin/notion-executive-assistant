@@ -1,5 +1,5 @@
 ---
-name: polymarket
+name: kalshi
 description: Automated weather prediction market trading on Kalshi using NOAA forecast data
 ---
 

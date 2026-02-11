@@ -8,7 +8,7 @@ import { CONFIG } from '../config.js';
 
 const SPEND_FILE = path.join(
   process.env.HOME || process.env.USERPROFILE || '.',
-  '.polymarket-spend.json'
+  '.kalshi-spend.json'
 );
 
 // Snapshot the spend file before any tests so we can restore it afterward.
