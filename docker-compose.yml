@@ -9,33 +9,21 @@
 version: '3.8'
 
 services:
+  # OpenClaw gateway (optional — for Telegram command handling)
   assistant:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: notion-assistant
     restart: unless-stopped
-
-    # Load environment from .env file
     env_file:
       - .env
-
-    # Mount credential files (read-only for security)
+    command: ["npx", "clawdbot", "gateway", "--verbose"]
     volumes:
-      # Google OAuth credentials (required for Calendar)
       - ./credentials.json:/app/credentials.json:ro
-      # Google OAuth token (needs write access for token refresh)
       - ./token.json:/app/token.json
-      # Persist logs
       - ./logs:/app/logs
-      # Clawdbot workspace (for memory/session persistence)
       - clawdbot-data:/home/clawdbot/clawd
-
-    # Optional: expose port for local debugging
-    # ports:
-    #   - "18789:18789"
-
-    # Resource limits (adjust based on your VPS)
     deploy:
       resources:
         limits:
@@ -44,14 +32,38 @@ services:
         reservations:
           cpus: '0.25'
           memory: 128M
-
-    # Logging configuration
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
 
-# Named volume for persistent Clawdbot data
+  # Kalshi weather trading bot (autonomous, runs 24/7)
+  kalshi-trader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kalshi-trader
+    restart: unless-stopped
+    env_file:
+      - .env
+    command: ["node", "scripts/kalshi-scheduler.js"]
+    volumes:
+      - kalshi-data:/home/clawdbot
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.1'
+          memory: 64M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
 volumes:
   clawdbot-data:
+  kalshi-data:

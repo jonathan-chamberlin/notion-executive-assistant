@@ -273,3 +273,83 @@ node scripts/kalshi-cron.js scan
 # Cheapest-trade end-to-end test
 node scripts/test-cheapest-trade.js
 ```
+
+## Docker Deployment (Oracle Cloud Free Tier)
+
+The bot runs as a Docker container on Oracle Cloud Always Free ARM Ampere A1 ($0/month forever).
+
+### Architecture
+
+```
+Oracle Cloud VM (ARM Ampere A1, 1 OCPU, 1 GB RAM)
+└── Docker
+    └── kalshi-trader container
+        └── node scripts/kalshi-scheduler.js
+            ├── Scan every 30 min (first scan 30s after start)
+            ├── Usage alert every 10 min
+            ├── Daily summary at 9 PM ET
+            └── Heartbeat every hour
+```
+
+The scheduler (`scripts/kalshi-scheduler.js`) replaces Windows Task Scheduler as a long-running Node.js process with `setInterval`-based scheduling. It does NOT use `dotenv` — Docker provides env vars via `env_file`.
+
+### Quick Start
+
+```bash
+# Build and run locally
+docker compose build kalshi-trader
+docker compose up kalshi-trader
+
+# Run in background
+docker compose up -d kalshi-trader
+
+# View logs
+docker compose logs -f kalshi-trader
+
+# Stop
+docker compose down
+```
+
+### Deploy to Oracle Cloud
+
+```bash
+# 1. Provision Always Free ARM VM (Ubuntu 22.04, 1 OCPU, 1 GB RAM)
+# 2. SSH in and run the setup script:
+scp scripts/deploy-oracle.sh ubuntu@<VM_IP>:~
+ssh ubuntu@<VM_IP> 'bash deploy-oracle.sh'
+
+# 3. Clone repo and configure
+git clone <repo-url> ~/kalshi-bot && cd ~/kalshi-bot
+cp .env.example .env
+# Edit .env with real secrets (KALSHI_API_KEY_ID, KALSHI_PRIVATE_KEY_PEM, TELEGRAM_*)
+
+# 4. Start
+docker compose up -d kalshi-trader
+
+# 5. Verify
+docker compose logs -f kalshi-trader
+# Should see: [STARTUP] then [SCAN] within 30 seconds
+```
+
+### Docker Files
+
+| File | Purpose |
+|------|---------|
+| `Dockerfile` | Multi-stage build: node:22-alpine, pnpm, non-root user |
+| `docker-compose.yml` | Defines kalshi-trader service (0.5 CPU, 256 MB limit) |
+| `.env.example` | Template for required environment variables |
+| `scripts/kalshi-scheduler.js` | Long-running scheduler (container entrypoint) |
+| `scripts/deploy-oracle.sh` | Oracle Cloud VM setup (Docker, firewall, swap) |
+
+### Updating Config on the VM
+
+`trading-config.json` is baked into the Docker image. To update:
+
+```bash
+# Option 1: Edit in-container (lost on restart)
+docker exec -it kalshi-trader sh
+vi skills/kalshi/trading-config.json
+
+# Option 2: Rebuild (persistent)
+git pull && docker compose up -d --build kalshi-trader
+```
