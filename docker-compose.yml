@@ -50,6 +50,7 @@ services:
     command: ["node", "scripts/kalshi-scheduler.js"]
     volumes:
       - kalshi-data:/home/clawdbot
+      - ./kalshi-private-key.pem:/app/kalshi-private-key.pem:ro
     deploy:
       resources:
         limits:
