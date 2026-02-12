@@ -74,6 +74,29 @@ async function runScheduledUsageAlert() {
   }
 }
 
+async function runScheduledSettlementCheck() {
+  try {
+    const { checkSettlements } = await import('../skills/kalshi/settlement.js');
+    const result = await checkSettlements();
+    if (!result.success) {
+      const errorMsg = `❌ Settlement check failed: ${result.error}`;
+      console.error(errorMsg);
+      await sendTelegram(errorMsg).catch(() => {});
+      return;
+    }
+    if (result.updated > 0) {
+      await sendTelegram(`📊 *Settlement Update*\n${result.summary}`);
+      console.log(`[SETTLEMENTS] Updated ${result.updated} — ${new Date().toISOString()}`);
+    } else {
+      console.log(`[SETTLEMENTS] No updates — ${new Date().toISOString()}`);
+    }
+  } catch (err) {
+    const errorMsg = `❌ Settlement check failed: ${err.message}`;
+    console.error(errorMsg);
+    await sendTelegram(errorMsg).catch(() => {});
+  }
+}
+
 async function runScheduledDailySummary() {
   try {
     const { getDailySummary } = await import('../skills/kalshi/scanner.js');
@@ -112,10 +135,13 @@ async function startScheduler() {
   const scanIntervalMs = config.scanIntervalMinutes * 60 * 1000;
   const usageAlertIntervalMs = config.usageAlertIntervalMinutes * 60 * 1000;
 
-  console.log(`[STARTUP] Kalshi scheduler running — mode: ${config.mode}, scan every ${config.scanIntervalMinutes}m, first scan in 30s`);
+  const settlementIntervalMs = 6 * 60 * 60 * 1000; // every 6 hours
 
-  // Run first scan after 30 seconds
+  console.log(`[STARTUP] Kalshi scheduler running — mode: ${config.mode}, scan every ${config.scanIntervalMinutes}m, settlements every 6h, first scan in 30s`);
+
+  // Run first scan after 30 seconds, first settlement check after 60 seconds
   setTimeout(runScheduledScan, 30 * 1000);
+  setTimeout(runScheduledSettlementCheck, 60 * 1000);
 
   // Schedule recurring scan
   setInterval(async () => {
@@ -127,6 +153,9 @@ async function startScheduler() {
 
   // Schedule recurring usage alerts
   setInterval(runScheduledUsageAlert, usageAlertIntervalMs);
+
+  // Schedule recurring settlement checks (every 6 hours)
+  setInterval(runScheduledSettlementCheck, settlementIntervalMs);
 
   // Check for daily summary every 60 seconds
   setInterval(checkDailySummaryTime, 60 * 1000);

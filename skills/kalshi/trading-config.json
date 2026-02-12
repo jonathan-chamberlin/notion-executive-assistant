@@ -1,6 +1,6 @@
 {
   "mode": "autonomous",
-  "maxDailySpend": 500,
+  "maxDailySpend": 1000,
   "minEdge": 25,
   "maxTradeSize": 200,
   "scanIntervalMinutes": 30,
