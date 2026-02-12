@@ -21,7 +21,7 @@ services:
     command: ["npx", "clawdbot", "gateway", "--verbose"]
     volumes:
       - ./credentials.json:/app/credentials.json:ro
-      - ./token.json:/app/token.json
+      - ./google-service-account.json:/app/google-service-account.json:ro
       - ./logs:/app/logs
       - clawdbot-data:/home/clawdbot/clawd
     deploy:
