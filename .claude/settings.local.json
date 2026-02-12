@@ -61,7 +61,18 @@
       "Bash(schtasks:*)",
       "Bash(cmd.exe /c \"schtasks /create /tn \"\"Kalshi Weather Scan\"\" /tr \"\"\\\\\"\"C:\\\\Repositories for Git\\\\notion-executive-assistant-folder\\\\scripts\\\\kalshi-cron.bat\\\\\"\" scan\"\" /sc minute /mo 30 /f\")",
       "Bash(MSYS_NO_PATHCONV=1 schtasks:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(docker-compose config:*)",
+      "Bash(docker compose build:*)",
+      "Bash(icacls:*)",
+      "Bash(ssh:*)",
+      "Bash(scp:*)",
+      "Bash(timeout:*)",
+      "Bash(ls:*)",
+      "Read(//c/Repositories for Git/notion-executive-assistant-folder/**)",
+      "Bash(cmd /c:*)",
+      "Bash(ping:*)",
+      "Bash(*)"
     ],
     "additionalDirectories": [
       "C:\\Users\\Jonathan Chamberlin\\.claude"

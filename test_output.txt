@@ -1,0 +1,621 @@
+{"skill":"WeatherTradingSkill","level":"info","action":"balance_error","timestamp":"2026-02-12T00:07:59.410Z","error":"KALSHI_API_KEY_ID is not set, KALSHI_PRIVATE_KEY_PATH or KALSHI_PRIVATE_KEY_PEM is not set"}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.676Z","city":"Austin","todayHigh":75,"tomorrowHigh":79}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.677Z","city":"Miami","todayHigh":76,"tomorrowHigh":75}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.677Z","city":"Chicago","todayHigh":40,"tomorrowHigh":35}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.677Z","city":"LA","todayHigh":64,"tomorrowHigh":67}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.678Z","city":"Philadelphia","todayHigh":33,"tomorrowHigh":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.678Z","city":"DC","todayHigh":39,"tomorrowHigh":41}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.678Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.683Z","city":"Denver","todayHigh":60,"tomorrowHigh":59}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.684Z","city":"SF","todayHigh":60,"tomorrowHigh":62}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_forecasts","timestamp":"2026-02-12T00:07:59.684Z","fetched":9,"errors":0}
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:07:59.749Z","events":18,"totalMarkets":108,"citiesFetched":9}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:00.061Z","city":"Miami","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.065Z","city":"NYC","todayMembers":31,"tomorrowMembers":31,"todayMean":31.496774193548386,"tomorrowMean":32.099999999999994,"todaySpread":3.6000000000000014,"tomorrowSpread":4.599999999999998}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.065Z","city":"SF","todayMembers":31,"tomorrowMembers":31,"todayMean":61.42258064516128,"tomorrowMean":62.4483870967742,"todaySpread":2.5,"tomorrowSpread":3.8000000000000043}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.065Z","city":"Philadelphia","todayMembers":31,"tomorrowMembers":31,"todayMean":32.91935483870968,"tomorrowMean":34.225806451612904,"todaySpread":2.6000000000000014,"tomorrowSpread":4.5000000000000036}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.065Z","city":"Chicago","todayMembers":31,"tomorrowMembers":31,"todayMean":37.64193548387097,"tomorrowMean":45.909677419354836,"todaySpread":5.899999999999999,"tomorrowSpread":5.799999999999997}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.066Z","city":"LA","todayMembers":31,"tomorrowMembers":31,"todayMean":63.774193548387096,"tomorrowMean":68.23870967741935,"todaySpread":3.5,"tomorrowSpread":6}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.066Z","city":"Denver","todayMembers":31,"tomorrowMembers":31,"todayMean":55.91935483870968,"tomorrowMean":54.522580645161305,"todaySpread":6.5,"tomorrowSpread":4.200000000000003}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.066Z","city":"Austin","todayMembers":31,"tomorrowMembers":31,"todayMean":77.39032258064515,"tomorrowMean":78.30322580645162,"todaySpread":7.299999999999997,"tomorrowSpread":8.600000000000009}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.067Z","city":"DC","todayMembers":31,"tomorrowMembers":31,"todayMean":38.599999999999994,"tomorrowMean":39.1,"todaySpread":4.5,"tomorrowSpread":5.5}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_ensembles","timestamp":"2026-02-12T00:08:00.067Z","fetched":8,"errors":1}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.067Z","bankroll":2000,"edge":99,"yesPrice":1,"kellyFraction":1,"amount":500,"contracts":500}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.067Z","bankroll":2000,"edge":56,"yesPrice":9,"kellyFraction":0.615,"amount":306,"contracts":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.067Z","bankroll":2000,"edge":80,"yesPrice":4,"kellyFraction":0.833,"amount":416,"contracts":104}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":31,"yesPrice":1,"kellyFraction":0.313,"amount":156,"contracts":156}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":51,"yesPrice":1,"kellyFraction":0.515,"amount":257,"contracts":257}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":22,"yesPrice":4,"kellyFraction":0.229,"amount":112,"contracts":28}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":86,"yesPrice":1,"kellyFraction":0.869,"amount":434,"contracts":434}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":23,"yesPrice":2,"kellyFraction":0.235,"amount":116,"contracts":58}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":34,"yesPrice":1,"kellyFraction":0.343,"amount":171,"contracts":171}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":28,"yesPrice":1,"kellyFraction":0.283,"amount":141,"contracts":141}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":47,"yesPrice":5,"kellyFraction":0.495,"amount":245,"contracts":49}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":28,"yesPrice":1,"kellyFraction":0.283,"amount":141,"contracts":141}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":48,"yesPrice":13,"kellyFraction":0.552,"amount":273,"contracts":21}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":99,"yesPrice":1,"kellyFraction":1,"amount":500,"contracts":500}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":49,"yesPrice":6,"kellyFraction":0.521,"amount":258,"contracts":43}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":21,"yesPrice":18,"kellyFraction":0.256,"amount":126,"contracts":7}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":99,"yesPrice":1,"kellyFraction":1,"amount":500,"contracts":500}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":22,"yesPrice":1,"kellyFraction":0.222,"amount":111,"contracts":111}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":73,"yesPrice":4,"kellyFraction":0.76,"amount":380,"contracts":95}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":35,"yesPrice":7,"kellyFraction":0.376,"amount":182,"contracts":26}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":44,"yesPrice":1,"kellyFraction":0.444,"amount":222,"contracts":222}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":96,"yesPrice":1,"kellyFraction":0.97,"amount":484,"contracts":484}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.068Z","bankroll":2000,"edge":60,"yesPrice":27,"kellyFraction":0.822,"amount":405,"contracts":15}
+{"skill":"WeatherTradingSkill","level":"info","action":"opportunities_found","timestamp":"2026-02-12T00:08:00.068Z","count":23,"eventsScanned":18,"citiesForecasted":9,"ensembleCities":8,"minEdge":20}
+{"skill":"WeatherTradingSkill","level":"info","action":"balance_error","timestamp":"2026-02-12T00:08:00.070Z","error":"KALSHI_API_KEY_ID is not set, KALSHI_PRIVATE_KEY_PATH or KALSHI_PRIVATE_KEY_PEM is not set"}
+▶ findOpportunities — default call
+  ✔ returns { success, opportunities, summary } (660.1767ms)
+  ✔ summary has eventsScanned (number), citiesForecasted (number), opportunitiesFound (number) (0.1865ms)
+✔ findOpportunities — default call (661.6899ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.098Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.108Z","city":"SF","todayHigh":60,"tomorrowHigh":62}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.108Z","city":"Denver","todayHigh":60,"tomorrowHigh":59}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.109Z","city":"LA","todayHigh":64,"tomorrowHigh":67}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.109Z","city":"Chicago","todayHigh":40,"tomorrowHigh":35}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.109Z","city":"Philadelphia","todayHigh":33,"tomorrowHigh":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.109Z","city":"DC","todayHigh":39,"tomorrowHigh":41}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.110Z","city":"Austin","todayHigh":75,"tomorrowHigh":79}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.110Z","city":"Miami","todayHigh":76,"tomorrowHigh":75}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_forecasts","timestamp":"2026-02-12T00:08:00.110Z","fetched":9,"errors":0}
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:08:00.172Z","events":4,"totalMarkets":24,"citiesFetched":9}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:00.205Z","city":"Austin","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:00.206Z","city":"DC","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.210Z","city":"Philadelphia","todayMembers":31,"tomorrowMembers":31,"todayMean":32.91935483870968,"tomorrowMean":34.225806451612904,"todaySpread":2.6000000000000014,"tomorrowSpread":4.5000000000000036}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.211Z","city":"SF","todayMembers":31,"tomorrowMembers":31,"todayMean":61.42258064516128,"tomorrowMean":62.4483870967742,"todaySpread":2.5,"tomorrowSpread":3.8000000000000043}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.211Z","city":"NYC","todayMembers":31,"tomorrowMembers":31,"todayMean":31.496774193548386,"tomorrowMean":32.099999999999994,"todaySpread":3.6000000000000014,"tomorrowSpread":4.599999999999998}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.211Z","city":"Chicago","todayMembers":31,"tomorrowMembers":31,"todayMean":37.64193548387097,"tomorrowMean":45.909677419354836,"todaySpread":5.899999999999999,"tomorrowSpread":5.799999999999997}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.211Z","city":"Denver","todayMembers":31,"tomorrowMembers":31,"todayMean":55.91935483870968,"tomorrowMean":54.522580645161305,"todaySpread":6.5,"tomorrowSpread":4.200000000000003}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.212Z","city":"LA","todayMembers":31,"tomorrowMembers":31,"todayMean":63.774193548387096,"tomorrowMean":68.23870967741935,"todaySpread":3.5,"tomorrowSpread":6}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.212Z","city":"Miami","todayMembers":31,"tomorrowMembers":31,"todayMean":76.93225806451613,"tomorrowMean":75.70645161290322,"todaySpread":4.3999999999999915,"tomorrowSpread":5.400000000000006}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_ensembles","timestamp":"2026-02-12T00:08:00.212Z","fetched":7,"errors":2}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.212Z","bankroll":2000,"edge":99,"yesPrice":1,"kellyFraction":1,"amount":500,"contracts":500}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.212Z","bankroll":2000,"edge":50,"yesPrice":2,"kellyFraction":0.51,"amount":254,"contracts":127}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.212Z","bankroll":2000,"edge":28,"yesPrice":4,"kellyFraction":0.292,"amount":144,"contracts":36}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.212Z","bankroll":2000,"edge":28,"yesPrice":1,"kellyFraction":0.283,"amount":141,"contracts":141}
+{"skill":"WeatherTradingSkill","level":"info","action":"opportunities_found","timestamp":"2026-02-12T00:08:00.212Z","count":4,"eventsScanned":4,"citiesForecasted":9,"ensembleCities":7,"minEdge":20}
+{"skill":"WeatherTradingSkill","level":"info","action":"balance_error","timestamp":"2026-02-12T00:08:00.213Z","error":"KALSHI_API_KEY_ID is not set, KALSHI_PRIVATE_KEY_PATH or KALSHI_PRIVATE_KEY_PEM is not set"}
+▶ findOpportunities — opportunity shape
+  ✔ each opportunity has the expected fields with correct types (142.4976ms)
+✔ findOpportunities — opportunity shape (142.6547ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.244Z","city":"Philadelphia","todayHigh":33,"tomorrowHigh":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.244Z","city":"SF","todayHigh":60,"tomorrowHigh":62}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.244Z","city":"Denver","todayHigh":60,"tomorrowHigh":59}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.246Z","city":"DC","todayHigh":39,"tomorrowHigh":41}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.247Z","city":"Chicago","todayHigh":40,"tomorrowHigh":35}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.247Z","city":"LA","todayHigh":64,"tomorrowHigh":67}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.247Z","city":"Miami","todayHigh":76,"tomorrowHigh":75}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.248Z","city":"Austin","todayHigh":75,"tomorrowHigh":79}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.248Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_forecasts","timestamp":"2026-02-12T00:08:00.249Z","fetched":9,"errors":0}
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:08:00.283Z","events":1,"totalMarkets":6,"citiesFetched":9}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:00.344Z","city":"DC","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.345Z","city":"SF","todayMembers":31,"tomorrowMembers":31,"todayMean":61.42258064516128,"tomorrowMean":62.4483870967742,"todaySpread":2.5,"tomorrowSpread":3.8000000000000043}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.345Z","city":"LA","todayMembers":31,"tomorrowMembers":31,"todayMean":63.774193548387096,"tomorrowMean":68.23870967741935,"todaySpread":3.5,"tomorrowSpread":6}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.346Z","city":"Philadelphia","todayMembers":31,"tomorrowMembers":31,"todayMean":32.91935483870968,"tomorrowMean":34.225806451612904,"todaySpread":2.6000000000000014,"tomorrowSpread":4.5000000000000036}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.346Z","city":"NYC","todayMembers":31,"tomorrowMembers":31,"todayMean":31.496774193548386,"tomorrowMean":32.099999999999994,"todaySpread":3.6000000000000014,"tomorrowSpread":4.599999999999998}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.346Z","city":"Denver","todayMembers":31,"tomorrowMembers":31,"todayMean":55.91935483870968,"tomorrowMean":54.522580645161305,"todaySpread":6.5,"tomorrowSpread":4.200000000000003}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.346Z","city":"Chicago","todayMembers":31,"tomorrowMembers":31,"todayMean":37.64193548387097,"tomorrowMean":45.909677419354836,"todaySpread":5.899999999999999,"tomorrowSpread":5.799999999999997}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.346Z","city":"Austin","todayMembers":31,"tomorrowMembers":31,"todayMean":77.39032258064515,"tomorrowMean":78.30322580645162,"todaySpread":7.299999999999997,"tomorrowSpread":8.600000000000009}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.360Z","city":"Miami","todayMembers":31,"tomorrowMembers":31,"todayMean":76.93225806451613,"tomorrowMean":75.70645161290322,"todaySpread":4.3999999999999915,"tomorrowSpread":5.400000000000006}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_ensembles","timestamp":"2026-02-12T00:08:00.360Z","fetched":8,"errors":1}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.360Z","bankroll":2000,"edge":90,"yesPrice":1,"kellyFraction":0.909,"amount":454,"contracts":454}
+{"skill":"WeatherTradingSkill","level":"info","action":"opportunities_found","timestamp":"2026-02-12T00:08:00.360Z","count":1,"eventsScanned":1,"citiesForecasted":9,"ensembleCities":8,"minEdge":20}
+{"skill":"WeatherTradingSkill","level":"info","action":"balance_error","timestamp":"2026-02-12T00:08:00.361Z","error":"KALSHI_API_KEY_ID is not set, KALSHI_PRIVATE_KEY_PATH or KALSHI_PRIVATE_KEY_PEM is not set"}
+▶ findOpportunities — sorted by edge descending
+  ✔ opportunities[i].edge >= opportunities[i+1].edge for all consecutive pairs (148.143ms)
+✔ findOpportunities — sorted by edge descending (148.3699ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.387Z","city":"Miami","todayHigh":76,"tomorrowHigh":75}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.388Z","city":"Austin","todayHigh":75,"tomorrowHigh":79}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.390Z","city":"Denver","todayHigh":60,"tomorrowHigh":59}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.391Z","city":"LA","todayHigh":64,"tomorrowHigh":67}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.391Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.391Z","city":"DC","todayHigh":39,"tomorrowHigh":41}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.392Z","city":"Philadelphia","todayHigh":33,"tomorrowHigh":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.401Z","city":"Chicago","todayHigh":40,"tomorrowHigh":35}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.401Z","city":"SF","todayHigh":60,"tomorrowHigh":62}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_forecasts","timestamp":"2026-02-12T00:08:00.401Z","fetched":9,"errors":0}
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:08:00.433Z","events":1,"totalMarkets":6,"citiesFetched":9}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.488Z","city":"NYC","todayMembers":31,"tomorrowMembers":31,"todayMean":31.496774193548386,"tomorrowMean":32.099999999999994,"todaySpread":3.6000000000000014,"tomorrowSpread":4.599999999999998}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:00.493Z","city":"DC","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:00.495Z","city":"LA","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.499Z","city":"SF","todayMembers":31,"tomorrowMembers":31,"todayMean":61.42258064516128,"tomorrowMean":62.4483870967742,"todaySpread":2.5,"tomorrowSpread":3.8000000000000043}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.501Z","city":"Philadelphia","todayMembers":31,"tomorrowMembers":31,"todayMean":32.91935483870968,"tomorrowMean":34.225806451612904,"todaySpread":2.6000000000000014,"tomorrowSpread":4.5000000000000036}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.502Z","city":"Chicago","todayMembers":31,"tomorrowMembers":31,"todayMean":37.64193548387097,"tomorrowMean":45.909677419354836,"todaySpread":5.899999999999999,"tomorrowSpread":5.799999999999997}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.502Z","city":"Denver","todayMembers":31,"tomorrowMembers":31,"todayMean":55.91935483870968,"tomorrowMean":54.522580645161305,"todaySpread":6.5,"tomorrowSpread":4.200000000000003}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.503Z","city":"Austin","todayMembers":31,"tomorrowMembers":31,"todayMean":77.39032258064515,"tomorrowMean":78.30322580645162,"todaySpread":7.299999999999997,"tomorrowSpread":8.600000000000009}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.503Z","city":"Miami","todayMembers":31,"tomorrowMembers":31,"todayMean":76.93225806451613,"tomorrowMean":75.70645161290322,"todaySpread":4.3999999999999915,"tomorrowSpread":5.400000000000006}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_ensembles","timestamp":"2026-02-12T00:08:00.503Z","fetched":7,"errors":2}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.503Z","bankroll":2000,"edge":73,"yesPrice":4,"kellyFraction":0.76,"amount":380,"contracts":95}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.503Z","bankroll":2000,"edge":35,"yesPrice":7,"kellyFraction":0.376,"amount":182,"contracts":26}
+{"skill":"WeatherTradingSkill","level":"info","action":"opportunities_found","timestamp":"2026-02-12T00:08:00.503Z","count":2,"eventsScanned":1,"citiesForecasted":9,"ensembleCities":7,"minEdge":20}
+{"skill":"WeatherTradingSkill","level":"info","action":"balance_error","timestamp":"2026-02-12T00:08:00.505Z","error":"KALSHI_API_KEY_ID is not set, KALSHI_PRIVATE_KEY_PATH or KALSHI_PRIVATE_KEY_PEM is not set"}
+{"skill":"WeatherTradingSkill","level":"info","action":"balance_error","timestamp":"2026-02-12T00:08:00.505Z","error":"KALSHI_API_KEY_ID is not set, KALSHI_PRIVATE_KEY_PATH or KALSHI_PRIVATE_KEY_PEM is not set"}
+▶ findOpportunities — edge threshold (default minEdge = 20)
+  ✔ all opportunities have edge >= 20 (142.9065ms)
+✔ findOpportunities — edge threshold (default minEdge = 20) (143.152ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.572Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.573Z","city":"Chicago","todayHigh":40,"tomorrowHigh":35}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.573Z","city":"SF","todayHigh":60,"tomorrowHigh":62}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.573Z","city":"Philadelphia","todayHigh":33,"tomorrowHigh":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.573Z","city":"LA","todayHigh":64,"tomorrowHigh":67}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.573Z","city":"Denver","todayHigh":60,"tomorrowHigh":59}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.574Z","city":"DC","todayHigh":39,"tomorrowHigh":41}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.574Z","city":"Austin","todayHigh":75,"tomorrowHigh":79}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.574Z","city":"Miami","todayHigh":76,"tomorrowHigh":75}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_forecasts","timestamp":"2026-02-12T00:08:00.574Z","fetched":9,"errors":0}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:00.646Z","city":"LA","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:00.647Z","city":"DC","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.666Z","city":"SF","todayMembers":31,"tomorrowMembers":31,"todayMean":61.42258064516128,"tomorrowMean":62.4483870967742,"todaySpread":2.5,"tomorrowSpread":3.8000000000000043}
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:08:00.676Z","events":3,"totalMarkets":18,"citiesFetched":9}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.681Z","city":"Chicago","todayMembers":31,"tomorrowMembers":31,"todayMean":37.64193548387097,"tomorrowMean":45.909677419354836,"todaySpread":5.899999999999999,"tomorrowSpread":5.799999999999997}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.681Z","city":"Austin","todayMembers":31,"tomorrowMembers":31,"todayMean":77.39032258064515,"tomorrowMean":78.30322580645162,"todaySpread":7.299999999999997,"tomorrowSpread":8.600000000000009}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.682Z","city":"Miami","todayMembers":31,"tomorrowMembers":31,"todayMean":76.93225806451613,"tomorrowMean":75.70645161290322,"todaySpread":4.3999999999999915,"tomorrowSpread":5.400000000000006}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.682Z","city":"Denver","todayMembers":31,"tomorrowMembers":31,"todayMean":55.91935483870968,"tomorrowMean":54.522580645161305,"todaySpread":6.5,"tomorrowSpread":4.200000000000003}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.683Z","city":"Chicago","todayHigh":40,"tomorrowHigh":35}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.683Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.684Z","city":"Philadelphia","todayHigh":33,"tomorrowHigh":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.684Z","city":"Miami","todayHigh":76,"tomorrowHigh":75}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.685Z","city":"Austin","todayHigh":75,"tomorrowHigh":79}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.685Z","city":"NYC","todayMembers":31,"tomorrowMembers":31,"todayMean":31.496774193548386,"tomorrowMean":32.099999999999994,"todaySpread":3.6000000000000014,"tomorrowSpread":4.599999999999998}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.686Z","city":"Philadelphia","todayMembers":31,"tomorrowMembers":31,"todayMean":32.91935483870968,"tomorrowMean":34.225806451612904,"todaySpread":2.6000000000000014,"tomorrowSpread":4.5000000000000036}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_ensembles","timestamp":"2026-02-12T00:08:00.686Z","fetched":7,"errors":2}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.686Z","bankroll":2000,"edge":31,"yesPrice":1,"kellyFraction":0.313,"amount":156,"contracts":156}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.686Z","bankroll":2000,"edge":51,"yesPrice":1,"kellyFraction":0.515,"amount":257,"contracts":257}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.687Z","bankroll":2000,"edge":47,"yesPrice":5,"kellyFraction":0.495,"amount":245,"contracts":49}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:00.687Z","bankroll":2000,"edge":24,"yesPrice":1,"kellyFraction":0.242,"amount":121,"contracts":121}
+{"skill":"WeatherTradingSkill","level":"info","action":"opportunities_found","timestamp":"2026-02-12T00:08:00.687Z","count":4,"eventsScanned":3,"citiesForecasted":9,"ensembleCities":7,"minEdge":20}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.687Z","city":"LA","todayHigh":64,"tomorrowHigh":67}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.687Z","city":"SF","todayHigh":60,"tomorrowHigh":62}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.687Z","city":"Denver","todayHigh":60,"tomorrowHigh":59}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:00.688Z","city":"DC","todayHigh":39,"tomorrowHigh":41}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_forecasts","timestamp":"2026-02-12T00:08:00.688Z","fetched":9,"errors":0}
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:08:00.805Z","events":3,"totalMarkets":18,"citiesFetched":9}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.030Z","city":"Chicago","todayMembers":31,"tomorrowMembers":31,"todayMean":37.64193548387097,"tomorrowMean":45.909677419354836,"todaySpread":5.899999999999999,"tomorrowSpread":5.799999999999997}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.031Z","city":"Philadelphia","todayMembers":31,"tomorrowMembers":31,"todayMean":32.91935483870968,"tomorrowMean":34.225806451612904,"todaySpread":2.6000000000000014,"tomorrowSpread":4.5000000000000036}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.049Z","city":"DC","todayMembers":31,"tomorrowMembers":31,"todayMean":38.599999999999994,"tomorrowMean":39.1,"todaySpread":4.5,"tomorrowSpread":5.5}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.049Z","city":"Miami","todayMembers":31,"tomorrowMembers":31,"todayMean":76.93225806451613,"tomorrowMean":75.70645161290322,"todaySpread":4.3999999999999915,"tomorrowSpread":5.400000000000006}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.050Z","city":"LA","todayMembers":31,"tomorrowMembers":31,"todayMean":63.774193548387096,"tomorrowMean":68.23870967741935,"todaySpread":3.5,"tomorrowSpread":6}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.050Z","city":"Austin","todayMembers":31,"tomorrowMembers":31,"todayMean":77.39032258064515,"tomorrowMean":78.30322580645162,"todaySpread":7.299999999999997,"tomorrowSpread":8.600000000000009}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.050Z","city":"SF","todayMembers":31,"tomorrowMembers":31,"todayMean":61.42258064516128,"tomorrowMean":62.4483870967742,"todaySpread":2.5,"tomorrowSpread":3.8000000000000043}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.050Z","city":"NYC","todayMembers":31,"tomorrowMembers":31,"todayMean":31.496774193548386,"tomorrowMean":32.099999999999994,"todaySpread":3.6000000000000014,"tomorrowSpread":4.599999999999998}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.065Z","city":"Denver","todayMembers":31,"tomorrowMembers":31,"todayMean":55.91935483870968,"tomorrowMean":54.522580645161305,"todaySpread":6.5,"tomorrowSpread":4.200000000000003}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_ensembles","timestamp":"2026-02-12T00:08:01.065Z","fetched":9,"errors":0}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:01.065Z","bankroll":2000,"edge":51,"yesPrice":1,"kellyFraction":0.515,"amount":257,"contracts":257}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:01.065Z","bankroll":2000,"edge":50,"yesPrice":2,"kellyFraction":0.51,"amount":254,"contracts":127}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:01.065Z","bankroll":2000,"edge":96,"yesPrice":1,"kellyFraction":0.97,"amount":484,"contracts":484}
+{"skill":"WeatherTradingSkill","level":"info","action":"opportunities_found","timestamp":"2026-02-12T00:08:01.065Z","count":3,"eventsScanned":3,"citiesForecasted":9,"ensembleCities":9,"minEdge":50}
+{"skill":"WeatherTradingSkill","level":"info","action":"balance_error","timestamp":"2026-02-12T00:08:01.066Z","error":"KALSHI_API_KEY_ID is not set, KALSHI_PRIVATE_KEY_PATH or KALSHI_PRIVATE_KEY_PEM is not set"}
+▶ findOpportunities — custom minEdge
+  ✔ minEdge: 50 returns fewer or equal opportunities, all with edge >= 50 (561.3302ms)
+✔ findOpportunities — custom minEdge (561.5379ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.081Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.109Z","city":"Philadelphia","todayHigh":33,"tomorrowHigh":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.109Z","city":"Chicago","todayHigh":40,"tomorrowHigh":35}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.109Z","city":"SF","todayHigh":60,"tomorrowHigh":62}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.114Z","city":"Denver","todayHigh":60,"tomorrowHigh":59}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.114Z","city":"LA","todayHigh":64,"tomorrowHigh":67}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.114Z","city":"DC","todayHigh":39,"tomorrowHigh":41}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.114Z","city":"Miami","todayHigh":76,"tomorrowHigh":75}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.114Z","city":"Austin","todayHigh":75,"tomorrowHigh":79}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_forecasts","timestamp":"2026-02-12T00:08:01.114Z","fetched":9,"errors":0}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.187Z","city":"NYC","todayMembers":31,"tomorrowMembers":31,"todayMean":31.496774193548386,"tomorrowMean":32.099999999999994,"todaySpread":3.6000000000000014,"tomorrowSpread":4.599999999999998}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.188Z","city":"Chicago","todayMembers":31,"tomorrowMembers":31,"todayMean":37.64193548387097,"tomorrowMean":45.909677419354836,"todaySpread":5.899999999999999,"tomorrowSpread":5.799999999999997}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.196Z","city":"Philadelphia","todayMembers":31,"tomorrowMembers":31,"todayMean":32.91935483870968,"tomorrowMean":34.225806451612904,"todaySpread":2.6000000000000014,"tomorrowSpread":4.5000000000000036}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.197Z","city":"SF","todayMembers":31,"tomorrowMembers":31,"todayMean":61.42258064516128,"tomorrowMean":62.4483870967742,"todaySpread":2.5,"tomorrowSpread":3.8000000000000043}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.198Z","city":"Denver","todayMembers":31,"tomorrowMembers":31,"todayMean":55.91935483870968,"tomorrowMean":54.522580645161305,"todaySpread":6.5,"tomorrowSpread":4.200000000000003}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.198Z","city":"Austin","todayMembers":31,"tomorrowMembers":31,"todayMean":77.39032258064515,"tomorrowMean":78.30322580645162,"todaySpread":7.299999999999997,"tomorrowSpread":8.600000000000009}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.198Z","city":"DC","todayMembers":31,"tomorrowMembers":31,"todayMean":38.599999999999994,"tomorrowMean":39.1,"todaySpread":4.5,"tomorrowSpread":5.5}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.198Z","city":"LA","todayMembers":31,"tomorrowMembers":31,"todayMean":63.774193548387096,"tomorrowMean":68.23870967741935,"todaySpread":3.5,"tomorrowSpread":6}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.199Z","city":"Miami","todayMembers":31,"tomorrowMembers":31,"todayMean":76.93225806451613,"tomorrowMean":75.70645161290322,"todaySpread":4.3999999999999915,"tomorrowSpread":5.400000000000006}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_ensembles","timestamp":"2026-02-12T00:08:01.199Z","fetched":9,"errors":0}
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:08:01.217Z","events":8,"totalMarkets":48,"citiesFetched":9}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:01.217Z","bankroll":2000,"edge":99,"yesPrice":1,"kellyFraction":1,"amount":500,"contracts":500}
+{"skill":"WeatherTradingSkill","level":"info","action":"opportunities_found","timestamp":"2026-02-12T00:08:01.217Z","count":1,"eventsScanned":8,"citiesForecasted":9,"ensembleCities":9,"minEdge":99}
+{"skill":"WeatherTradingSkill","level":"info","action":"balance_error","timestamp":"2026-02-12T00:08:01.218Z","error":"KALSHI_API_KEY_ID is not set, KALSHI_PRIVATE_KEY_PATH or KALSHI_PRIVATE_KEY_PEM is not set"}
+▶ findOpportunities — very high minEdge
+  ✔ minEdge: 99 should likely return 0 opportunities (151.4575ms)
+✔ findOpportunities — very high minEdge (151.5787ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.234Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.243Z","city":"Chicago","todayHigh":40,"tomorrowHigh":35}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.246Z","city":"Philadelphia","todayHigh":33,"tomorrowHigh":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.246Z","city":"LA","todayHigh":64,"tomorrowHigh":67}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.247Z","city":"Denver","todayHigh":60,"tomorrowHigh":59}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.247Z","city":"DC","todayHigh":39,"tomorrowHigh":41}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.247Z","city":"SF","todayHigh":60,"tomorrowHigh":62}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.247Z","city":"Miami","todayHigh":76,"tomorrowHigh":75}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:08:01.251Z","city":"Austin","todayHigh":75,"tomorrowHigh":79}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_forecasts","timestamp":"2026-02-12T00:08:01.251Z","fetched":9,"errors":0}
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:08:01.294Z","events":2,"totalMarkets":12,"citiesFetched":9}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:01.346Z","city":"Austin","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:01.346Z","city":"DC","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"error","action":"ensemble_error","timestamp":"2026-02-12T00:08:01.347Z","city":"LA","error":"Open-Meteo API error: 429 Too Many Requests"}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.348Z","city":"SF","todayMembers":31,"tomorrowMembers":31,"todayMean":61.42258064516128,"tomorrowMean":62.4483870967742,"todaySpread":2.5,"tomorrowSpread":3.8000000000000043}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.348Z","city":"Denver","todayMembers":31,"tomorrowMembers":31,"todayMean":55.91935483870968,"tomorrowMean":54.522580645161305,"todaySpread":6.5,"tomorrowSpread":4.200000000000003}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.353Z","city":"Philadelphia","todayMembers":31,"tomorrowMembers":31,"todayMean":32.91935483870968,"tomorrowMean":34.225806451612904,"todaySpread":2.6000000000000014,"tomorrowSpread":4.5000000000000036}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.353Z","city":"NYC","todayMembers":31,"tomorrowMembers":31,"todayMean":31.496774193548386,"tomorrowMean":32.099999999999994,"todaySpread":3.6000000000000014,"tomorrowSpread":4.599999999999998}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.354Z","city":"Chicago","todayMembers":31,"tomorrowMembers":31,"todayMean":37.64193548387097,"tomorrowMean":45.909677419354836,"todaySpread":5.899999999999999,"tomorrowSpread":5.799999999999997}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:01.354Z","city":"Miami","todayMembers":31,"tomorrowMembers":31,"todayMean":76.93225806451613,"tomorrowMean":75.70645161290322,"todaySpread":4.3999999999999915,"tomorrowSpread":5.400000000000006}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_ensembles","timestamp":"2026-02-12T00:08:01.354Z","fetched":6,"errors":3}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:01.354Z","bankroll":2000,"edge":50,"yesPrice":2,"kellyFraction":0.51,"amount":254,"contracts":127}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:01.354Z","bankroll":2000,"edge":28,"yesPrice":4,"kellyFraction":0.292,"amount":144,"contracts":36}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:01.354Z","bankroll":2000,"edge":44,"yesPrice":1,"kellyFraction":0.444,"amount":222,"contracts":222}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:08:01.354Z","bankroll":2000,"edge":96,"yesPrice":1,"kellyFraction":0.97,"amount":484,"contracts":484}
+{"skill":"WeatherTradingSkill","level":"info","action":"opportunities_found","timestamp":"2026-02-12T00:08:01.354Z","count":4,"eventsScanned":2,"citiesForecasted":9,"ensembleCities":6,"minEdge":20}
+▶ findOpportunities — forecasts were fetched
+  ✔ summary.citiesForecasted should be > 0 (137.2571ms)
+✔ findOpportunities — forecasts were fetched (137.4992ms)
+▶ getRemainingDailyBudget
+  ✔ returns maxDailySpend (5000¢) when no spend has occurred today (2.2162ms)
+✔ getRemainingDailyBudget (3.7103ms)
+▶ trackSpend + getRemainingDailyBudget
+  ✔ after tracking 500¢, remaining drops by 500¢ (1.3025ms)
+✔ trackSpend + getRemainingDailyBudget (1.8643ms)
+▶ canAffordTrade
+  ✔ returns true for an amount within both maxTradeSize and remaining budget (0.5142ms)
+  ✔ returns false for an amount exceeding maxTradeSize (0.2838ms)
+  ✔ returns false for an amount exceeding remaining budget (1.1086ms)
+✔ canAffordTrade (2.7299ms)
+▶ Persistence
+  ✔ after trackSpend the spend file contains { dailySpend, date } with today's date (1.2433ms)
+✔ Persistence (3.8837ms)
+▶ Multiple spends accumulate
+  ✔ tracking 200¢ then 300¢ reduces remaining by 500¢ total (2.2593ms)
+✔ Multiple spends accumulate (2.9011ms)
+▶ canAffordTrade edge cases
+  ✔ amount exactly equal to maxTradeSize (500¢) returns true when budget allows (0.36ms)
+  ✔ amount of 0 returns true (canAffordTrade does not reject zero) (0.2741ms)
+  ✔ negative amount returns true (canAffordTrade does not reject negatives) (0.2791ms)
+✔ canAffordTrade edge cases (1.5624ms)
+▶ computeForecastErrors
+  ✔ computes correct statistics for known error distribution (1.4627ms)
+  ✔ returns zero sigma when all errors are identical (0.3274ms)
+  ✔ handles a single trade correctly (0.259ms)
+✔ computeForecastErrors (3.5251ms)
+▶ computeForecastErrors deduplication
+  ✔ deduplicates multiple trades for same city+date (0.3693ms)
+  ✔ does not deduplicate different cities on same date (0.2062ms)
+  ✔ does not deduplicate same city on different dates (0.1956ms)
+✔ computeForecastErrors deduplication (1.0961ms)
+▶ computeForecastErrors with invalid data
+  ✔ returns zeros for empty array (1.2346ms)
+  ✔ filters out trades with missing forecast_temp (0.5963ms)
+  ✔ filters out trades with missing actual_high (0.777ms)
+  ✔ filters out trades with non-numeric values (0.4644ms)
+✔ computeForecastErrors with invalid data (3.9756ms)
+▶ computeCalibration
+  ✔ computes win rates for each confidence bucket (1.2204ms)
+  ✔ handles empty buckets (0.2893ms)
+  ✔ correctly assigns trades on bucket boundaries (0.2657ms)
+✔ computeCalibration (2.0095ms)
+▶ computeCalibration with invalid data
+  ✔ returns empty buckets for empty array (0.2057ms)
+  ✔ filters out trades with missing model_confidence (0.1352ms)
+  ✔ filters out trades with missing settled_won (0.1351ms)
+  ✔ filters out trades with non-numeric model_confidence (0.1693ms)
+✔ computeCalibration with invalid data (0.8606ms)
+▶ getCalibrationReport
+  ✔ returns appropriate message when no trades exist (0.6432ms)
+  ✔ returns a string (0.2986ms)
+  ✔ includes expected sections (0.3668ms)
+✔ getCalibrationReport (1.6287ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"test_action","timestamp":"2026-02-12T00:07:59.447Z","detail":"some_detail"}
+{"skill":"WeatherTradingSkill","level":"warn","action":"test_warn","timestamp":"2026-02-12T00:07:59.448Z","detail":"warn_detail"}
+{"skill":"WeatherTradingSkill","level":"error","action":"test_error","timestamp":"2026-02-12T00:07:59.448Z","detail":"error_detail"}
+▶ buildEventTicker
+  ✔ returns correct ticker for NYC on Feb 11 2026 (2.3113ms)
+  ✔ returns correct ticker for Chicago on Jan 1 2026 (0.2996ms)
+  ✔ returns correct ticker for Miami on Dec 25 2026 (4.2687ms)
+  ✔ returns correct ticker for SF on Mar 5 2027 (0.2474ms)
+  ✔ returns correct ticker for Denver on Jul 15 2026 (0.3455ms)
+  ✔ verifies all 12 months produce correct abbreviations (0.5576ms)
+  ✔ pads single-digit days with a leading zero (0.6136ms)
+  ✔ returns null for an unknown city (0.9021ms)
+  ✔ returns null for an empty string city (0.4723ms)
+✔ buildEventTicker (14.6475ms)
+▶ formatApiError
+  ✔ returns auth message for a 401 error (0.4672ms)
+  ✔ returns auth message for a 403 error (0.1811ms)
+  ✔ returns rate limit message for a 429 error (0.2169ms)
+  ✔ returns the error message for a generic error (0.2894ms)
+  ✔ returns "Unknown API error" when the error has no message (0.7875ms)
+  ✔ returns "Unknown API error" for an error with an empty string message (0.2119ms)
+✔ formatApiError (2.9045ms)
+▶ validateEnv
+  ✔ returns an array with 2 error strings when env vars are not set (0.3745ms)
+  ✔ first error mentions KALSHI_API_KEY_ID (0.36ms)
+  ✔ second error mentions KALSHI_PRIVATE_KEY (0.1966ms)
+✔ validateEnv (1.1209ms)
+▶ logAction
+  ✔ does not throw when called with 2 args (default level=info) (1.312ms)
+  ✔ does not throw when called with level=warn (0.2452ms)
+  ✔ does not throw when called with level=error (0.1914ms)
+✔ logAction (1.9543ms)
+▶ kalshiFetch (real API)
+  ✔ returns an object for a known public event endpoint (273.3824ms)
+  ✔ throws for a clearly non-existent event (173.9255ms)
+✔ kalshiFetch (real API) (447.5367ms)
+▶ noaaFetch (real API)
+  ✔ returns forecast data for NYC gridpoint with properties.periods array (67.4244ms)
+✔ noaaFetch (real API) (67.5483ms)
+▶ CONFIG structure
+  ✔ has all expected keys (1.2877ms)
+  ✔ cities is an array (0.2548ms)
+  ✔ scanIntervalMinutes is a number (0.2762ms)
+  ✔ maxTradeSize is a number (0.2012ms)
+  ✔ maxDailySpend is a number (0.2053ms)
+  ✔ minEdge is a number (0.1923ms)
+✔ CONFIG structure (4.3462ms)
+▶ CONFIG.cities
+  ✔ is a non-empty array (0.5304ms)
+  ✔ every element is a string (0.3157ms)
+  ✔ contains no duplicates (0.2254ms)
+✔ CONFIG.cities (2.4493ms)
+▶ CONFIG limits
+  ✔ maxTradeSize is greater than 0 (0.4184ms)
+  ✔ maxDailySpend is greater than maxTradeSize (0.1762ms)
+  ✔ minEdge is between 0 and 100 (exclusive) (0.1554ms)
+✔ CONFIG limits (2.7824ms)
+▶ CITY_SERIES
+  ✔ has an entry for every city in CONFIG.cities (0.1849ms)
+  ✔ all values are non-empty strings starting with "KX" (0.163ms)
+✔ CITY_SERIES (0.5243ms)
+▶ CITY_FORECAST_CONFIG
+  ✔ has an entry for every city in CONFIG.cities (0.1789ms)
+  ✔ every entry has a gridpoint string matching pattern XXX/NN,NN (0.2681ms)
+✔ CITY_FORECAST_CONFIG (0.5996ms)
+▶ API URLs
+  ✔ KALSHI_API_URL starts with https:// (0.1637ms)
+  ✔ NOAA_BASE_URL starts with https:// (0.1143ms)
+  ✔ NOAA_USER_AGENT is a non-empty string (0.2337ms)
+✔ API URLs (0.6889ms)
+▶ CITY_OBSERVATION_STATIONS
+  ✔ has an entry for every city in CONFIG.cities (0.198ms)
+  ✔ all values are 4-character ICAO station codes starting with K (0.6469ms)
+✔ CITY_OBSERVATION_STATIONS (1.0304ms)
+▶ Consistency across CONFIG.cities, CITY_SERIES, CITY_FORECAST_CONFIG, and CITY_OBSERVATION_STATIONS
+  ✔ CITY_SERIES keys match CONFIG.cities exactly (0.2601ms)
+  ✔ CITY_FORECAST_CONFIG keys match CONFIG.cities exactly (0.2026ms)
+  ✔ CITY_OBSERVATION_STATIONS keys match CONFIG.cities exactly (0.1458ms)
+✔ Consistency across CONFIG.cities, CITY_SERIES, CITY_FORECAST_CONFIG, and CITY_OBSERVATION_STATIONS (0.7928ms)
+▶ CITY_COORDS
+  ✔ should have coordinates for all 9 cities (3.2279ms)
+✔ CITY_COORDS (4.8493ms)
+▶ ensembleBucketConfidence - basic cases
+  ✔ should return 0 for empty members array (1.1264ms)
+  ✔ should return 1.0 when all members fall in bucket (0.394ms)
+  ✔ should return 0.0 when no members fall in bucket (0.4008ms)
+  ✔ should compute correct fraction for mixed members (0.2069ms)
+✔ ensembleBucketConfidence - basic cases (3.2349ms)
+▶ ensembleBucketConfidence - edge buckets
+  ✔ should handle "≤X" bucket (bucketLow is null) (0.3086ms)
+  ✔ should handle "≥X" bucket (bucketHigh is null) (0.2904ms)
+  ✔ should handle -Infinity for bucketLow (same as null) (0.2494ms)
+  ✔ should handle Infinity for bucketHigh (same as null) (0.2651ms)
+✔ ensembleBucketConfidence - edge buckets (1.7297ms)
+▶ ensembleBucketConfidence - rounding and boundary behavior
+  ✔ should round members to nearest integer before comparison (0.4136ms)
+  ✔ should include both boundaries in range buckets (0.1463ms)
+✔ ensembleBucketConfidence - rounding and boundary behavior (0.739ms)
+▶ ensembleBucketConfidence - invalid inputs
+  ✔ should return 0 for null members (0.1674ms)
+  ✔ should return 0 for undefined members (0.108ms)
+✔ ensembleBucketConfidence - invalid inputs (0.4294ms)
+▶ getEnsembleForecast (live API)
+  ✔ should return unknown city error (0.4848ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.156Z","city":"NYC","todayMembers":31,"tomorrowMembers":31,"todayMean":31.496774193548386,"tomorrowMean":32.099999999999994,"todaySpread":3.6000000000000014,"tomorrowSpread":4.599999999999998}
+  ✔ should fetch ensemble for NYC (677.7692ms)
+✔ getEnsembleForecast (live API) (678.4372ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.282Z","city":"NYC","todayMembers":31,"tomorrowMembers":31,"todayMean":31.496774193548386,"tomorrowMean":32.099999999999994,"todaySpread":3.6000000000000014,"tomorrowSpread":4.599999999999998}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.650Z","city":"Philadelphia","todayMembers":31,"tomorrowMembers":31,"todayMean":32.91935483870968,"tomorrowMean":34.225806451612904,"todaySpread":2.6000000000000014,"tomorrowSpread":4.5000000000000036}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.651Z","city":"Austin","todayMembers":31,"tomorrowMembers":31,"todayMean":77.39032258064515,"tomorrowMean":78.30322580645162,"todaySpread":7.299999999999997,"tomorrowSpread":8.600000000000009}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.660Z","city":"Chicago","todayMembers":31,"tomorrowMembers":31,"todayMean":37.64193548387097,"tomorrowMean":45.909677419354836,"todaySpread":5.899999999999999,"tomorrowSpread":5.799999999999997}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.673Z","city":"SF","todayMembers":31,"tomorrowMembers":31,"todayMean":61.42258064516128,"tomorrowMean":62.4483870967742,"todaySpread":2.5,"tomorrowSpread":3.8000000000000043}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.673Z","city":"LA","todayMembers":31,"tomorrowMembers":31,"todayMean":63.774193548387096,"tomorrowMean":68.23870967741935,"todaySpread":3.5,"tomorrowSpread":6}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.674Z","city":"DC","todayMembers":31,"tomorrowMembers":31,"todayMean":38.599999999999994,"tomorrowMean":39.1,"todaySpread":4.5,"tomorrowSpread":5.5}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.674Z","city":"Denver","todayMembers":31,"tomorrowMembers":31,"todayMean":55.91935483870968,"tomorrowMean":54.522580645161305,"todaySpread":6.5,"tomorrowSpread":4.200000000000003}
+{"skill":"WeatherTradingSkill","level":"info","action":"ensemble_fetched","timestamp":"2026-02-12T00:08:00.679Z","city":"Miami","todayMembers":31,"tomorrowMembers":31,"todayMean":76.93225806451613,"tomorrowMean":75.70645161290322,"todaySpread":4.3999999999999915,"tomorrowSpread":5.400000000000006}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_ensembles","timestamp":"2026-02-12T00:08:00.680Z","fetched":9,"errors":0}
+▶ getAllEnsembleForecasts (live API)
+  ✔ should fetch ensembles for multiple cities (522.1253ms)
+✔ getAllEnsembleForecasts (live API) (522.3863ms)
+▶ temperatureBucketConfidence
+  ✔ center bucket has highest probability (~0.495) (1.3993ms)
+  ✔ far bucket has very low probability (<0.01) (0.2836ms)
+  ✔ open low end returns CDF for <=bucketHigh (0.2285ms)
+  ✔ open high end returns 1 - CDF for >=bucketLow (1.2926ms)
+  ✔ symmetric buckets equidistant from forecast have equal probability (0.3093ms)
+  ✔ sigma=1 gives tighter distribution than sigma=3 for center bucket (0.2287ms)
+  ✔ wide bucket captures almost all probability (>0.99) (0.1953ms)
+✔ temperatureBucketConfidence (5.7802ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.699Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+▶ getForecast
+  ✔ returns a valid forecast for a known city (NYC) (219.5704ms)
+  ✔ returns an error for an unknown city (0.3952ms)
+✔ getForecast (220.299ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.775Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.838Z","city":"Miami","todayHigh":76,"tomorrowHigh":75}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.841Z","city":"LA","todayHigh":64,"tomorrowHigh":67}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.861Z","city":"SF","todayHigh":60,"tomorrowHigh":62}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.861Z","city":"Austin","todayHigh":75,"tomorrowHigh":79}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.861Z","city":"DC","todayHigh":39,"tomorrowHigh":41}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.879Z","city":"Chicago","todayHigh":40,"tomorrowHigh":35}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.886Z","city":"Philadelphia","todayHigh":33,"tomorrowHigh":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.887Z","city":"Denver","todayHigh":60,"tomorrowHigh":59}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_forecasts","timestamp":"2026-02-12T00:07:59.887Z","fetched":9,"errors":0}
+▶ getAllForecasts
+  ✔ returns a forecasts array with length > 0 (186.4351ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.924Z","city":"NYC","todayHigh":37,"tomorrowHigh":37}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.932Z","city":"SF","todayHigh":60,"tomorrowHigh":62}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.933Z","city":"Miami","todayHigh":76,"tomorrowHigh":75}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.933Z","city":"Chicago","todayHigh":40,"tomorrowHigh":35}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.933Z","city":"Austin","todayHigh":75,"tomorrowHigh":79}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.933Z","city":"DC","todayHigh":39,"tomorrowHigh":41}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.933Z","city":"Denver","todayHigh":60,"tomorrowHigh":59}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.934Z","city":"Philadelphia","todayHigh":33,"tomorrowHigh":34}
+{"skill":"WeatherTradingSkill","level":"info","action":"forecast_fetched","timestamp":"2026-02-12T00:07:59.934Z","city":"LA","todayHigh":64,"tomorrowHigh":67}
+{"skill":"WeatherTradingSkill","level":"info","action":"all_forecasts","timestamp":"2026-02-12T00:07:59.934Z","fetched":9,"errors":0}
+  ✔ covers multiple cities (46.6412ms)
+✔ getAllForecasts (233.3103ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"city_event_fetched","timestamp":"2026-02-12T00:07:59.721Z","city":"NYC","eventTicker":"KXHIGHNY-26FEB11","markets":6}
+▶ getCityWeatherEvent
+  ✔ returns expected shape for valid city + today (242.1246ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"city_event_fetched","timestamp":"2026-02-12T00:07:59.898Z","city":"NYC","eventTicker":"KXHIGHNY-26FEB12","markets":6}
+  ✔ returns expected shape for valid city + tomorrow (173.9774ms)
+  ✔ returns error for unknown city (0.2522ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"city_event_fetched","timestamp":"2026-02-12T00:07:59.978Z","city":"NYC","eventTicker":"KXHIGHNY-26FEB11","markets":6}
+  ✔ all market prices are valid cent values (0-99) (80.3162ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"city_event_fetched","timestamp":"2026-02-12T00:08:00.066Z","city":"NYC","eventTicker":"KXHIGHNY-26FEB11","markets":6}
+  ✔ markets with non-null buckets have valid bucket structure (87.2352ms)
+✔ getCityWeatherEvent (585.8688ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:08:00.243Z","events":2,"totalMarkets":12,"citiesFetched":9}
+▶ scanWeatherMarkets
+  ✔ returns success with events array (176.9416ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:08:00.305Z","events":0,"totalMarkets":0,"citiesFetched":9}
+  ✔ returned cities are from CONFIG.cities (62.1492ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"markets_scanned","timestamp":"2026-02-12T00:08:00.524Z","events":3,"totalMarkets":18,"citiesFetched":9}
+  ✔ each eventTicker is unique (219.1969ms)
+✔ scanWeatherMarkets (458.7024ms)
+▶ nextDate
+  ✔ increments date correctly for mid-month (2.3929ms)
+  ✔ increments date correctly for end-of-month (0.2667ms)
+  ✔ handles leap year correctly (0.2335ms)
+  ✔ increments date correctly for end-of-year (1.3639ms)
+✔ nextDate (5.9393ms)
+▶ getObservedHigh
+  ✔ returns error for unknown city (0.6876ms)
+  ✔ returns error for future date (0.2383ms)
+  ✔ returns error for today's date (0.2485ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_high_fetched","timestamp":"2026-02-12T00:07:59.747Z","city":"NYC","date":"2026-02-11","actualHigh":41,"stationId":"KNYC"}
+  ✔ fetches yesterday's observed high for NYC (238.2186ms)
+✔ getObservedHigh (240.0016ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_high_fetched","timestamp":"2026-02-12T00:07:59.788Z","city":"NYC","date":"2026-02-11","actualHigh":41,"stationId":"KNYC"}
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_high_fetched","timestamp":"2026-02-12T00:07:59.917Z","city":"Denver","date":"2026-02-11","actualHigh":57,"stationId":"KDEN"}
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_high_fetched","timestamp":"2026-02-12T00:07:59.926Z","city":"Philadelphia","date":"2026-02-11","actualHigh":46,"stationId":"KPHL"}
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_high_fetched","timestamp":"2026-02-12T00:07:59.937Z","city":"Miami","date":"2026-02-11","actualHigh":79,"stationId":"KMIA"}
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_high_fetched","timestamp":"2026-02-12T00:07:59.943Z","city":"Chicago","date":"2026-02-11","actualHigh":43,"stationId":"KMDW"}
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_high_fetched","timestamp":"2026-02-12T00:07:59.947Z","city":"DC","date":"2026-02-11","actualHigh":48,"stationId":"KDCA"}
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_high_fetched","timestamp":"2026-02-12T00:07:59.952Z","city":"LA","date":"2026-02-11","actualHigh":64,"stationId":"KLAX"}
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_high_fetched","timestamp":"2026-02-12T00:07:59.958Z","city":"SF","date":"2026-02-11","actualHigh":59,"stationId":"KSFO"}
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_high_fetched","timestamp":"2026-02-12T00:07:59.964Z","city":"Austin","date":"2026-02-11","actualHigh":75,"stationId":"KAUS"}
+{"skill":"WeatherTradingSkill","level":"info","action":"observed_highs_batch","timestamp":"2026-02-12T00:07:59.964Z","fetched":9,"errors":0}
+▶ getObservedHighs
+  ✔ fetches yesterday's observed highs for all 9 cities (216.747ms)
+✔ getObservedHighs (216.9939ms)
+{"skill":"WeatherTradingSkill","level":"warn","action":"circuit_breaker_tripped","timestamp":"2026-02-12T00:07:59.526Z","reasons":["Daily loss -270¢ exceeds 20% of budget (-200¢)"]}
+{"skill":"WeatherTradingSkill","level":"warn","action":"circuit_breaker_tripped","timestamp":"2026-02-12T00:07:59.528Z","reasons":["5 consecutive losses"]}
+{"skill":"WeatherTradingSkill","level":"warn","action":"circuit_breaker_tripped","timestamp":"2026-02-12T00:07:59.531Z","reasons":["Forecast miss of 10°F for New York on 2026-02-11 (forecast: 50°F, actual: 60°F)"]}
+{"skill":"WeatherTradingSkill","level":"warn","action":"circuit_breaker_tripped","timestamp":"2026-02-12T00:07:59.533Z","reasons":["Daily loss -230¢ exceeds 20% of budget (-200¢)","5 consecutive losses"]}
+{"skill":"WeatherTradingSkill","level":"warn","action":"circuit_breaker_tripped","timestamp":"2026-02-12T00:07:59.536Z","reasons":["Daily loss -110¢ exceeds 20% of budget (-100¢)"]}
+▶ checkCircuitBreakers
+  ✔ no trades → canTrade: true (1.5899ms)
+  ✔ daily loss triggers breaker (1.3159ms)
+  ✔ daily loss below threshold → canTrade: true (0.263ms)
+  ✔ 5 consecutive losses trigger breaker (0.5462ms)
+  ✔ 4 consecutive losses → canTrade: true (1.5135ms)
+  ✔ losses broken by win → canTrade: true (0.3096ms)
+  ✔ forecast miss > 8°F triggers breaker (0.968ms)
+  ✔ forecast miss ≤ 8°F → canTrade: true (0.3145ms)
+  ✔ multiple breakers at once (0.9422ms)
+  ✔ config with different maxDailySpend (2.2283ms)
+✔ checkCircuitBreakers (13.0224ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"trade_logged","timestamp":"2026-02-12T00:07:59.530Z","ticker":"KXHIGHNY-26FEB12-B36.5","file":"C:\\Repositories for Git\\notion-executive-assistant-folder\\skills\\kalshi\\trades.csv"}
+{"skill":"WeatherTradingSkill","level":"info","action":"trade_logged","timestamp":"2026-02-12T00:07:59.531Z","ticker":"KXHIGHNY-26FEB12-B36.5","file":"C:\\Repositories for Git\\notion-executive-assistant-folder\\skills\\kalshi\\trades.csv"}
+{"skill":"WeatherTradingSkill","level":"info","action":"trade_logged","timestamp":"2026-02-12T00:07:59.533Z","ticker":"KXHIGHNY-26FEB12-B36.5","file":"C:\\Repositories for Git\\notion-executive-assistant-folder\\skills\\kalshi\\trades.csv"}
+{"skill":"WeatherTradingSkill","level":"info","action":"trade_logged","timestamp":"2026-02-12T00:07:59.535Z","ticker":"KXHIGHNY-26FEB12-B36.5","file":"C:\\Repositories for Git\\notion-executive-assistant-folder\\skills\\kalshi\\trades.csv"}
+{"skill":"WeatherTradingSkill","level":"info","action":"trade_logged","timestamp":"2026-02-12T00:07:59.539Z","ticker":"KXHIGHNY-26FEB12-B36.5","file":"C:\\Repositories for Git\\notion-executive-assistant-folder\\skills\\kalshi\\trades.csv"}
+{"skill":"WeatherTradingSkill","level":"info","action":"trade_logged","timestamp":"2026-02-12T00:07:59.540Z","ticker":"KXHIGHNY-26FEB12-B36.5","file":"C:\\Repositories for Git\\notion-executive-assistant-folder\\skills\\kalshi\\trades.csv"}
+{"skill":"WeatherTradingSkill","level":"info","action":"trade_logged","timestamp":"2026-02-12T00:07:59.543Z","ticker":"KXHIGHNY-26FEB12-B36.5","file":"C:\\Repositories for Git\\notion-executive-assistant-folder\\skills\\kalshi\\trades.csv"}
+▶ csvEscape
+  ✔ returns plain string as-is (0.8752ms)
+  ✔ wraps string containing comma in quotes (0.2483ms)
+  ✔ escapes double quotes by doubling them (0.1936ms)
+  ✔ handles null/undefined as empty string (0.2196ms)
+  ✔ handles numbers (0.3282ms)
+✔ csvEscape (3.0758ms)
+▶ parseCsvLine
+  ✔ parses simple comma-separated values (2.7485ms)
+  ✔ parses quoted fields with commas (0.4379ms)
+  ✔ parses escaped double quotes inside quoted fields (0.2962ms)
+  ✔ handles empty fields (0.299ms)
+✔ parseCsvLine (4.5261ms)
+▶ formatBucket
+  ✔ formats low-high range (0.6161ms)
+  ✔ formats upper-bound only (0.2514ms)
+  ✔ formats lower-bound only (0.1742ms)
+  ✔ returns empty for null (0.247ms)
+✔ formatBucket (1.6289ms)
+▶ logTrade
+  ✔ creates CSV with header if file does not exist (3.5197ms)
+  ✔ appends rows without duplicating header (1.3171ms)
+  ✔ writes correct column values (2.1004ms)
+  ✔ works without opportunity (null) (1.6072ms)
+✔ logTrade (9.4338ms)
+▶ getTradeLog
+  ✔ returns empty array for missing file (0.9122ms)
+  ✔ returns empty array for header-only file (1.1296ms)
+  ✔ returns parsed array of objects with correct keys (2.8183ms)
+✔ getTradeLog (5.1418ms)
+▶ CSV round-trip with special characters
+  ✔ handles commas and quotes in bucket field (1.7031ms)
+✔ CSV round-trip with special characters (2.3156ms)
+▶ checkSettlements
+  ✔ returns success with 0 updated when no trades exist (1.0826ms)
+  ✔ returns success when all trades already settled (1.1671ms)
+✔ checkSettlements (2.4659ms)
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:07:59.591Z","bankroll":2972,"edge":25,"yesPrice":30,"kellyFraction":0.357,"amount":240,"contracts":8}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:07:59.595Z","bankroll":100000,"edge":50,"yesPrice":10,"kellyFraction":0.556,"amount":500,"contracts":50}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:07:59.596Z","bankroll":100,"edge":1,"yesPrice":5,"kellyFraction":0.011,"amount":5,"contracts":1}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:07:59.596Z","bankroll":100,"edge":1,"yesPrice":50,"kellyFraction":0.02,"amount":50,"contracts":1}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:07:59.598Z","bankroll":2000,"edge":20,"yesPrice":40,"kellyFraction":0.333,"amount":160,"contracts":4}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:07:59.598Z","bankroll":2000,"edge":20,"yesPrice":40,"kellyFraction":0.333,"amount":320,"contracts":8}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:07:59.598Z","bankroll":10000,"edge":80,"yesPrice":10,"kellyFraction":0.889,"amount":500,"contracts":50}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:07:59.598Z","bankroll":5000,"edge":30,"yesPrice":25,"kellyFraction":0.4,"amount":500,"contracts":20}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:07:59.599Z","bankroll":1000,"edge":15,"yesPrice":37,"kellyFraction":0.238,"amount":37,"contracts":1}
+{"skill":"WeatherTradingSkill","level":"info","action":"position_sized","timestamp":"2026-02-12T00:07:59.599Z","bankroll":1000,"edge":20,"yesPrice":50,"kellyFraction":0.4,"amount":100,"contracts":2}
+▶ calculatePositionSize - quarter-Kelly with known inputs
+  ✔ bankroll=2972, edge=25, yesPrice=30 → 8 contracts at 240¢ (2.7345ms)
+✔ calculatePositionSize - quarter-Kelly with known inputs (5.2476ms)
+▶ calculatePositionSize - zero and negative edge
+  ✔ edge=0 returns 0 contracts (no edge) (0.1996ms)
+  ✔ negative edge returns 0 contracts (no edge) (0.1824ms)
+✔ calculatePositionSize - zero and negative edge (0.5709ms)
+▶ calculatePositionSize - invalid bankroll
+  ✔ bankroll=0 returns 0 contracts (no bankroll) (0.2274ms)
+  ✔ negative bankroll returns 0 contracts (no bankroll) (0.1379ms)
+✔ calculatePositionSize - invalid bankroll (0.5513ms)
+▶ calculatePositionSize - position capped at maxTradeSize
+  ✔ large bankroll and edge capped at 500¢ (0.3635ms)
+✔ calculatePositionSize - position capped at maxTradeSize (0.6652ms)
+▶ calculatePositionSize - small edge below minTradeSize
+  ✔ Kelly suggests <5¢ but can afford 1 contract at 5¢ (0.3399ms)
+  ✔ Kelly suggests <5¢ and cannot afford even 1 contract (0.2747ms)
+  ✔ Kelly suggests tiny amount and yesPrice > bankroll → cannot afford (0.1951ms)
+✔ calculatePositionSize - small edge below minTradeSize (1.0882ms)
+▶ calculatePositionSize - invalid yesPrice
+  ✔ yesPrice=0 returns 0 contracts (invalid price) (0.3477ms)
+  ✔ yesPrice=100 returns 0 contracts (invalid price) (0.0957ms)
+  ✔ yesPrice=-5 returns 0 contracts (invalid price) (0.0801ms)
+✔ calculatePositionSize - invalid yesPrice (0.6605ms)
+▶ calculatePositionSize - half-Kelly vs quarter-Kelly
+  ✔ half-Kelly gives approximately 2x the amount of quarter-Kelly (0.2982ms)
+✔ calculatePositionSize - half-Kelly vs quarter-Kelly (0.3739ms)
+▶ calculatePositionSize - large edge does not exceed maxTradeSize
+  ✔ edge=80, yesPrice=10, huge Kelly → capped at 500¢ (0.1685ms)
+✔ calculatePositionSize - large edge does not exceed maxTradeSize (0.2256ms)
+▶ calculatePositionSize - contracts calculation is correct
+  ✔ amount / yesPrice = correct integer number of contracts (0.2011ms)
+  ✔ fractional contracts are floored, actual amount matches contracts × yesPrice (0.1493ms)
+✔ calculatePositionSize - contracts calculation is correct (0.4366ms)
+▶ calculatePositionSize - reason string includes Kelly percentage
+  ✔ reason contains Kelly fraction and adjusted fraction (0.1786ms)
+✔ calculatePositionSize - reason string includes Kelly percentage (0.2508ms)
+ℹ tests 180
+ℹ suites 66
+ℹ pass 180
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2090.602

@@ -1,0 +1,1 @@
+date,city,event_ticker,market_ticker,bucket,forecast_temp,sigma,model_confidence,market_price,edge,side,price_paid,contracts,order_id,status,fill_count,actual_high,settled_won,revenue_cents,pnl_cents
