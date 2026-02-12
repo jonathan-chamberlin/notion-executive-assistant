@@ -8,6 +8,8 @@
   "topOpportunitiesToShow": 5,
   "autoTradeMaxPerScan": 2,
   "sigma": 3.0,
+  "sigmaToday": 2.0,
+  "sigmaTomorrow": 3.5,
   "kellyMultiplier": 0.25,
   "minTradeSize": 5
 }

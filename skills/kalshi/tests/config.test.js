@@ -6,9 +6,12 @@ import {
   CITY_SERIES,
   CITY_FORECAST_CONFIG,
   CITY_OBSERVATION_STATIONS,
+  CITY_TIMEZONES,
+  CITY_COORDS,
   KALSHI_API_URL,
   NOAA_BASE_URL,
   NOAA_USER_AGENT,
+  loadTradingConfig,
 } from '../config.js';
 
 // ── 1. CONFIG structure ────────────────────────────────────────────────────────
@@ -175,13 +178,139 @@ describe('CITY_OBSERVATION_STATIONS', () => {
   });
 });
 
-// ── 8. Consistency ─────────────────────────────────────────────────────────────
+// ── 8. CITY_TIMEZONES ──────────────────────────────────────────────────────────
 
-describe('Consistency across CONFIG.cities, CITY_SERIES, CITY_FORECAST_CONFIG, and CITY_OBSERVATION_STATIONS', () => {
+describe('CITY_TIMEZONES', () => {
+  const timezonePattern = /^[A-Za-z_]+\/[A-Za-z_]+$/;
+
+  it('has an entry for every city in CONFIG.cities', () => {
+    for (const city of CONFIG.cities) {
+      assert.ok(city in CITY_TIMEZONES, `CITY_TIMEZONES is missing entry for "${city}"`);
+    }
+  });
+
+  it('keys match CONFIG.cities exactly (no extras)', () => {
+    const citySet = new Set(CONFIG.cities);
+    const timezoneKeys = Object.keys(CITY_TIMEZONES);
+    assert.strictEqual(
+      timezoneKeys.length,
+      citySet.size,
+      `CITY_TIMEZONES has ${timezoneKeys.length} keys but CONFIG.cities has ${citySet.size} entries`,
+    );
+    for (const key of timezoneKeys) {
+      assert.ok(citySet.has(key), `CITY_TIMEZONES has extra key "${key}" not in CONFIG.cities`);
+    }
+  });
+
+  it('all values are non-empty strings', () => {
+    for (const city of CONFIG.cities) {
+      const tz = CITY_TIMEZONES[city];
+      assert.strictEqual(typeof tz, 'string', `CITY_TIMEZONES["${city}"] should be a string`);
+      assert.ok(tz.length > 0, `CITY_TIMEZONES["${city}"] must not be empty`);
+    }
+  });
+
+  it('all values match IANA timezone pattern (contain /)', () => {
+    for (const city of CONFIG.cities) {
+      const tz = CITY_TIMEZONES[city];
+      assert.ok(
+        timezonePattern.test(tz),
+        `CITY_TIMEZONES["${city}"] = "${tz}" does not match IANA pattern (e.g., "America/New_York")`,
+      );
+    }
+  });
+});
+
+// ── 9. CITY_COORDS ─────────────────────────────────────────────────────────────
+
+describe('CITY_COORDS', () => {
+  it('has an entry for every city in CONFIG.cities', () => {
+    for (const city of CONFIG.cities) {
+      assert.ok(city in CITY_COORDS, `CITY_COORDS is missing entry for "${city}"`);
+    }
+  });
+
+  it('keys match CONFIG.cities exactly (no extras)', () => {
+    const citySet = new Set(CONFIG.cities);
+    const coordKeys = Object.keys(CITY_COORDS);
+    assert.strictEqual(
+      coordKeys.length,
+      citySet.size,
+      `CITY_COORDS has ${coordKeys.length} keys but CONFIG.cities has ${citySet.size} entries`,
+    );
+    for (const key of coordKeys) {
+      assert.ok(citySet.has(key), `CITY_COORDS has extra key "${key}" not in CONFIG.cities`);
+    }
+  });
+
+  it('each entry has lat (number between -90 and 90) and lon (number between -180 and 180)', () => {
+    for (const city of CONFIG.cities) {
+      const coords = CITY_COORDS[city];
+      assert.ok(coords.lat !== undefined, `CITY_COORDS["${city}"] is missing lat`);
+      assert.ok(coords.lon !== undefined, `CITY_COORDS["${city}"] is missing lon`);
+      assert.strictEqual(typeof coords.lat, 'number', `CITY_COORDS["${city}"].lat should be a number`);
+      assert.strictEqual(typeof coords.lon, 'number', `CITY_COORDS["${city}"].lon should be a number`);
+      assert.ok(
+        coords.lat >= -90 && coords.lat <= 90,
+        `CITY_COORDS["${city}"].lat = ${coords.lat} must be between -90 and 90`,
+      );
+      assert.ok(
+        coords.lon >= -180 && coords.lon <= 180,
+        `CITY_COORDS["${city}"].lon = ${coords.lon} must be between -180 and 180`,
+      );
+    }
+  });
+
+  it('all cities have US coordinates (lat 24-50, lon -125 to -65)', () => {
+    for (const city of CONFIG.cities) {
+      const coords = CITY_COORDS[city];
+      assert.ok(
+        coords.lat >= 24 && coords.lat <= 50,
+        `CITY_COORDS["${city}"].lat = ${coords.lat} should be within US mainland range (24-50)`,
+      );
+      assert.ok(
+        coords.lon >= -125 && coords.lon <= -65,
+        `CITY_COORDS["${city}"].lon = ${coords.lon} should be within US mainland range (-125 to -65)`,
+      );
+    }
+  });
+});
+
+// ── 10. loadTradingConfig sigma defaults ───────────────────────────────────────
+
+describe('loadTradingConfig sigma defaults', () => {
+  it('default config includes sigmaToday (number > 0)', () => {
+    const config = loadTradingConfig();
+    assert.ok(config.sigmaToday !== undefined, 'config.sigmaToday is missing');
+    assert.strictEqual(typeof config.sigmaToday, 'number', 'config.sigmaToday should be a number');
+    assert.ok(config.sigmaToday > 0, `config.sigmaToday = ${config.sigmaToday} must be > 0`);
+  });
+
+  it('default config includes sigmaTomorrow (number > 0)', () => {
+    const config = loadTradingConfig();
+    assert.ok(config.sigmaTomorrow !== undefined, 'config.sigmaTomorrow is missing');
+    assert.strictEqual(typeof config.sigmaTomorrow, 'number', 'config.sigmaTomorrow should be a number');
+    assert.ok(config.sigmaTomorrow > 0, `config.sigmaTomorrow = ${config.sigmaTomorrow} must be > 0`);
+  });
+
+  it('sigmaTomorrow > sigmaToday (tomorrow has more uncertainty)', () => {
+    const config = loadTradingConfig();
+    assert.ok(
+      config.sigmaTomorrow > config.sigmaToday,
+      `config.sigmaTomorrow (${config.sigmaTomorrow}) should be > sigmaToday (${config.sigmaToday})`,
+    );
+  });
+});
+
+// ── 11. Consistency ────────────────────────────────────────────────────────────
+
+describe('Consistency across CONFIG.cities, CITY_SERIES, CITY_FORECAST_CONFIG, CITY_OBSERVATION_STATIONS, CITY_TIMEZONES, and CITY_COORDS', () => {
   const citySet = new Set(CONFIG.cities);
   const seriesKeys = Object.keys(CITY_SERIES);
   const forecastKeys = Object.keys(CITY_FORECAST_CONFIG);
   const stationKeys = Object.keys(CITY_OBSERVATION_STATIONS);
+  const timezoneKeys = Object.keys(CITY_TIMEZONES);
+  const coordKeys = Object.keys(CITY_COORDS);
 
   it('CITY_SERIES keys match CONFIG.cities exactly', () => {
     assert.strictEqual(
@@ -213,6 +342,28 @@ describe('Consistency across CONFIG.cities, CITY_SERIES, CITY_FORECAST_CONFIG, a
     );
     for (const key of stationKeys) {
       assert.ok(citySet.has(key), `CITY_OBSERVATION_STATIONS has extra key "${key}" not in CONFIG.cities`);
+    }
+  });
+
+  it('CITY_TIMEZONES keys match CONFIG.cities exactly', () => {
+    assert.strictEqual(
+      timezoneKeys.length,
+      citySet.size,
+      `CITY_TIMEZONES has ${timezoneKeys.length} keys but CONFIG.cities has ${citySet.size} entries`,
+    );
+    for (const key of timezoneKeys) {
+      assert.ok(citySet.has(key), `CITY_TIMEZONES has extra key "${key}" not in CONFIG.cities`);
+    }
+  });
+
+  it('CITY_COORDS keys match CONFIG.cities exactly', () => {
+    assert.strictEqual(
+      coordKeys.length,
+      citySet.size,
+      `CITY_COORDS has ${coordKeys.length} keys but CONFIG.cities has ${citySet.size} entries`,
+    );
+    for (const key of coordKeys) {
+      assert.ok(citySet.has(key), `CITY_COORDS has extra key "${key}" not in CONFIG.cities`);
     }
   });
 });

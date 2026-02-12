@@ -1,17 +1,28 @@
-import { CONFIG, loadTradingConfig } from './config.js';
+import { CONFIG, loadTradingConfig, CITY_TIMEZONES } from './config.js';
 import { logAction } from './client.js';
 import { getAllForecasts, temperatureBucketConfidence } from './forecast.js';
 import { getAllEnsembleForecasts, ensembleBucketConfidence } from './ensemble.js';
 import { scanWeatherMarkets } from './markets.js';
 import { calculatePositionSize } from './sizing.js';
-import { getBalance } from './trade.js';
+import { getBalance, getPositions } from './trade.js';
+
+/**
+ * Check if it's past 2 PM local time in a city's timezone.
+ * After 2 PM, today's high has likely already been recorded — forecasts are stale.
+ */
+function isPastCutoff(city, cutoffHour = 14) {
+  const tz = CITY_TIMEZONES[city];
+  if (!tz) return false;
+  const localHour = new Date().toLocaleString('en-US', { hour: 'numeric', hour12: false, timeZone: tz });
+  return parseInt(localHour, 10) >= cutoffHour;
+}
 
 /**
  * Score a single market against a forecast temperature.
  * Uses ensemble members for probability when available, falls back to normal distribution.
  * Returns an opportunity object if the market is mispriced, or null otherwise.
  */
-function scoreMarket(market, forecastTemp, event, edge, tradingConfig, bankroll, ensembleMembers) {
+function scoreMarket(market, forecastTemp, event, edge, tradingConfig, bankroll, ensembleMembers, isToday) {
   if (!market.bucket) return null;
 
   let confidence;
@@ -22,13 +33,20 @@ function scoreMarket(market, forecastTemp, event, edge, tradingConfig, bankroll,
     confidence = ensembleBucketConfidence(ensembleMembers, market.bucket.low, market.bucket.high);
     confidenceSource = 'ensemble';
   } else {
-    // Fallback: normal distribution with configurable sigma
+    // Fallback: normal distribution — use tighter sigma for today (forecast is fresher)
+    const sigma = isToday
+      ? (tradingConfig.sigmaToday ?? 2.0)
+      : (tradingConfig.sigmaTomorrow ?? 3.5);
     confidence = temperatureBucketConfidence(
       forecastTemp,
       market.bucket.low,
       market.bucket.high,
-      tradingConfig.sigma ?? 3.0
+      sigma
     );
+    // Cap normal-model confidence at 90% — the normal distribution underestimates
+    // tail risk (fat tails), producing false 99% confidence on ≤X/≥X buckets.
+    // Only ensemble data can justify >90% confidence.
+    if (confidence > 0.90) confidence = 0.90;
     confidenceSource = 'normal';
   }
 
@@ -76,11 +94,26 @@ export async function findOpportunities({ minEdge } = {}) {
   const tradingConfig = loadTradingConfig();
   const edge = minEdge ?? CONFIG.minEdge;
 
-  // Fetch current balance for Kelly sizing
+  // Fetch current balance for Kelly sizing, subtract open position cost basis
   let bankroll = 2000; // conservative fallback
   try {
     const balResult = await getBalance();
-    if (balResult.success) bankroll = balResult.balance.available;
+    if (balResult.success) {
+      bankroll = balResult.balance.available;
+      // Subtract cost of open positions — money tied up isn't available for new bets
+      try {
+        const posResult = await getPositions();
+        if (posResult.success && posResult.positions.length > 0) {
+          const positionCost = posResult.positions.reduce((sum, p) => {
+            return sum + Math.abs(p.avgYesPrice || 0) * Math.abs(p.yesCount || 0);
+          }, 0);
+          bankroll = Math.max(0, bankroll - positionCost);
+          logAction('bankroll_adjusted', { raw: balResult.balance.available, positionCost, adjusted: bankroll });
+        }
+      } catch {
+        // Non-fatal: use unadjusted balance
+      }
+    }
   } catch {
     // Use fallback
   }
@@ -106,9 +139,18 @@ export async function findOpportunities({ minEdge } = {}) {
     (ensembleResult.forecasts || []).map(f => [f.city, f])
   );
 
+  let skippedTodayCutoff = 0;
   const opportunities = marketsResult.events.flatMap(event => {
     const forecast = forecastByCity[event.city];
     if (!forecast) return [];
+
+    // Skip today's markets after 2 PM local — the high is likely already in,
+    // so the forecast is stale and the market price reflects near-certainty.
+    if (event.label === 'today' && isPastCutoff(event.city)) {
+      skippedTodayCutoff++;
+      return [];
+    }
+
     const forecastData = event.label === 'tomorrow' ? forecast.tomorrow : forecast.today;
     if (!forecastData) return [];
 
@@ -119,12 +161,18 @@ export async function findOpportunities({ minEdge } = {}) {
       : null;
     const ensembleMembers = ensembleData?.members || null;
 
+    const isToday = event.label !== 'tomorrow';
+
     return event.markets
-      .map(market => scoreMarket(market, forecastData.highTemp, event, edge, tradingConfig, bankroll, ensembleMembers))
+      .map(market => scoreMarket(market, forecastData.highTemp, event, edge, tradingConfig, bankroll, ensembleMembers, isToday))
       .filter(Boolean);
   }).sort((a, b) => b.edge - a.edge);
 
   const ensembleCities = Object.keys(ensembleByCity).length;
+
+  if (skippedTodayCutoff > 0) {
+    logAction('today_cutoff_skipped', { count: skippedTodayCutoff });
+  }
 
   logAction('opportunities_found', {
     count: opportunities.length,
@@ -132,6 +180,7 @@ export async function findOpportunities({ minEdge } = {}) {
     citiesForecasted: forecastResult.forecasts.length,
     ensembleCities,
     minEdge: edge,
+    skippedTodayCutoff,
   });
 
   return {

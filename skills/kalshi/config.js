@@ -30,7 +30,9 @@ const TRADING_DEFAULTS = {
   usageAlertIntervalMinutes: 10,
   topOpportunitiesToShow: 5,
   autoTradeMaxPerScan: 2,
-  sigma: 3.0,
+  sigma: 3.0,           // legacy fallback (used if sigmaToday/sigmaTomorrow missing)
+  sigmaToday: 2.0,      // NOAA same-day forecast error ~2°F
+  sigmaTomorrow: 3.5,   // NOAA next-day forecast error ~3-4°F
   kellyMultiplier: 0.25,
   minTradeSize: 5,
 };
@@ -129,6 +131,19 @@ export const CITY_COORDS = {
   'DC':           { lat: 38.8512, lon: -77.0402 },    // KDCA
   'Denver':       { lat: 39.8561, lon: -104.6737 },   // KDEN
   'SF':           { lat: 37.6213, lon: -122.3790 },   // KSFO
+};
+
+// City timezones (IANA) for time-of-day filtering
+export const CITY_TIMEZONES = {
+  'NYC':          'America/New_York',
+  'Chicago':      'America/Chicago',
+  'Miami':        'America/New_York',
+  'Austin':       'America/Chicago',
+  'LA':           'America/Los_Angeles',
+  'Philadelphia': 'America/New_York',
+  'DC':           'America/New_York',
+  'Denver':       'America/Denver',
+  'SF':           'America/Los_Angeles',
 };
 
 // API URLs

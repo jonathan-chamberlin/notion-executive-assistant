@@ -90,8 +90,25 @@ export async function runScan() {
       setMode('alert-only');
     } else {
       // In autonomous mode, execute top trades within budget
+      // Filter out markets where we already hold positions (prevent duplicates)
+      let tradeable = opportunities;
+      try {
+        const posResult = await getPositions();
+        if (posResult.success && posResult.positions.length > 0) {
+          const heldTickers = new Set(posResult.positions.map(p => p.ticker));
+          const before = tradeable.length;
+          tradeable = tradeable.filter(opp => !heldTickers.has(opp.ticker));
+          if (before !== tradeable.length) {
+            logAction('duplicates_filtered', { before, after: tradeable.length, held: heldTickers.size });
+            lines.push(`   ℹ️ Skipped ${before - tradeable.length} markets (already holding positions)`);
+          }
+        }
+      } catch {
+        // Non-fatal: proceed without duplicate check
+      }
+
       const maxTrades = tradingConfig.autoTradeMaxPerScan;
-      const tradeable = opportunities.slice(0, maxTrades);
+      tradeable = tradeable.slice(0, maxTrades);
       const tradeResults = [];
 
       for (const opp of tradeable) {

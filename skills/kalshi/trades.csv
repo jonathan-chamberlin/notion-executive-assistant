@@ -6,3 +6,4 @@ date,city,event_ticker,market_ticker,bucket,forecast_temp,sigma,model_confidence
 2026-02-12,NYC,KXHIGHNY-26FEB12,KXHIGHNY-26FEB12-B32.5,32-33,36,3,87,1,86,yes,2,100,b976be2d-ee5d-4dcf-9a54-34458492ddaf,executed,100,,,,
 2026-02-12,Chicago,KXHIGHCHI-26FEB12,KXHIGHCHI-26FEB12-T38,≤38,35,3,84,11,73,yes,12,16,718716f4-2cae-41f9-91dc-73f5d4c995a3,executed,16,,,,
 2026-02-12,Miami,KXHIGHMIA-26FEB12,KXHIGHMIA-26FEB12-B77.5,77-78,77,3,77,12,65,yes,13,14,bb06880e-0ac0-407d-91cb-dc14f0c1cc9d,executed,14,,,,
+2026-02-12,,KXHIGHNY-26FEB12,KXHIGHNY-26FEB12-T32,,,3,,,,yes,1,1,3aea9b42-887d-41db-a91b-f6b24faafad7,executed,,,,,
