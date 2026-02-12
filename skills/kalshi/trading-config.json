@@ -3,7 +3,7 @@
   "maxDailySpend": 1000,
   "minEdge": 25,
   "maxTradeSize": 200,
-  "scanIntervalMinutes": 30,
+  "scanIntervalMinutes": 60,
   "usageAlertIntervalMinutes": 10,
   "topOpportunitiesToShow": 5,
   "autoTradeMaxPerScan": 2,
