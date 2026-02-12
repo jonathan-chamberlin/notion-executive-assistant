@@ -25,7 +25,7 @@ services:
       - ./credentials.json:/app/credentials.json:ro
       - ./google-service-account.json:/app/google-service-account.json:ro
       - ./logs:/app/logs
-      - clawdbot-data:/home/clawdbot/clawd
+      - ./clawdbot-config:/home/clawdbot/.clawdbot
     deploy:
       resources:
         limits:
