@@ -18,9 +18,11 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    init: true
     environment:
       - NODE_OPTIONS=--max-old-space-size=700
-    command: ["npx", "clawdbot", "gateway", "run", "--verbose", "--force"]
+      - HOME=/home/clawdbot
+    command: ["/app/node_modules/.bin/clawdbot", "gateway", "run", "--verbose", "--force"]
     volumes:
       - ./credentials.json:/app/credentials.json:ro
       - ./google-service-account.json:/app/google-service-account.json:ro
