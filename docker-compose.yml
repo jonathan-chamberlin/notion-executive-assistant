@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     environment:
-      - NODE_OPTIONS=--max-old-space-size=384
+      - NODE_OPTIONS=--max-old-space-size=700
     command: ["npx", "clawdbot", "gateway", "--verbose"]
     volumes:
       - ./credentials.json:/app/credentials.json:ro
@@ -30,7 +30,7 @@ services:
       resources:
         limits:
           cpus: '1.0'
-          memory: 512M
+          memory: 800M
         reservations:
           cpus: '0.1'
           memory: 128M
