@@ -5,6 +5,8 @@ import { getRemainingDailyBudget } from './budget.js';
 import { checkSettlements, getTradeLog } from './settlement.js';
 import { getUsageReport, markUsageAlerted, getUsageStats } from './usage.js';
 import { logAction } from './client.js';
+import { checkCircuitBreakers } from './risk.js';
+import { getCalibrationReport, computeForecastErrors } from './calibration.js';
 
 const VALID_MODES = ['paused', 'alert-only', 'alert-then-trade', 'autonomous'];
 
@@ -15,10 +17,12 @@ function formatOpportunity(opp, index) {
   const bucket = opp.bucket
     ? (opp.bucket.low == null ? `≤${opp.bucket.high}` : opp.bucket.high == null ? `≥${opp.bucket.low}` : `${opp.bucket.low}-${opp.bucket.high}`)
     : '?';
+  const src = opp.confidenceSource === 'ensemble' ? 'GFS' : 'σ';
+  const spreadInfo = opp.ensembleSpread != null ? ` ±${Math.round(opp.ensembleSpread / 2)}°F` : '';
   return [
     `${index + 1}. ${opp.city} ${bucket}°F`,
-    `   Forecast: ${opp.forecastTemp}°F (${opp.forecastConfidence}% conf)`,
-    `   Market: ${opp.marketPrice}¢ → Edge: +${opp.edge}pp`,
+    `   Forecast: ${opp.forecastTemp}°F (${opp.forecastConfidence}% ${src})${spreadInfo}`,
+    `   Market: ${opp.marketPrice}¢ → Edge: +${opp.edge}pp | ${opp.suggestedAmount}¢`,
     `   ${opp.ticker}`,
   ].join('\n');
 }
@@ -69,31 +73,47 @@ export async function runScan() {
     }
   }
 
-  // In autonomous mode, execute top trades within budget
+  // Check circuit breakers before autonomous trading
   if (mode === 'autonomous' && opportunities.length > 0) {
-    const maxTrades = tradingConfig.autoTradeMaxPerScan;
-    const tradeable = opportunities.slice(0, maxTrades);
-    const tradeResults = [];
+    const allTrades = getTradeLog();
+    const breakers = checkCircuitBreakers(allTrades, tradingConfig);
 
-    for (const opp of tradeable) {
-      const tradeResult = await executeTrade({
-        ticker: opp.ticker,
-        side: opp.side,
-        amount: Math.min(opp.suggestedAmount, tradingConfig.maxTradeSize),
-        yesPrice: opp.suggestedYesPrice,
-        opportunity: opp,
-      });
-      tradeResults.push({ ticker: opp.ticker, ...tradeResult });
-    }
+    if (!breakers.canTrade) {
+      lines.push('');
+      lines.push('🛑 Circuit breaker tripped:');
+      for (const reason of breakers.reasons) {
+        lines.push(`  • ${reason}`);
+      }
+      lines.push('Switching to alert-only mode.');
 
-    lines.push('');
-    lines.push(`🤖 Auto-traded ${tradeResults.length} positions:`);
-    for (const tr of tradeResults) {
-      const icon = tr.success ? '✅' : '❌';
-      const detail = tr.success
-        ? `${tr.trade.count}x @ ${tr.trade.yesPrice}¢`
-        : tr.error;
-      lines.push(`  ${icon} ${tr.ticker}: ${detail}`);
+      // Auto-downgrade to alert-only
+      setMode('alert-only');
+    } else {
+      // In autonomous mode, execute top trades within budget
+      const maxTrades = tradingConfig.autoTradeMaxPerScan;
+      const tradeable = opportunities.slice(0, maxTrades);
+      const tradeResults = [];
+
+      for (const opp of tradeable) {
+        const tradeResult = await executeTrade({
+          ticker: opp.ticker,
+          side: opp.side,
+          amount: Math.min(opp.suggestedAmount, tradingConfig.maxTradeSize),
+          yesPrice: opp.suggestedYesPrice,
+          opportunity: opp,
+        });
+        tradeResults.push({ ticker: opp.ticker, ...tradeResult });
+      }
+
+      lines.push('');
+      lines.push(`🤖 Auto-traded ${tradeResults.length} positions:`);
+      for (const tr of tradeResults) {
+        const icon = tr.success ? '✅' : '❌';
+        const detail = tr.success
+          ? `${tr.trade.count}x @ ${tr.trade.yesPrice}¢`
+          : tr.error;
+        lines.push(`  ${icon} ${tr.ticker}: ${detail}`);
+      }
     }
   }
 
@@ -239,12 +259,51 @@ export async function getDailySummary() {
     ``,
     `Settlements: ${settlementSummary}`,
     `Kalshi balance: ${balanceStr}`,
-    ``,
-    `OpenClaw usage today:`,
-    `  Cost: $${usage.totalCost.toFixed(4)}`,
-    `  Invocations: ${usage.invocations}`,
-    `  Tokens: ${usage.tokensIn.toLocaleString()} in / ${usage.tokensOut.toLocaleString()} out`,
   ];
+
+  // P&L Analytics
+  const allTrades = trades;
+  const settledTrades = allTrades.filter(t => t.settled_won !== '');
+  if (settledTrades.length > 0) {
+    const wins = settledTrades.filter(t => t.settled_won === 'yes').length;
+    const losses = settledTrades.filter(t => t.settled_won === 'no').length;
+    const totalPnl = settledTrades.reduce((sum, t) => sum + (Number(t.pnl_cents) || 0), 0);
+
+    lines.push('');
+    lines.push('P&L:');
+    lines.push(`  Settled: ${settledTrades.length} trades`);
+    lines.push(`  Won: ${wins} | Lost: ${losses} | Win rate: ${Math.round(wins / settledTrades.length * 100)}%`);
+    lines.push(`  Net P&L: ${totalPnl >= 0 ? '+' : ''}${totalPnl}¢`);
+
+    // Largest win/loss
+    const pnls = settledTrades.map(t => Number(t.pnl_cents) || 0);
+    const maxWin = Math.max(...pnls);
+    const maxLoss = Math.min(...pnls);
+    if (maxWin > 0) lines.push(`  Largest win: +${maxWin}¢`);
+    if (maxLoss < 0) lines.push(`  Largest loss: ${maxLoss}¢`);
+  }
+
+  // Forecast Accuracy
+  const forecastStats = computeForecastErrors(allTrades);
+  if (forecastStats.sampleSize > 0) {
+    lines.push('');
+    lines.push('Forecast Accuracy:');
+    lines.push(`  MAE: ${forecastStats.meanAbsoluteError}°F (${forecastStats.sampleSize} samples)`);
+    lines.push(`  Realized σ: ${forecastStats.realizedSigma}°F (model: 3.0°F)`);
+    if (forecastStats.realizedSigma <= 4.0) {
+      lines.push(`  Status: GOOD`);
+    } else if (forecastStats.realizedSigma <= 5.0) {
+      lines.push(`  Status: CAUTION — consider sigma=${forecastStats.realizedSigma}`);
+    } else {
+      lines.push(`  Status: WARNING — overconfident`);
+    }
+  }
+
+  lines.push('');
+  lines.push(`OpenClaw usage today:`);
+  lines.push(`  Cost: $${usage.totalCost.toFixed(4)}`);
+  lines.push(`  Invocations: ${usage.invocations}`);
+  lines.push(`  Tokens: ${usage.tokensIn.toLocaleString()} in / ${usage.tokensOut.toLocaleString()} out`);
 
   logAction('daily_summary', { trades: todayTrades.length, mode: tradingConfig.mode });
 

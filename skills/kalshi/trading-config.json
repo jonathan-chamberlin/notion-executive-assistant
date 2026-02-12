@@ -1,10 +1,13 @@
 {
-  "mode": "alert-only",
-  "maxDailySpend": 1000,
-  "minEdge": 20,
-  "maxTradeSize": 500,
+  "mode": "autonomous",
+  "maxDailySpend": 500,
+  "minEdge": 25,
+  "maxTradeSize": 200,
   "scanIntervalMinutes": 30,
   "usageAlertIntervalMinutes": 10,
   "topOpportunitiesToShow": 5,
-  "autoTradeMaxPerScan": 2
+  "autoTradeMaxPerScan": 2,
+  "sigma": 3.0,
+  "kellyMultiplier": 0.25,
+  "minTradeSize": 5
 }

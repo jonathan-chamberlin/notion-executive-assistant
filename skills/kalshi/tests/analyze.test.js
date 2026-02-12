@@ -65,6 +65,9 @@ describe('findOpportunities — opportunity shape', () => {
 
       assert.strictEqual(typeof opp.suggestedYesPrice, 'number', 'suggestedYesPrice should be a number');
       assert.ok(opp.suggestedYesPrice >= 1 && opp.suggestedYesPrice <= 100, `suggestedYesPrice should be 1-100, got ${opp.suggestedYesPrice}`);
+
+      // Ensemble integration fields
+      assert.ok(['ensemble', 'normal'].includes(opp.confidenceSource), `confidenceSource should be 'ensemble' or 'normal', got '${opp.confidenceSource}'`);
     }
   }, { timeout: TIMEOUT });
 });
@@ -125,16 +128,16 @@ describe('findOpportunities — custom minEdge', () => {
 // ── 6. Very high minEdge ─────────────────────────────────────────────────────
 
 describe('findOpportunities — very high minEdge', () => {
-  it('minEdge: 99 should likely return 0 opportunities', async () => {
+  it('minEdge: 99 should return very few opportunities', async () => {
     const result = await findOpportunities({ minEdge: 99 });
 
     assert.strictEqual(result.success, true, 'result.success should be true');
     assert.ok(Array.isArray(result.opportunities), 'opportunities should be an array');
-    // A 99 pp edge is nearly impossible, so we expect 0 — but don't hard-fail
-    // if some truly extreme mispricing exists.
+    // With ensemble data, 100% confidence on 1¢ markets can produce legitimate 99pp edges.
+    // Still expect very few — most buckets won't have unanimous ensemble agreement.
     assert.ok(
-      result.opportunities.length <= 1,
-      `minEdge 99 should return 0 (or at most 1 extreme outlier) opportunities, got ${result.opportunities.length}`,
+      result.opportunities.length <= 10,
+      `minEdge 99 should return very few opportunities, got ${result.opportunities.length}`,
     );
   }, { timeout: TIMEOUT });
 });

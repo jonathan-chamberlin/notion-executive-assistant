@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { kalshiAuthFetch, logAction } from './client.js';
+import { getObservedHighs } from './observations.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const TRADES_FILE = path.join(__dirname, 'trades.csv');
@@ -197,6 +198,45 @@ export async function checkSettlements() {
     ordersById[o.order_id] = o;
   }
 
+  // Fetch observed highs for past dates with missing actual_high
+  const observedHighs = {};
+  const today = new Date().toISOString().split('T')[0];
+
+  // Collect unique (city, date) pairs where actual_high is empty and date is past
+  const neededObservations = new Map(); // Map<dateStr, Set<city>>
+  for (const trade of trades) {
+    if (!trade.actual_high && trade.date && trade.date < today && trade.city) {
+      if (!neededObservations.has(trade.date)) {
+        neededObservations.set(trade.date, new Set());
+      }
+      neededObservations.get(trade.date).add(trade.city);
+    }
+  }
+
+  // Fetch observations grouped by date
+  if (neededObservations.size > 0) {
+    logAction('fetching_observations', { dates: neededObservations.size });
+    for (const [dateStr, citiesSet] of neededObservations) {
+      const citiesList = Array.from(citiesSet);
+      try {
+        const result = await getObservedHighs(citiesList, dateStr);
+        if (result.success && result.highs) {
+          for (const [city, actualHigh] of Object.entries(result.highs)) {
+            const key = `${city}-${dateStr}`;
+            observedHighs[key] = actualHigh;
+          }
+        }
+        if (result.errors && result.errors.length > 0) {
+          logAction('observation_fetch_partial', { date: dateStr, errors: result.errors.length }, 'warn');
+        }
+      } catch (err) {
+        logAction('observation_fetch_error', { date: dateStr, error: err.message }, 'warn');
+        // Non-fatal: continue with settlement checking
+      }
+    }
+    logAction('observations_fetched', { total: Object.keys(observedHighs).length });
+  }
+
   let updatedCount = 0;
 
   for (const trade of trades) {
@@ -221,6 +261,13 @@ export async function checkSettlements() {
       const contracts = Number(trade.contracts) || 0;
       const revenue = Number(settlement.revenue) || 0;
       trade.pnl_cents = String(revenue - (pricePaid * contracts));
+      changed = true;
+    }
+
+    // Populate actual_high from observed data
+    const key = `${trade.city}-${trade.date}`;
+    if (!trade.actual_high && observedHighs[key] != null) {
+      trade.actual_high = String(observedHighs[key]);
       changed = true;
     }
 

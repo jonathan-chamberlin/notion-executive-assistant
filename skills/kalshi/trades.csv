@@ -1,0 +1,5 @@
+date,city,event_ticker,market_ticker,bucket,forecast_temp,sigma,model_confidence,market_price,edge,side,price_paid,contracts,order_id,status,fill_count,actual_high,settled_won,revenue_cents,pnl_cents
+2026-02-12,NYC,KXHIGHNY-26FEB12,KXHIGHNY-26FEB12-B36.5,36-40,38,3,72,45,27,yes,45,5,order-abc-123,resting,,,,,
+2026-02-12,NYC,KXHIGHNY-26FEB11,KXHIGHNY-26FEB11-T36,≤36,37,3,100,1,99,yes,2,100,ed7b3533-e03f-4a22-aff0-e6157b2cf189,executed,,,,,
+2026-02-12,Philadelphia,KXHIGHPHIL-26FEB11,KXHIGHPHIL-26FEB11-T37,≤37,33,3,100,1,99,yes,2,100,3afd0934-f9cd-4363-ab05-d633749756ce,executed,,,,,
+2026-02-12,NYC,KXHIGHNY-26FEB11,KXHIGHNY-26FEB11-T36,≤36,37,3,100,1,99,yes,2,1,306c0b86-17c4-432a-9c00-d7905138a43c,executed,,,,,

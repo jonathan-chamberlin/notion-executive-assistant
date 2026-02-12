@@ -8,6 +8,7 @@
  *   node scripts/kalshi-cron.js usage       — usage alert (suppressed if no activity)
  *   node scripts/kalshi-cron.js summary     — daily summary
  *   node scripts/kalshi-cron.js status      — current status
+ *   node scripts/kalshi-cron.js calibration — calibration report
  *
  * Schedule via Windows Task Scheduler, cron, or clawdbot cron.
  */
@@ -73,8 +74,13 @@ try {
     const result = await getStatus();
     await sendTelegram(result.message);
     console.log(result.message);
+  } else if (command === 'calibration') {
+    const { getCalibrationReport } = await import('../skills/kalshi/calibration.js');
+    const report = getCalibrationReport();
+    await sendTelegram(report);
+    console.log(report);
   } else {
-    console.error(`Unknown command: ${command}. Use: scan, usage, summary, status`);
+    console.error(`Unknown command: ${command}. Use: scan, usage, summary, status, calibration`);
     process.exit(1);
   }
 } catch (err) {

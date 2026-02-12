@@ -5,6 +5,7 @@ import {
   CONFIG,
   CITY_SERIES,
   CITY_FORECAST_CONFIG,
+  CITY_OBSERVATION_STATIONS,
   KALSHI_API_URL,
   NOAA_BASE_URL,
   NOAA_USER_AGENT,
@@ -151,12 +152,36 @@ describe('API URLs', () => {
   });
 });
 
-// ── 7. Consistency ─────────────────────────────────────────────────────────────
+// ── 7. CITY_OBSERVATION_STATIONS ───────────────────────────────────────────────
 
-describe('Consistency across CONFIG.cities, CITY_SERIES, and CITY_FORECAST_CONFIG', () => {
+describe('CITY_OBSERVATION_STATIONS', () => {
+  const stationPattern = /^K[A-Z]{3}$/;
+
+  it('has an entry for every city in CONFIG.cities', () => {
+    for (const city of CONFIG.cities) {
+      assert.ok(city in CITY_OBSERVATION_STATIONS, `CITY_OBSERVATION_STATIONS is missing entry for "${city}"`);
+    }
+  });
+
+  it('all values are 4-character ICAO station codes starting with K', () => {
+    for (const city of CONFIG.cities) {
+      const stationId = CITY_OBSERVATION_STATIONS[city];
+      assert.strictEqual(typeof stationId, 'string', `CITY_OBSERVATION_STATIONS["${city}"] should be a string`);
+      assert.ok(
+        stationPattern.test(stationId),
+        `CITY_OBSERVATION_STATIONS["${city}"] = "${stationId}" must match pattern K[A-Z]{3}`,
+      );
+    }
+  });
+});
+
+// ── 8. Consistency ─────────────────────────────────────────────────────────────
+
+describe('Consistency across CONFIG.cities, CITY_SERIES, CITY_FORECAST_CONFIG, and CITY_OBSERVATION_STATIONS', () => {
   const citySet = new Set(CONFIG.cities);
   const seriesKeys = Object.keys(CITY_SERIES);
   const forecastKeys = Object.keys(CITY_FORECAST_CONFIG);
+  const stationKeys = Object.keys(CITY_OBSERVATION_STATIONS);
 
   it('CITY_SERIES keys match CONFIG.cities exactly', () => {
     assert.strictEqual(
@@ -177,6 +202,17 @@ describe('Consistency across CONFIG.cities, CITY_SERIES, and CITY_FORECAST_CONFI
     );
     for (const key of forecastKeys) {
       assert.ok(citySet.has(key), `CITY_FORECAST_CONFIG has extra key "${key}" not in CONFIG.cities`);
+    }
+  });
+
+  it('CITY_OBSERVATION_STATIONS keys match CONFIG.cities exactly', () => {
+    assert.strictEqual(
+      stationKeys.length,
+      citySet.size,
+      `CITY_OBSERVATION_STATIONS has ${stationKeys.length} keys but CONFIG.cities has ${citySet.size} entries`,
+    );
+    for (const key of stationKeys) {
+      assert.ok(citySet.has(key), `CITY_OBSERVATION_STATIONS has extra key "${key}" not in CONFIG.cities`);
     }
   });
 });

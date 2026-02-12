@@ -30,6 +30,9 @@ const TRADING_DEFAULTS = {
   usageAlertIntervalMinutes: 10,
   topOpportunitiesToShow: 5,
   autoTradeMaxPerScan: 2,
+  sigma: 3.0,
+  kellyMultiplier: 0.25,
+  minTradeSize: 5,
 };
 
 /**
@@ -100,6 +103,32 @@ export const CITY_FORECAST_CONFIG = {
   'DC':           { gridpoint: 'LWX/97,71' },
   'Denver':       { gridpoint: 'BOU/62,60' },
   'SF':           { gridpoint: 'MTR/85,105' },
+};
+
+// NOAA observation stations for settlement verification (matches Kalshi's NWS CLI sources)
+export const CITY_OBSERVATION_STATIONS = {
+  'NYC':          'KNYC',   // Central Park
+  'Chicago':      'KMDW',   // Midway (NOT O'Hare)
+  'Miami':        'KMIA',   // Miami International
+  'Austin':       'KAUS',   // Austin-Bergstrom
+  'LA':           'KLAX',   // LAX
+  'Philadelphia': 'KPHL',   // Philadelphia International
+  'DC':           'KDCA',   // Reagan National
+  'Denver':       'KDEN',   // Denver International
+  'SF':           'KSFO',   // SFO
+};
+
+// City coordinates for Open-Meteo ensemble API
+export const CITY_COORDS = {
+  'NYC':          { lat: 40.7829, lon: -73.9654 },   // Central Park
+  'Chicago':      { lat: 41.7868, lon: -87.7522 },   // Midway
+  'Miami':        { lat: 25.7959, lon: -80.2870 },   // KMIA
+  'Austin':       { lat: 30.1945, lon: -97.6699 },   // KAUS
+  'LA':           { lat: 33.9425, lon: -118.4081 },   // KLAX
+  'Philadelphia': { lat: 39.8721, lon: -75.2411 },   // KPHL
+  'DC':           { lat: 38.8512, lon: -77.0402 },    // KDCA
+  'Denver':       { lat: 39.8561, lon: -104.6737 },   // KDEN
+  'SF':           { lat: 37.6213, lon: -122.3790 },   // KSFO
 };
 
 // API URLs
