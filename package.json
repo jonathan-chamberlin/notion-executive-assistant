@@ -8,9 +8,12 @@
     "start": "clawdbot gateway --verbose",
     "start:daemon": "clawdbot gateway --daemon",
     "status": "clawdbot status",
-    "test:notion": "node scripts/test-notion.js",
-    "test:email": "node scripts/test-email.js",
-    "test:calendar": "node scripts/test-calendar.js"
+    "test": "node --test skills/*/tests/*.test.js",
+    "test:kalshi": "node --test skills/kalshi/tests/*.test.js",
+    "test:notion": "node --test skills/notion/tests/*.test.js",
+    "test:notion:smoke": "node scripts/test-notion.js",
+    "test:email:smoke": "node scripts/test-email.js",
+    "test:calendar:smoke": "node scripts/test-calendar.js"
   },
   "dependencies": {
     "@notionhq/client": "^5.8.0",
@@ -23,7 +26,10 @@
     "clawdbot": "2026.1.24-3"
   },
   "devDependencies": {
-    "dotenv": "^16.6.1"
+    "dotenv": "^16.6.1",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.1"
   },
   "engines": {
     "node": ">=22.0.0"
@@ -37,6 +43,11 @@
   ],
   "license": "MIT",
   "pnpm": {
-    "onlyBuiltDependencies": ["clawdbot", "sharp", "protobufjs", "@whiskeysockets/baileys"]
+    "onlyBuiltDependencies": [
+      "clawdbot",
+      "sharp",
+      "protobufjs",
+      "@whiskeysockets/baileys"
+    ]
   }
 }
