@@ -186,10 +186,10 @@ export async function checkSettlements() {
     // Non-fatal: we can still update settlements without order data
   }
 
-  // Index settlements by market_ticker
+  // Index settlements by ticker (Kalshi API field name)
   const settlementsByTicker = {};
   for (const s of settlements) {
-    settlementsByTicker[s.market_ticker] = s;
+    settlementsByTicker[s.ticker] = s;
   }
 
   // Index orders by order_id

@@ -7,8 +7,9 @@ import { getUsageReport, markUsageAlerted, getUsageStats } from './usage.js';
 import { logAction } from './client.js';
 import { checkCircuitBreakers } from './risk.js';
 import { getCalibrationReport, computeForecastErrors } from './calibration.js';
+import { executePaperTrade, getPaperBalance, getPaperPositions, settlePaperTrades, getPaperSummary } from './paper.js';
 
-const VALID_MODES = ['paused', 'alert-only', 'alert-then-trade', 'autonomous'];
+const VALID_MODES = ['paused', 'alert-only', 'alert-then-trade', 'autonomous', 'paper'];
 
 /**
  * Format an opportunity as a compact Telegram-friendly string.
@@ -41,9 +42,16 @@ export async function runScan() {
     return { success: true, message: '⏸️ Scanner is paused. Send /kalshi mode alert-only to resume.' };
   }
 
+  // In paper mode, pass paper balance for Kelly sizing (skips Kalshi auth API)
+  const findOpts = { minEdge: tradingConfig.minEdge };
+  if (mode === 'paper') {
+    const paperBal = getPaperBalance();
+    findOpts.bankroll = paperBal.balance.available;
+  }
+
   let result;
   try {
-    result = await findOpportunities({ minEdge: tradingConfig.minEdge });
+    result = await findOpportunities(findOpts);
   } catch (error) {
     logAction('scan_error', { error: error.message }, 'error');
     return { success: false, message: `❌ Scan failed: ${error.message}` };
@@ -56,9 +64,13 @@ export async function runScan() {
   const { opportunities, summary } = result;
   const topN = opportunities.slice(0, tradingConfig.topOpportunitiesToShow);
 
+  const budgetLine = mode === 'paper'
+    ? `Mode: PAPER | Balance: ${getPaperBalance().balance.available}¢`
+    : `Mode: ${mode} | Budget left: ${getRemainingDailyBudget()}¢`;
+
   const lines = [
     `🌡️ Weather Scan — ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' })} ET`,
-    `Mode: ${mode} | Budget left: ${getRemainingDailyBudget()}¢`,
+    budgetLine,
     `Scanned ${summary.eventsScanned} events across ${summary.citiesForecasted} cities`,
     ``,
   ];
@@ -134,6 +146,58 @@ export async function runScan() {
     }
   }
 
+  // Paper mode: simulate trades without calling Kalshi API
+  if (mode === 'paper' && opportunities.length > 0) {
+    // Filter out markets where we already hold paper positions
+    let tradeable = opportunities;
+    const paperPos = getPaperPositions();
+    if (paperPos.success && paperPos.positions.length > 0) {
+      const heldTickers = new Set(paperPos.positions.map(p => p.ticker));
+      const before = tradeable.length;
+      tradeable = tradeable.filter(opp => !heldTickers.has(opp.ticker));
+      if (before !== tradeable.length) {
+        lines.push(`   Skipped ${before - tradeable.length} markets (already holding paper positions)`);
+      }
+    }
+
+    const maxTrades = tradingConfig.autoTradeMaxPerScan;
+    tradeable = tradeable.slice(0, maxTrades);
+    const tradeResults = [];
+
+    for (const opp of tradeable) {
+      const tradeResult = executePaperTrade({
+        ticker: opp.ticker,
+        side: opp.side,
+        amount: Math.min(opp.suggestedAmount, tradingConfig.maxTradeSize),
+        yesPrice: opp.suggestedYesPrice,
+        opportunity: opp,
+      });
+      tradeResults.push({ ticker: opp.ticker, ...tradeResult });
+    }
+
+    lines.push('');
+    lines.push(`📝 Paper-traded ${tradeResults.length} positions:`);
+    for (const tr of tradeResults) {
+      const icon = tr.success ? '✅' : '❌';
+      const detail = tr.success
+        ? `${tr.trade.count}x @ ${tr.trade.yesPrice}¢`
+        : tr.error;
+      lines.push(`  ${icon} ${tr.ticker}: ${detail}`);
+    }
+    lines.push(`  Paper balance: ${getPaperBalance().balance.available}¢`);
+
+    // Settle any past-date paper positions
+    try {
+      const settleResult = await settlePaperTrades();
+      if (settleResult.settled > 0) {
+        lines.push('');
+        lines.push(`📊 ${settleResult.summary}`);
+      }
+    } catch {
+      // Non-fatal
+    }
+  }
+
   if (mode === 'alert-then-trade' && opportunities.length > 0) {
     lines.push('');
     lines.push('💬 Reply "trade" to execute top opportunities.');
@@ -175,6 +239,7 @@ export function setMode(mode) {
     'alert-only': 'Scans and alerts, no trades.',
     'alert-then-trade': 'Scans, alerts, waits for confirmation to trade.',
     autonomous: 'Scans and auto-trades within budget.',
+    paper: 'Scans and simulates trades with virtual $1000 balance.',
   };
 
   return {
@@ -214,6 +279,13 @@ export async function getStatus() {
     `Min edge: ${tradingConfig.minEdge}pp`,
     `Max trade size: ${tradingConfig.maxTradeSize}¢`,
   ];
+
+  // Paper trading info
+  const paperSummary = getPaperSummary();
+  if (paperSummary.stats.totalTrades > 0 || tradingConfig.mode === 'paper') {
+    lines.push('');
+    lines.push(paperSummary.message);
+  }
 
   return { success: true, message: lines.join('\n') };
 }
@@ -314,6 +386,13 @@ export async function getDailySummary() {
     } else {
       lines.push(`  Status: WARNING — overconfident`);
     }
+  }
+
+  // Paper trading stats
+  const paperSummary = getPaperSummary();
+  if (paperSummary.stats.totalTrades > 0) {
+    lines.push('');
+    lines.push(paperSummary.message);
   }
 
   lines.push('');

@@ -95,6 +95,18 @@ async function runScheduledSettlementCheck() {
     console.error(errorMsg);
     await sendTelegram(errorMsg).catch(() => {});
   }
+
+  // Also settle any paper trades
+  try {
+    const { settlePaperTrades } = await import('../skills/kalshi/paper.js');
+    const paperResult = await settlePaperTrades();
+    if (paperResult.settled > 0) {
+      await sendTelegram(`📝 Paper Settlement: ${paperResult.summary}`);
+      console.log(`[PAPER] Settled ${paperResult.settled} — ${new Date().toISOString()}`);
+    }
+  } catch (err) {
+    console.error(`[PAPER] Settlement error: ${err.message}`);
+  }
 }
 
 async function runScheduledDailySummary() {

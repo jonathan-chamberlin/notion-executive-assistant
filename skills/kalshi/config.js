@@ -19,7 +19,7 @@ export const CONFIG = {
 
 export const TRADING_CONFIG_PATH = path.join(__dirname, 'trading-config.json');
 
-const VALID_MODES = ['paused', 'alert-only', 'alert-then-trade', 'autonomous'];
+const VALID_MODES = ['paused', 'alert-only', 'alert-then-trade', 'autonomous', 'paper'];
 
 const TRADING_DEFAULTS = {
   mode: 'alert-only',

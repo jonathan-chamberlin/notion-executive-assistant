@@ -90,32 +90,34 @@ function scoreMarket(market, forecastTemp, event, edge, tradingConfig, bankroll,
  * Find mispriced weather contracts by comparing forecasts to Kalshi odds.
  * Returns opportunities where forecast confidence significantly exceeds market price.
  */
-export async function findOpportunities({ minEdge } = {}) {
+export async function findOpportunities({ minEdge, bankroll: bankrollOverride } = {}) {
   const tradingConfig = loadTradingConfig();
   const edge = minEdge ?? CONFIG.minEdge;
 
-  // Fetch current balance for Kelly sizing, subtract open position cost basis
-  let bankroll = 2000; // conservative fallback
-  try {
-    const balResult = await getBalance();
-    if (balResult.success) {
-      bankroll = balResult.balance.available;
-      // Subtract cost of open positions — money tied up isn't available for new bets
-      try {
-        const posResult = await getPositions();
-        if (posResult.success && posResult.positions.length > 0) {
-          const positionCost = posResult.positions.reduce((sum, p) => {
-            return sum + Math.abs(p.avgYesPrice || 0) * Math.abs(p.yesCount || 0);
-          }, 0);
-          bankroll = Math.max(0, bankroll - positionCost);
-          logAction('bankroll_adjusted', { raw: balResult.balance.available, positionCost, adjusted: bankroll });
+  // Use provided bankroll (paper mode) or fetch from Kalshi API
+  let bankroll = bankrollOverride ?? 2000;
+  if (bankrollOverride == null) {
+    try {
+      const balResult = await getBalance();
+      if (balResult.success) {
+        bankroll = balResult.balance.available;
+        // Subtract cost of open positions — money tied up isn't available for new bets
+        try {
+          const posResult = await getPositions();
+          if (posResult.success && posResult.positions.length > 0) {
+            const positionCost = posResult.positions.reduce((sum, p) => {
+              return sum + Math.abs(p.avgYesPrice || 0) * Math.abs(p.yesCount || 0);
+            }, 0);
+            bankroll = Math.max(0, bankroll - positionCost);
+            logAction('bankroll_adjusted', { raw: balResult.balance.available, positionCost, adjusted: bankroll });
+          }
+        } catch {
+          // Non-fatal: use unadjusted balance
         }
-      } catch {
-        // Non-fatal: use unadjusted balance
       }
+    } catch {
+      // Use fallback
     }
-  } catch {
-    // Use fallback
   }
 
   // Fetch NOAA forecasts, ensemble forecasts, and market data in parallel
